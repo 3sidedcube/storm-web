@@ -4,6 +4,7 @@
 	
 	&.page-content {
 		.animation-name(half-slide-left);
+		z-index: 0;
 	}
 	
 	&.new-page-content {
@@ -15,10 +16,10 @@
 .slide-right {
 
 	&.new-page-content {
+		.animation-name(half-slide-right);
 		left: -100%;
 		right: 100%;
-		
-		.animation-name(half-slide-right);
+		z-index: 0;
 	}
 	
 	&.page-content {
