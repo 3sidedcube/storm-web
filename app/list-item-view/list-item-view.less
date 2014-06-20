@@ -1,0 +1,198 @@
+@import "../config.less";
+@import "vendor/styles/lesshat.less";
+
+.img-container {
+	display: inline-block;
+	float: left;
+	margin: -7px;
+	margin-right: 5px;
+
+	-webkit-mask-size: contain;
+	mask-size: contain;
+
+	img {
+		width: 34px;
+		height: 34px;
+		max-width: 100%;
+		display: block;
+
+		&[src=""] {
+			width: 0;
+			height: 0;
+		}
+	}
+}
+
+.ListItem {
+	padding: 11px;
+	border-bottom: 1px solid @border-color;
+	position: relative;
+	min-height: 20px;
+	overflow: auto;
+	background-color: @foreground-color;
+
+	&.focus {
+		background: rgba(0, 0, 0, 0.1);
+	}
+
+	&:first-child {
+		border-top: 1px solid @border-color;
+	}
+
+	input {
+		height: auto;
+	}
+
+	.chevron {
+		position: absolute;
+		top: 50%;
+		right: 3px;
+		margin-top: -10px;
+		color: @border-color;
+	}
+
+	.Text:nth-of-type(1) {
+		font-size: @title-font-size;
+		color: @title-color;
+		line-height: 22px;
+	}
+
+	.Text:nth-of-type(2) {
+		min-height: 0;
+	}
+
+	input {
+		float: left;
+		margin-right: 3px;
+	}
+
+	.annotation {
+		float: left;
+		width: 30px;
+		line-height: 30px;
+		text-align: center;
+		margin-right: 10px;
+		color: @highlight-color;
+		font-size: 30px;
+		display: inline-block;
+	}
+
+	button {
+		margin-top: 10px;
+	}
+}
+
+.ChunkyListItemView {
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	.Text {
+		margin-left: 32px;
+	}
+}
+
+.GroupedTextListItemView {
+	.Text:nth-of-type(1) {
+		font-size: @font-size;
+		color: @text-color;
+		line-height: inherit;
+	}
+}
+
+.AnnotatedListItemView {
+	.Text {
+		margin-left: 40px;
+	}
+}
+
+.ImageListItemView,
+.VideoListItemView,
+.AnimatedImageListItemView,
+.SpotlightImageListItemView,
+.MultiVideoListItemView,
+.HeaderListItemView {
+	text-align: center;
+	padding: 0;
+	min-height: 80px;
+
+	.img-container {
+		margin: 0;
+		width: 100%;
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+.ImageListItemView, .SpotlightImageListItemView {
+	border: none !important;
+}
+
+.HeaderListItemView {
+	height: 284px;
+	overflow: hidden;
+
+	.img-container {
+		height: 100%;
+		width: 1000px;
+		margin-left: -340px;
+
+		img {
+			width: auto;
+			height: 100%;
+		}
+	}
+
+	.text-container {
+		.display(flex);
+		.flex-direction(row);
+		.flex-wrap(wrap);
+		.align-content(center);
+		width: 100%;
+		height: 100%;
+	}
+
+	.Text {
+		margin-left: -1px;
+		top: -284px;
+		color: #FFF !important;
+
+		flex: 1 100%;
+
+		&:first-of-type {
+			font-size: 40px;
+			line-height: 58px;
+		}
+	}
+}
+
+.TextListItemView .Text {
+	text-align: center;
+	font-size: @font-size;
+	color: @groupview-header-color;
+}
+
+.BulletListItemView {
+	padding-left: 20px;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 7px;
+		bottom: 7px;
+		left: 7px;
+		width: 4px;
+		background-color: @highlight-color;
+	}
+}
+
+// Override for browsers which support CSS masks.
+@supports ((-webkit-mask-size: contain) or (mask-size: contain)) {
+	.StandardListItemView .img-container, .ChunkyListItemView .img-container {
+		img {
+			visibility: hidden;
+		}
+	}
+}

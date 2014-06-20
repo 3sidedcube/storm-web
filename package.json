@@ -1,0 +1,29 @@
+{
+  "author": "3 SIDED CUBE",
+  "name": "storm-web",
+  "description": "HTML5 viewer for Storm apps",
+  "version": "0.0.1",
+  "homepage": "http://storm.3sidedcube.com",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.8.0"
+  },
+  "scripts": {
+    "start": "brunch watch --server --port 8009",
+    "build": "rm -r ./public/*; brunch build --production; open ./public"
+  },
+  "dependencies": {
+    "clean-css-brunch": ">= 1.3.0",
+    "css-brunch": ">= 1.3.0",
+    "handlebars-brunch": ">= 1.3.0",
+    "javascript-brunch": ">= 1.3.0",
+    "less-brunch": ">= 1.5.0",
+    "uglify-js-brunch": ">= 1.3.1",
+    "auto-reload-brunch": ">= 1.5.1",
+    "imageoptmizer-brunch": "0.0.3",
+    "digest-brunch": "^1.1.1"
+  }
+}
