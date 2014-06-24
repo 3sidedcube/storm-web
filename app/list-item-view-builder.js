@@ -1,6 +1,8 @@
 var ListItemView = require('list-item-view/list-item-view')
 
-var ViewTypes = {}
+var ViewTypes = {
+	CollectionListItemView: require('collection-list-item-view/collection-list-item-view')
+}
 
 module.exports = {
 	build: function(child) {

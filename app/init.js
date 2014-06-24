@@ -1,4 +1,5 @@
-var StormLanguage = require('storm-language')
+var StormLanguage = require('storm-language'),
+	StormData = require('storm-data')
 
 require('helpers')
 
@@ -6,7 +7,7 @@ window.App = require('application')
 
 $(document).ready(function() {
 	FastClick.attach(document.body)
-	App.init().then(fetchLanguage)
+	App.init().then(appLoaded, appLoadError)
 
 	$(document).on('touchstart', '.clickable', function(e) {
 		$(e.currentTarget).addClass('focus')
@@ -17,6 +18,19 @@ $(document).ready(function() {
 	})
 })
 
+// Callback once app.json and manifest.json have loaded.
+function appLoaded() {
+	var lang = fetchLanguage(),
+		data = fetchData()
+
+	$.when(lang, data).then(startApp, appStartError)
+}
+
+function appLoadError() {
+	console.error('Failed to load app or manifest JSON.')
+}
+
+// Load in a localisation JSON referenced in the manifest.
 function fetchLanguage() {
 	App.app.generateMap()
 	App.manifest.generateMap()
@@ -29,14 +43,35 @@ function fetchLanguage() {
 	}
 
 	App.language = new StormLanguage({lang: App.manifest.map[lang]})
-	App.language.once('sync', startApp)
-	App.language.fetch()
+	return App.language.fetch()
 }
 
+// Load in all JSON files referenced in the data section of the manifest.
+function fetchData() {
+	var requests = []
+
+	App.manifest.get('data').forEach(function(data) {
+		var filename = data.src.slice(0, -5),
+			model = new StormData()
+
+		model.url = 'bundle/data/' + data.src
+
+		App.data[filename] = model
+		requests.push(model.fetch())
+	})
+
+	return $.when.apply($, requests)
+}
+
+// All data loaded in - begin navigation.
 function startApp() {
 	Backbone.history.start({
 		pushState: false
 	})
+}
+
+function appStartError() {
+	console.error('Failed to load auxillary data from manifest.')
 }
 
 Backbone.View.prototype.afterInitialize = function() {}

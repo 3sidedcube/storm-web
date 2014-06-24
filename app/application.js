@@ -31,6 +31,7 @@ module.exports = {
 	view: null,
 	app: null,
 	manifest: null,
+	data: {},
 	imageDensity: 1,
 	utils: require('utils')
 }

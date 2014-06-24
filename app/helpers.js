@@ -1,9 +1,13 @@
 Handlebars.registerHelper('l', function(key) {
-	if (!key || !key.content) {
+	if (!key) {
 		return
 	}
 
-	var string = App.language.get(key.content)
+	if (key.content) {
+		key = key.content
+	}
+
+	var string = App.language.get(key)
 
 	if (string) {
 		string = string.replace(/\n/g, '<br>')
