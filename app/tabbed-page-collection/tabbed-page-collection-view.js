@@ -75,6 +75,11 @@ module.exports = NavigationController.extend({
 
 		this.setPage(uri, newStack)
 		App.router.navigate(uri.substr(8))
+
+		if (e.currentTarget.classList.contains('TabBarItem')) {
+			$('.TabBarItem.active').removeClass('active')
+			$(e.currentTarget).addClass('active')
+		}
 	},
 
 	setPageTitle: function() {
