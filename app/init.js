@@ -16,6 +16,10 @@ $(document).ready(function() {
 	$(document).on('touchmove touchcancel', '.clickable', function(e) {
 		$(e.currentTarget).removeClass('focus')
 	})
+
+	if (navigator.userAgent.match(/(iPod|iPhone|iPad)/) !== null || window.CSS && window.CSS.supports('(-webkit-mask-size: contain) or (mask-size: contain)')) {
+		document.body.classList.add('mask-images')
+	}
 })
 
 // Callback once app.json and manifest.json have loaded.
