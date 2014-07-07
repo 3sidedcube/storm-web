@@ -4,6 +4,7 @@ module.exports = PageView.extend({
 	initialize: function() {
 		PageView.prototype.initialize.apply(this, arguments)
 		this.viewStack = []
+		this.currentView = null
 	},
 
 	afterRender: function() {
@@ -11,13 +12,13 @@ module.exports = PageView.extend({
 		this.newPageContent = this.$('> .new-page-content')
 	},
 
-	setPage: function(url, newStack) {
-		var oldView = this.pageView,
+	setPage: function(id, newStack) {
+		var oldView = this.currentView,
 			newView,
 			transitionClass
 
 		// Don't navigate to the current view.
-		if (oldView && url === oldView.url) {
+		if (oldView && id === oldView.id) {
 			return
 		}
 
@@ -30,9 +31,10 @@ module.exports = PageView.extend({
 		}
 
 		// Check if the view we want is on top of the stack.
-		var lastView = this.viewStack[this.viewStack.length - 1]
+		var lastView = this.viewStack[this.viewStack.length - 1],
+			rerender = false
 
-		if (lastView && lastView.url === url) {
+		if (lastView && lastView.id === id) {
 			this.viewStack.splice(this.viewStack.length - 1, 1)
 			this.setPageTitle()
 
@@ -41,10 +43,8 @@ module.exports = PageView.extend({
 
 			oldView = null
 		} else {
-			PageViewBuilder = require('page-view-builder')
-
-			newView = PageViewBuilder.build(url.substr(8))
-			newView.render()
+			newView = this.buildView(id)
+			rerender = true
 
 			transitionClass = 'slide-left'
 		}
@@ -61,10 +61,10 @@ module.exports = PageView.extend({
 
 		this.newPageContent.html(newView.el)
 
-		newView.model.once('sync', function() {
+		newView.once('ready', function() {
 			var self = this
 
-			this.pageView = newView
+			this.currentView = newView
 			this.setPageTitle()
 
 			this.pageContent.addClass(transitionClass)
@@ -82,15 +82,28 @@ module.exports = PageView.extend({
 					self.viewStack.push(oldView)
 				} else {
 					self.pageContent.find('.focus').removeClass('focus')
+
+					if (oldView) {
+						oldView.destroy()
+					}
 				}
 
 				$(this).off('animationend, webkitAnimationEnd')
 			})
 		}, this)
 
-		if (lastView && lastView.url === url) {
-			newView.model.trigger('sync')
+		if (rerender) {
+			newView.render()
 		}
+
+		if (lastView && lastView.id === id) {
+			newView.trigger('ready')
+		}
+	},
+
+	buildView: function(url) {
+		var PageViewBuilder = require('page-view-builder')
+		return PageViewBuilder.build(url.substr(8))
 	},
 
 	destroy: function() {

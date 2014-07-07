@@ -2,7 +2,7 @@ var Page = require('page')
 
 module.exports = Backbone.View.extend({
 	initialize: function(options) {
-		this.url = options.url
+		this.id = options.url
 
 		this.listViews = []
 
@@ -14,6 +14,7 @@ module.exports = Backbone.View.extend({
 	},
 
 	ready: function() {
+		this.trigger('ready')
 		this.render()
 	}
 })
