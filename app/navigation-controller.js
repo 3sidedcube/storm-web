@@ -13,6 +13,8 @@ module.exports = PageView.extend({
 	},
 
 	setPage: function(id, newStack) {
+		console.info('Pushing to view ID', id)
+
 		// Stop any animations still running.
 		var classes = ['slide-left', 'slide-right', 'scale']
 
@@ -47,6 +49,8 @@ module.exports = PageView.extend({
 			rerender = false
 
 		if (lastView && lastView.id === id) {
+			console.info('Pushing back to last view')
+
 			this.viewStack.splice(this.viewStack.length - 1, 1)
 			this.setPageTitle()
 
@@ -74,6 +78,8 @@ module.exports = PageView.extend({
 		this.newPageContent.html(newView.el)
 
 		newView.once('ready', function() {
+			console.info('View ready')
+
 			var self = this
 
 			this.currentView = newView
@@ -111,6 +117,7 @@ module.exports = PageView.extend({
 			newView.render()
 		}
 
+		// If we've popped the last view off the stack it's already ready.
 		if (lastView && lastView.id === id) {
 			newView.trigger('ready')
 		}
