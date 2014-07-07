@@ -1,4 +1,4 @@
-PageView = require('page-view')
+var PageView = require('page-view')
 
 module.exports = PageView.extend({
 	initialize: function() {
