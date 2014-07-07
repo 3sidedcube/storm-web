@@ -13,6 +13,18 @@ module.exports = PageView.extend({
 	},
 
 	setPage: function(id, newStack) {
+		// Stop any animations still running.
+		var classes = ['slide-left', 'slide-right', 'scale']
+
+		for (var i = 0; i < this.pageContent[0].classList.length; i++) {
+			var className = this.pageContent[0].classList[i]
+
+			if (classes.indexOf(className) > -1) {
+				this.pageContent.trigger('animationend')
+				break
+			}
+		}
+
 		var oldView = this.currentView,
 			newView,
 			transitionClass
@@ -70,7 +82,12 @@ module.exports = PageView.extend({
 			this.pageContent.addClass(transitionClass)
 			this.newPageContent.addClass(transitionClass)
 
-			this.pageContent.on('animationend, webkitAnimationEnd', function() {
+			this.pageContent.one('animationend webkitAnimationEnd', function() {
+				// Don't do anything if we've already navigated away from this view.
+				if (newView.id !== self.currentView.id) {
+					return
+				}
+
 				self.pageContent.toggleClass('page-content new-page-content').removeClass(transitionClass)
 				self.newPageContent.toggleClass('page-content new-page-content').removeClass(transitionClass)
 
@@ -87,8 +104,6 @@ module.exports = PageView.extend({
 						oldView.destroy()
 					}
 				}
-
-				$(this).off('animationend, webkitAnimationEnd')
 			})
 		}, this)
 

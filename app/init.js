@@ -24,10 +24,8 @@ $(document).ready(function() {
 
 		this.classList.add('highlight')
 
-		$(this).on('animationend, webkitAnimationEnd', function() {
+		$(this).one('animationend webkitAnimationEnd', function() {
 			this.classList.remove('highlight')
-
-			$(this).off('animationend, webkitAnimationEnd')
 		})
 	})
 
