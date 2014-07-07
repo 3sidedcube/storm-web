@@ -20,5 +20,14 @@ module.exports = PageView.extend({
 			this.listViews.push(view)
 			this.$('> .children').append(view.render().el)
 		}
+
+		// Add any extra style classes.
+		var attrs = this.model.get('attributes') || []
+
+		attrs.forEach(function(attr) {
+			if (attr.indexOf('STYLE_') > -1) {
+				this.$el.addClass(attr.toLowerCase())
+			}
+		}, this)
 	}
 })
