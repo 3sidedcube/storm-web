@@ -17,6 +17,25 @@ $(document).ready(function() {
 		$(e.currentTarget).removeClass('focus')
 	})
 
+	$(document).on('click', '.CheckableListItemView', function(e) {
+		var input = $(this).find('input')[0]
+		input.checked = !input.checked
+		$(input).trigger('change')
+
+		this.classList.add('highlight')
+
+		$(this).on('animationend, webkitAnimationEnd', function() {
+			this.classList.remove('highlight')
+
+			$(this).off('animationend, webkitAnimationEnd')
+		})
+	})
+
+	// Revert state on checkbox click so that the parent event handler can update it.
+	$(document).on('click', '.CheckableListItemView input', function(e) {
+		this.checked = !this.checked
+	})
+
 	if (navigator.userAgent.match(/(iPod|iPhone|iPad)/) !== null || window.CSS && window.CSS.supports('(-webkit-mask-size: contain) or (mask-size: contain)')) {
 		document.body.classList.add('mask-images')
 	}
