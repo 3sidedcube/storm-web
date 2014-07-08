@@ -1,0 +1,44 @@
+@import "../config.less";
+
+.QuizQuestion {
+	.question-header {
+		margin-bottom: 10px;
+	}
+
+	.question-title {
+		font-weight: bold;
+		margin: 10px;
+	}
+
+	.question-hint {
+		opacity: 0.3;
+		font-size: 12px;
+	}
+}
+
+.TextSelectionQuestion {
+	.options {
+		background-color: #FFF;
+	}
+}
+
+.ImageSelectionQuestion {
+	.options {
+		width: 320px;
+		margin: 0 auto;
+	}
+
+	.image-selection-option {
+		width: 160px;
+		height: 160px;
+		background-size: cover;
+		background-position: center;
+		float: left;
+		border: 1px solid @background-color;
+		box-sizing: border-box;
+		border-radius: 5px;
+		color: #FFF;
+		text-align: center;
+		font-weight: bold;
+	}
+}
