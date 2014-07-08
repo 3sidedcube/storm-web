@@ -104,13 +104,15 @@ module.exports = PageView.extend({
 				if (oldView && !newStack) {
 					self.viewStack.push(oldView)
 				} else {
-					self.pageContent.find('.focus').removeClass('focus')
-
 					if (oldView) {
 						oldView.destroy()
 					}
 				}
 			})
+
+			setTimeout(function() {
+				self.newPageContent.find('.focus').removeClass('focus')
+			}, 600)
 		}, this)
 
 		if (rerender) {
