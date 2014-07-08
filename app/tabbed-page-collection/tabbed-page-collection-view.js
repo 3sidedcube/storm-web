@@ -20,7 +20,7 @@ module.exports = NavigationController.extend({
 		}
 
 		tabs.push({
-			src: 'cache://more',
+			src: 'app://more',
 			tabBarItem: {
 				title: {
 					content: 'cik0t'

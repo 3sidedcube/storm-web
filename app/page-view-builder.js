@@ -6,7 +6,11 @@ var PageTypes = {
 
 module.exports = {
 	build: function(url) {
-		url = 'cache://' + url
+		if (url.substr(0, 6) === 'app://') {
+			return new Backbone.View
+
+			// TODO native page stuff
+		}
 
 		var pageDescriptor = App.app.map[url],
 			type = pageDescriptor.type

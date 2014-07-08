@@ -10,7 +10,7 @@ module.exports = Backbone.Router.extend({
 			App.view.setPage('cache://' + url)
 		} else {
 			var rootPage = App.app.get('vector')
-			setView(PageViewBuilder.build(rootPage.substr(8)))
+			setView(PageViewBuilder.build(rootPage))
 
 			if (url) {
 				App.view.startUrl = 'cache://' + url

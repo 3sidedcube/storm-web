@@ -127,7 +127,7 @@ module.exports = PageView.extend({
 
 	buildView: function(url) {
 		var PageViewBuilder = require('page-view-builder')
-		return PageViewBuilder.build(url.substr(8))
+		return PageViewBuilder.build(url)
 	},
 
 	destroy: function() {
