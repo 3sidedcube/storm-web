@@ -6,7 +6,6 @@ require('helpers')
 window.App = require('application')
 
 $(document).ready(function() {
-	FastClick.attach(document.body)
 	App.init().then(appLoaded, appLoadError)
 
 	$(document).on('touchstart', '.clickable', function(e) {
@@ -34,7 +33,13 @@ $(document).ready(function() {
 		this.checked = !this.checked
 	})
 
-	if (navigator.userAgent.match(/(iPod|iPhone|iPad)/) !== null || window.CSS && window.CSS.supports('(-webkit-mask-size: contain) or (mask-size: contain)')) {
+	var isIOS = navigator.userAgent.match(/(iPod|iPhone|iPad)/) !== null
+
+	if (isIOS) {
+		FastClick.attach(document.body)
+	}
+
+	if (isIOS || window.CSS && window.CSS.supports('(-webkit-mask-size: contain) or (mask-size: contain)')) {
 		document.body.classList.add('mask-images')
 	}
 })
