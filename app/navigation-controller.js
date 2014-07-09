@@ -69,11 +69,8 @@ module.exports = PageView.extend({
 			transitionClass = 'scale'
 		}
 
-		if (newStack || this.viewStack.length === 0 && newView === lastView) {
-			this.$('.back-button').hide()
-		} else {
-			this.$('.back-button').show()
-		}
+		var canGoBack = !(newStack || this.viewStack.length === 0 && newView === lastView)
+		this.$('.back-button').toggle(canGoBack)
 
 		this.newPageContent.html(newView.el)
 
