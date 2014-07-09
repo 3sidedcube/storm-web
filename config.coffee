@@ -32,7 +32,7 @@ exports.config =
 
 		templates:
 			defaultExtension: 'hbs'
-			joinTo: 'javascripts/app.js'
+			joinTo: 'javascripts/app.js': appJs
 
 	modules:
 		addSourceURLs: yes
