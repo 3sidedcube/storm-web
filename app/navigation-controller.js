@@ -115,6 +115,8 @@ module.exports = PageView.extend({
 
 		if (rerender) {
 			newView.render()
+		} else {
+			newView.delegateEvents()
 		}
 
 		// If we've popped the last view off the stack it's already ready.
