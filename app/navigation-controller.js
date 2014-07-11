@@ -10,6 +10,7 @@ module.exports = PageView.extend({
 	afterRender: function() {
 		this.pageContent = this.$('> .page-content')
 		this.newPageContent = this.$('> .new-page-content')
+		this.$el.addClass('navigation-controller')
 	},
 
 	setPage: function(id, newStack) {
