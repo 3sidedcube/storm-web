@@ -65,7 +65,7 @@ module.exports = NavigationController.extend({
 		if (--this.currentQuestion >= 0) {
 			this.setPage(this.currentQuestion)
 		} else {
-			// TODO kick back to TabbedPageCollection
+			history.go(-1)
 		}
 	},
 
