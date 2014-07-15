@@ -2,19 +2,12 @@ var StormLanguage = require('storm-language'),
 	StormData = require('storm-data')
 
 require('helpers')
+require('platform-init')
 
 window.App = require('application')
 
 $(document).ready(function() {
 	App.init().then(appLoaded, appLoadError)
-
-	$(document).on('touchstart', '.clickable', function(e) {
-		$(e.currentTarget).addClass('focus')
-	})
-
-	$(document).on('touchmove touchcancel', '.clickable', function(e) {
-		$(e.currentTarget).removeClass('focus')
-	})
 
 	$(document).on('click', '.CheckableListItemView', function(e) {
 		var input = $(this).find('input')[0]
@@ -34,10 +27,6 @@ $(document).ready(function() {
 	})
 
 	var isIOS = navigator.userAgent.match(/(iPod|iPhone|iPad)/) !== null
-
-	if (isIOS) {
-		FastClick.attach(document.body)
-	}
 
 	if (isIOS || window.CSS && window.CSS.supports('(-webkit-mask-size: contain) or (mask-size: contain)')) {
 		document.body.classList.add('mask-images')
