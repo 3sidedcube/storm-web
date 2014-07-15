@@ -57,15 +57,22 @@ function fetchLanguage() {
 		lang = Object.keys(App.manifest.map)[0]
 	}
 
-	App.language = new StormLanguage({lang: App.manifest.map[lang]})
-	return App.language.fetch()
+	if (lang) {
+		App.language = new StormLanguage({lang: App.manifest.map[lang]})
+		return App.language.fetch()
+	}
+
+	// No lang - running remotely.
+	return $.when()
 }
 
 // Load in all JSON files referenced in the data section of the manifest.
 function fetchData() {
 	var requests = []
 
-	App.manifest.get('data').forEach(function(data) {
+	var datasets = App.manifest.get('data') || []
+
+	datasets.forEach(function(data) {
 		var filename = data.src.slice(0, -5),
 			model = new StormData()
 

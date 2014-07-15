@@ -1,10 +1,12 @@
 module.exports = Backbone.Model.extend({
 	url: 'bundle/app.json',
 
-	generateMap: function() {
+	initialize: function() {
 		this.map = {}
+	},
 
-		var pages = this.get('map')
+	generateMap: function() {
+		var pages = this.get('map') || []
 
 		for (var i = 0; i < pages.length; i++) {
 			this.map[pages[i].src] = pages[i]
