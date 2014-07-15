@@ -1,5 +1,3 @@
-var RootNavigationController = require('root-navigation-controller')
-
 module.exports = Backbone.Router.extend({
 	routes: {
 		''        : 'home',
