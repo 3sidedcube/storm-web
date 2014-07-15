@@ -26,6 +26,10 @@ Handlebars.registerHelper('l', function(key) {
 })
 
 Handlebars.registerHelper('getImageUrl', function(image) {
+	if (!image) {
+		return
+	}
+
 	if (image['class'] === 'NativeImage') {
 		// TODO
 	} else {
