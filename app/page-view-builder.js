@@ -1,4 +1,5 @@
 var PageTypes = {
+	'Page': require('page-view'),
 	'ListPage': require('list-page/list-page-view'),
 	'TabbedPageCollection': require('tabbed-page-collection/tabbed-page-collection-view'),
 	'QuizPage': require('quiz-page/quiz-page-view')
@@ -13,13 +14,29 @@ module.exports = {
 		}
 
 		var pageDescriptor = App.app.map[url],
-			type = pageDescriptor.type
+			type
 
-		var Page = PageTypes[type],
+		if (pageDescriptor) {
+			type = pageDescriptor.type
+		} else {
+			type = 'Page'
+		}
+
+		var PageView = PageTypes[type],
 			id = App.utils.getIdFromCacheUrl(url)
 
-		return new Page({
+		return new PageView({
 			id: id,
+			url: url
+		})
+	},
+
+	buildFromModel: function(url, model) {
+		var type = model.get('class'),
+			PageView = PageTypes[type]
+
+		return new PageView({
+			model: model,
 			url: url
 		})
 	}

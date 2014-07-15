@@ -79,6 +79,14 @@ module.exports = PageView.extend({
 		newView.once('ready', function() {
 			console.info('View ready')
 
+			// Replace abstract Page instances with typed views, if the type wasn't available at fetch.
+			if (newView.constructor === PageView) {
+				var PageViewBuilder = require('page-view-builder')
+				newView = this.currentView = PageViewBuilder.buildFromModel(newView.id, newView.model)
+				this.newPageContent.html(newView.el)
+				newView.render()
+			}
+
 			var self = this
 
 			this.setPageTitle()
