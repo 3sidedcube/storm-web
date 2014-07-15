@@ -74,13 +74,13 @@ module.exports = PageView.extend({
 		this.$('.back-button').toggle(canGoBack)
 
 		this.newPageContent.html(newView.el)
+		this.currentView = newView
 
 		newView.once('ready', function() {
 			console.info('View ready')
 
 			var self = this
 
-			this.currentView = newView
 			this.setPageTitle()
 
 			this.pageContent.addClass(transitionClass)
