@@ -1,21 +1,31 @@
-var PageViewBuilder = require('page-view-builder')
+var RootNavigationController = require('root-navigation-controller')
 
 module.exports = Backbone.Router.extend({
 	routes: {
-		'*nomatch'   : 'page'
+		''        : 'home',
+		'*nomatch': 'page'
+	},
+
+	home: function() {
+		var rootPage = App.app.get('vector')
+		this.page(rootPage)
 	},
 
 	page: function(url) {
-		if (App.view) {
-			App.view.setPage('cache://' + url)
-		} else {
-			var rootPage = App.app.get('vector')
-			setView(PageViewBuilder.build(rootPage))
+		// Don't push content pages onto the root controller in full app mode.
+		if (App.mode === App.APP_MODE_FULL) {
+			var page = App.app.map[url]
 
-			if (url) {
-				App.view.startUrl = 'cache://' + url
+			if (page.type === 'ListPage') {
+				if (!App.view.currentView || App.view.currentView.url !== App.app.get('vector')) {
+					this.home()
+				}
+
+				return App.view.currentView.setPage(url)
 			}
 		}
+
+		App.view.setPage(url)
 	}
 })
 
@@ -25,6 +35,4 @@ function setView(view) {
 	}
 
 	App.view = view
-
-	$('#container').html(view.render().el)
 }

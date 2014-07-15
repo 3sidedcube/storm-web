@@ -1,6 +1,7 @@
 var StormApp = require('storm-app'),
 	StormManifest = require('storm-manifest'),
-	Router = require('router')
+	Router = require('router'),
+	RootNavigationController = require('root-navigation-controller')
 
 module.exports = {
 	init: function() {
@@ -9,6 +10,8 @@ module.exports = {
 		this.router   = new Router()
 		this.app      = new StormApp()
 		this.manifest = new StormManifest()
+
+		this.view     = new RootNavigationController()
 
 		var appFetch = this.app.fetch(),
 			manifestFetch = this.manifest.fetch()
@@ -33,5 +36,9 @@ module.exports = {
 	manifest: null,
 	data: {},
 	imageDensity: 1,
-	utils: require('utils')
+	mode: 0,
+	utils: require('utils'),
+
+	APP_MODE_FULL: 0,
+	APP_MODE_PAGE: 1
 }

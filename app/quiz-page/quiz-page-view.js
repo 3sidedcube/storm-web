@@ -17,9 +17,6 @@ module.exports = NavigationController.extend({
 	ready: function() {
 		this.render()
 
-		// Hide TabbedPageCollection header.
-		$('.TabbedPageCollection > .header').addClass('slide-out')
-
 		this.trigger('ready')
 
 		// Load first question.
@@ -84,7 +81,5 @@ module.exports = NavigationController.extend({
 		})
 
 		this.viewStack = []
-
-		$('.TabbedPageCollection > .header').removeClass('slide-out')
 	}
 })

@@ -54,13 +54,15 @@ module.exports = NavigationController.extend({
 			}
 
 			this.setPage(startPage, true)
-			App.router.navigate(startPage.substr(8), {replace: true})
+			App.router.navigate(startPage, {replace: true})
 
 			// Set tab active state.
 			this.$('.TabBarItem[data-uri=\'' + startPage + '\']').addClass('active')
 		} else {
 			this.setPage(this.startUrl)
 		}
+
+		this.trigger('ready')
 	},
 
 	// TODO override for more page
@@ -76,13 +78,20 @@ module.exports = NavigationController.extend({
 		var uri = $(e.currentTarget).data('uri'),
 			newStack = $(e.currentTarget).data('clear-stack')
 
+		// Check if we need to push this view onto the root nav controller.
+		if (App.app.map[uri].type === 'QuizPage') {
+			return
+		}
+
 		this.setPage(uri, newStack)
-		App.router.navigate(uri.substr(8))
+		App.router.navigate(uri)
 
 		if (e.currentTarget.classList.contains('TabBarItem')) {
 			$('.TabBarItem.active').removeClass('active')
 			$(e.currentTarget).addClass('active')
 		}
+
+		e.stopPropagation()
 	},
 
 	setPageTitle: function() {
