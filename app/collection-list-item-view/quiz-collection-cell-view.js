@@ -6,7 +6,14 @@ module.exports = Backbone.View.extend({
 
 	initialize: function() {
 		var badgeId = this.model.get('badgeId')
-		this.badge = App.data.badges.get(badgeId)
+
+		if (App.data.badges) {
+			this.badge = App.data.badges.get(badgeId)
+		} else {
+			this.badge = new Page({id: badgeId})
+			this.badge.once('sync', this.render, this)
+			this.badge.fetch()
+		}
 
 		var quizId = App.utils.getIdFromCacheUrl(this.model.get('quiz').destination)
 
