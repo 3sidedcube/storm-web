@@ -2,8 +2,9 @@ var Page = require('page')
 
 module.exports = Backbone.View.extend({
 	initialize: function(options) {
-		this.id = options.url
+		options = options || {}
 
+		this.id = options.url
 		this.listViews = []
 
 		this.model = new Page({id: options.id})
