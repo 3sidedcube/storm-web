@@ -1,6 +1,6 @@
 ﻿/*!
   Copyright (c) Microsoft Open Technologies, Inc.  All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-  Build: 2.0.1.WinJS.2014.6.8
+  Build: 2.0.1.WinJS.2014.7.15
   Version: WinJS.2.1
 */
 
@@ -66,7 +66,6 @@
     "invalidCountReturned": "Error: data adapter should return undefined, null, CountResult.unknown, or a non-negative integer for the count.",
     "invalidIndexReturned": "Error: data adapter should return undefined, null or a non-negative integer for the index.",
     "invalidItemReturned": "Error: data adapter returned item that is not an object.",
-    "invalidItemsManagerCallback": "Invalid argument: {0} must be a function.",
     "invalidKeyReturned": "Error: data adapter returned item with undefined or null key.",
     "invalidPivotContent": "Invalid content: Pivot content must be made up of PivotItems.",
     "invalidSearchBoxSuggestionKind": "Error: Invalid search suggestion kind.",
