@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "brunch watch --server --port 8009",
+    "start-wp": "env PLATFORM=wp npm start",
     "build": "rm -r ./public/*; brunch build --production; open ./public"
   },
   "dependencies": {
