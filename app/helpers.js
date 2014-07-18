@@ -7,7 +7,16 @@ Handlebars.registerHelper('l', function(key) {
 		key = key.content
 	}
 
-	var string = App.language.get(key)
+	var string
+
+	if (typeof key === 'object') {
+		// Streaming object.
+		var lang = navigator.language.substr(0, 2)
+		string = key[lang] || key[Object.keys(key)[0]]
+	} else {
+		// Local bundle.
+		string = App.language.get(key)
+	}
 
 	if (string) {
 		string = string.replace(/\n/g, '<br>')
@@ -17,6 +26,10 @@ Handlebars.registerHelper('l', function(key) {
 })
 
 Handlebars.registerHelper('getImageUrl', function(image) {
+	if (!image) {
+		return
+	}
+
 	if (image['class'] === 'NativeImage') {
 		// TODO
 	} else {

@@ -1,5 +1,3 @@
-var RootNavigationController = require('root-navigation-controller')
-
 module.exports = Backbone.Router.extend({
 	routes: {
 		''        : 'home',
@@ -13,7 +11,7 @@ module.exports = Backbone.Router.extend({
 
 	page: function(url) {
 		// Don't push content pages onto the root controller in full app mode.
-		if (App.mode === App.APP_MODE_FULL) {
+		if (App.mode === App.APP_MODE_FULL && App.target === App.APP_TARGET_LOCAL) {
 			var page = App.app.map[url]
 
 			if (page.type === 'ListPage') {
