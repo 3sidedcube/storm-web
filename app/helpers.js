@@ -37,3 +37,12 @@ Handlebars.registerHelper('getImageUrl', function(image) {
 		return cacheUrl.replace('cache://', 'bundle/')
 	}
 })
+
+// Sum up all arguments passed.
+Handlebars.registerHelper('add', function() {
+	var params = Array.prototype.slice.call(arguments, 0, arguments.length - 1)
+
+	return params.reduce(function(a, b) {
+		return a + b
+	})
+})
