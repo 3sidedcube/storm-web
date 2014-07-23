@@ -16,8 +16,9 @@ module.exports = NavigationController.extend({
 
 	ready: function() {
 		this.render()
-
 		this.trigger('ready')
+
+		this.answers = []
 
 		// Load first question.
 		var pages = this.model.get('children')
@@ -49,6 +50,9 @@ module.exports = NavigationController.extend({
 	},
 
 	nextQuestion: function() {
+		// Set whether the current question was correct or not.
+		this.answers[this.currentQuestion] = this.currentView.isCorrect()
+
 		var questions = this.model.get('children')
 
 		if (++this.currentQuestion < questions.length) {

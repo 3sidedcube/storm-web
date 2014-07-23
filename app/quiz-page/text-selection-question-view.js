@@ -22,5 +22,25 @@ module.exports = QuizQuestion.extend({
 		if (e.currentTarget.checked) {
 			this.lastOptionSelected = e.currentTarget
 		}
+	},
+
+	isCorrect: function() {
+		var answer = this.model.get('answer')
+
+		var selected = this.$('.CheckableListItemView input:checked').map(function() {
+			return +$(this).data('index')
+		}).get()
+
+		if (answer.length !== selected.length) {
+			return false
+		}
+
+		for (var i in answer) {
+			if (answer[i] !== selected[i]) {
+				return false
+			}
+		}
+
+		return true
 	}
 })

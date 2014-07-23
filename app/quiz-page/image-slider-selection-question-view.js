@@ -10,5 +10,9 @@ module.exports = QuizQuestion.extend({
 
 	inputChange: function(e) {
 		this.$('.count').text(e.currentTarget.value)
+	},
+
+	isCorrect: function() {
+		return +this.$('.slider input').val() === this.model.get('answer')
 	}
 })

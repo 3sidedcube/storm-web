@@ -30,5 +30,25 @@ module.exports = QuizQuestion.extend({
 		if (e.currentTarget.classList.contains('active')) {
 			this.lastOptionSelected = e.currentTarget
 		}
+	},
+
+	isCorrect: function() {
+		var answer = this.model.get('answer')
+
+		var selected = this.$('.image-selection-option.active').map(function() {
+			return +$(this).data('index')
+		}).get()
+
+		if (answer.length !== selected.length) {
+			return false
+		}
+
+		for (var i in answer) {
+			if (answer[i] !== selected[i]) {
+				return false
+			}
+		}
+
+		return true
 	}
 })

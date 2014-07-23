@@ -5,7 +5,7 @@
 <div class="options">
 	{{#each options}}
 		<div class="ListItem CheckableListItemView">
-			<input type="checkbox">
+			<input type="checkbox" data-index="{{@index}}">
 			<span>{{l this}}</span>
 		</div>
 	{{/each}}
