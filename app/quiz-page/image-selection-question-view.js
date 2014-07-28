@@ -33,7 +33,7 @@ module.exports = QuizQuestion.extend({
 	},
 
 	isCorrect: function() {
-		var answer = this.model.get('answer')
+		var answer = this.model.get('answer').sort()
 
 		var selected = this.$('.image-selection-option.active').map(function() {
 			return +$(this).data('index')

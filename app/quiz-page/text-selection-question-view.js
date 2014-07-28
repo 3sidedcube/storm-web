@@ -25,7 +25,7 @@ module.exports = QuizQuestion.extend({
 	},
 
 	isCorrect: function() {
-		var answer = this.model.get('answer')
+		var answer = this.model.get('answer').sort()
 
 		var selected = this.$('.CheckableListItemView input:checked').map(function() {
 			return +$(this).data('index')
