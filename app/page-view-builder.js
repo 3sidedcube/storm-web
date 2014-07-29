@@ -5,12 +5,21 @@ var PageTypes = {
 	'QuizPage': require('quiz-page/quiz-page-view')
 }
 
+var NativeContent = {
+	'more': require('more-page-view/more-page-view')
+}
+
 module.exports = {
 	build: function(url) {
-		if (url.substr(0, 6) === 'app://') {
-			return new Backbone.View
 
-			// TODO native page stuff
+		if (url.substr(0, 6) === 'app://') {
+			var NativeView = NativeContent[url.substr(6)]
+
+			if (!NativeView) {
+				throw new Error('No native page implementation for this URL.')
+			}
+
+			return new NativeView()
 		}
 
 		var pageDescriptor = App.app.map[url],
