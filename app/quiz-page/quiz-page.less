@@ -24,13 +24,22 @@
 		width: 100%;
 		height: 50px;
 
-		.quiz-back-button, .quiz-next-button {
+		.quiz-title {
+			display: none;
+			color: #000;
+		}
+
+		.quiz-back-button, .quiz-next-button, .quiz-finish-button, .quiz-share-button {
 			.flex-grow(0);
 			padding: 0 10px;
 
 			&.glow {
 				opacity: 0.15;
 			}
+		}
+
+		.quiz-finish-button, .quiz-share-button {
+			display: none;
 		}
 
 		.progress {
@@ -84,5 +93,13 @@
 
 	.hint {
 
+	}
+}
+
+.completion {
+	.ImageListItemView {
+		background: transparent;
+		width: 250px;
+		margin: 0 auto;
 	}
 }

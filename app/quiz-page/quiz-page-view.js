@@ -1,5 +1,6 @@
 var NavigationController = require('navigation-controller'),
-	QuizQuestionViewBuilder = require('quiz-page/quiz-question-view-builder')
+	QuizQuestionViewBuilder = require('./quiz-question-view-builder'),
+	QuizCompleteView = require('./quiz-complete-view')
 
 module.exports = NavigationController.extend({
 	template: require('./quiz-page-view-template'),
@@ -9,9 +10,17 @@ module.exports = NavigationController.extend({
 		'click .quiz-next-button': 'nextQuestion',
 		'click .quiz-back-button': 'prevQuestion',
 
+		'click .quiz-finish-button': 'finishQuiz',
+		'click .clickable': 'restart',
+
 		'touchstart .quiz-next-button, .quiz-back-button': 'buttonTouchStart',
 		'touchend .quiz-next-button, .quiz-back-button': 'buttonTouchEnd',
 		'touchcancel .quiz-next-button, .quiz-back-button': 'buttonTouchEnd'
+	},
+
+	initialize: function(options) {
+		NavigationController.prototype.initialize.apply(this, arguments)
+		this.previousURL = options.previousURL
 	},
 
 	ready: function() {
@@ -33,8 +42,30 @@ module.exports = NavigationController.extend({
 
 	buildView: function(id) {
 		var questions = this.model.get('children'),
-			model = new Backbone.Model(questions[id]),
+			view
+
+		if (id === questions.length) {
+			// Quiz complete.
+			view = new QuizCompleteView({
+				answers: this.answers,
+				page: this.model.toJSON()
+			})
+
+			this.$('.completion-toggle').toggle()
+
+			// Hide 'Share' button if there are mistakes.
+			var allCorrect = this.answers.every(function(q) { return q }),
+				visibility = 'visible'
+
+			if (!allCorrect) {
+				visibility = 'hidden'
+			}
+
+			this.$('.quiz-share-button').css('visibility', visibility)
+		} else {
+			var model = new Backbone.Model(questions[id])
 			view = QuizQuestionViewBuilder.build(model)
+		}
 
 		view.id = id
 
@@ -52,14 +83,7 @@ module.exports = NavigationController.extend({
 	nextQuestion: function() {
 		// Set whether the current question was correct or not.
 		this.answers[this.currentQuestion] = this.currentView.isCorrect()
-
-		var questions = this.model.get('children')
-
-		if (++this.currentQuestion < questions.length) {
-			this.setPage(this.currentQuestion)
-		} else {
-			// TODO finish quiz
-		}
+		this.setPage(++this.currentQuestion)
 	},
 
 	prevQuestion: function() {
@@ -85,5 +109,18 @@ module.exports = NavigationController.extend({
 		})
 
 		this.viewStack = []
+	},
+
+	restart: function(e) {
+		this.$('.completion-toggle').toggle()
+
+		this.currentQuestion = 0
+		this.setPage(0)
+		e.stopPropagation()
+	},
+
+	finishQuiz: function() {
+		// Return to page which launched into this quiz.
+		history.back()
 	}
 })
