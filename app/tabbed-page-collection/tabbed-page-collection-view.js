@@ -1,7 +1,7 @@
 var MAX_TABS = 5
 
 var NavigationController = require('navigation-controller'),
-	MorePage = require('more-page')
+	MorePageView = require('more-page-view/more-page-view')
 
 module.exports = NavigationController.extend({
 	template: require('./tabbed-page-collection-view-template'),
@@ -16,7 +16,8 @@ module.exports = NavigationController.extend({
 			tabs = data.pages || []
 
 		if (tabs.length > 5) {
-			this.moreTabs = tabs.splice(4, tabs.length - 4)
+			var moreTabs = tabs.splice(4, tabs.length - 4)
+			MorePageView.tabs = moreTabs
 		}
 
 		tabs.push({
@@ -64,15 +65,6 @@ module.exports = NavigationController.extend({
 
 		this.trigger('ready')
 	},
-
-	// TODO override for more page
-
-	// setPage: function(url, newStack) {
-	// 	if (url === 'cache://more') {
-	// 		newView = new MorePage({pages: this.moreTabs})
-	// 		newView.render()
-	// 	} else
-	// },
 
 	linkClick: function(e) {
 		var uri = $(e.currentTarget).data('uri'),
