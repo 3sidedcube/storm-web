@@ -247,6 +247,29 @@
 	}
 }
 
+.ToggleableListItemView {
+	padding-right: 30px;
+
+	&:before {
+		content: "\F077";
+		font-family: FontAwesome;
+		position: absolute;
+		right: 10px;
+		top: 12px;
+		color: #AAA;
+	}
+
+	&.toggled {
+		.Text:last-child {
+			display: none;
+		}
+
+		&:before {
+			content: "\F078";
+		}
+	}
+}
+
 .keyframes(~'highlight, 0% {background: rgba(0, 0, 0, 0.15);} 100% {background: rgba(0, 0, 0, 0);}');
 
 // Override for browsers which support CSS masks.
