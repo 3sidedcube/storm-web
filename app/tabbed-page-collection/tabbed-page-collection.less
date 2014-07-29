@@ -52,6 +52,32 @@
 			margin: auto;
 			.flex-shrink(0);
 
+			// Override for 'More' tab.
+			&[data-uri="app://more"] {
+				div {
+					&:before {
+						content: "\f141";
+						display: block;
+						color: #BBB;
+						font-family: FontAwesome;
+						font-size: 28px;
+						width: 32px;
+						height: 34px;
+						line-height: 40px;
+						margin-top: 2px;
+						text-align: center;
+					}
+				}
+
+				.img-container {
+					display: none;
+				}
+
+				&.active div:before {
+					color: #f93e3f;
+				}
+			}
+
 			&.active {
 				.img-container {
 					background-color: #f93e3f;
