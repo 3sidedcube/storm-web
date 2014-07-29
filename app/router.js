@@ -17,9 +17,15 @@ module.exports = Backbone.Router.extend({
 			if (page.type === 'ListPage') {
 				if (!App.view.currentView || App.view.currentView.url !== App.app.get('vector')) {
 					this.home()
+
+					App.view.once('ready', function() {
+						App.view.currentView.setPage(url)
+					})
+				} else {
+					App.view.currentView.setPage(url)
 				}
 
-				return App.view.currentView.setPage(url)
+				return
 			}
 		}
 
