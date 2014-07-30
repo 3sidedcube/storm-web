@@ -68,10 +68,17 @@ module.exports = NavigationController.extend({
 
 	linkClick: function(e) {
 		var uri = $(e.currentTarget).data('uri'),
+			linkType = $(e.currentTarget).data('link-type'),
 			newStack = $(e.currentTarget).data('clear-stack')
 
+		if (linkType !== 'InternalLink') {
+			return
+		}
+
 		// Check if we need to push this view onto the root nav controller.
-		if (App.app.map[uri].type === 'QuizPage') {
+		var pageDescriptor = App.app.map[uri]
+
+		if (pageDescriptor && pageDescriptor.type === 'QuizPage') {
 			return
 		}
 
@@ -88,6 +95,6 @@ module.exports = NavigationController.extend({
 
 	setPageTitle: function() {
 		var title = Handlebars.helpers.l(this.currentView.model.get('title'))
-		this.$('> .header span').text(title)
+		this.$('> .navigation-controller-header .title').text(title)
 	}
 })

@@ -11,6 +11,7 @@ module.exports = Backbone.View.extend({
 
 		if (this.model.has('link')) {
 			this.$el.attr('data-uri', this.model.get('link').destination)
+			this.$el.attr('data-link-type', this.model.get('link')['class'])
 			this.$el.addClass('clickable')
 		}
 

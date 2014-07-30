@@ -1,0 +1,36 @@
+@import "vendor/styles/lesshat.less";
+@import "../config.less";
+
+.browser-view {
+	height: 100%;
+
+	.display(flex);
+	.flex-direction(column);
+
+	iframe {
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+}
+
+.browser-footer {
+	.display(flex);
+
+	height: 50px;
+	border-top: 1px solid #DDD;
+	overflow: hidden;
+	background: #FFF;
+
+	button {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		border: none;
+		background: transparent;
+
+		margin: 0 auto;
+		padding: 0 15px;
+		color: @highlight-color;
+	}
+}

@@ -2,6 +2,7 @@ var MorePageView = Backbone.View.extend({
 	template: require('./more-page-view-template'),
 
 	initialize: function() {
+		this.id = 'app://more'
 		this.model = new Backbone.Model({
 			title: {
 				content: {

@@ -6,7 +6,8 @@ var PageTypes = {
 }
 
 var NativeContent = {
-	'more': require('more-page-view/more-page-view')
+	'more': require('more-page-view/more-page-view'),
+	'browser': require('browser-view/browser-view')
 }
 
 module.exports = {

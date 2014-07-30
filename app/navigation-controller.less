@@ -33,4 +33,31 @@
 		right: -100%;
 		z-index: 0;
 	}
+
+	.navigation-controller-header {
+		.display(flex);
+		.justify-content(space-between);
+
+		line-height: 50px;
+		text-align: center;
+		font-size: 20px;
+		border-bottom: 1px solid #DDD;
+
+		z-index: 2;
+		position: absolute;
+		background: rgba(255, 255, 255, 0.9);
+		width: 100%;
+
+		.back-button {
+			text-decoration: none;
+			float: left;
+			font-size: 18px;
+			margin: 1px 5px -8px 8px;
+			color: @highlight-color;
+		}
+
+		.title {
+			margin: 0 auto;
+		}
+	}
 }
