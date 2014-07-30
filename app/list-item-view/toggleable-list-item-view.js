@@ -5,6 +5,11 @@ module.exports = ListItemView.extend({
 		'click': 'click'
 	},
 
+	afterRender: function() {
+		ListItemView.prototype.afterRender.apply(this, arguments)
+		this.$el.addClass('toggled')
+	},
+
 	click: function() {
 		this.$el.toggleClass('toggled')
 	}
