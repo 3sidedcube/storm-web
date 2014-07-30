@@ -21,6 +21,12 @@
 	{{#if description}}
 		<div class="{{description.class}}">{{{l description}}}</div>
 	{{/if}}
+
+	{{#if link}}
+		{{#if link.title}}
+			<div class="link-title {{link.title.class}}">{{l link.title}}</div>
+		{{/if}}
+	{{/if}}
 </div>
 
 {{#if link}}
