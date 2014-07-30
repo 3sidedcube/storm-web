@@ -16,7 +16,6 @@ module.exports = NavigationController.extend({
 	setPageTitle: function() {},
 
 	linkClick: function(e) {
-
 		var uri = $(e.currentTarget).data('uri'),
 			linkType = $(e.currentTarget).data('link-type')
 
@@ -29,6 +28,8 @@ module.exports = NavigationController.extend({
 		} else if (linkType === 'UriLink') {
 			// Open URL in external browser.
 			window.open(uri, '_blank')
+		} else if (linkType === 'ShareLink') {
+			// TODO share functionality
 		} else {
 			this.setPage(uri, false)
 			App.router.navigate(uri)
