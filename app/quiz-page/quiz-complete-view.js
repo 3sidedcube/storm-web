@@ -76,7 +76,10 @@ module.exports = ListPage.extend({
 				children: [
 					{
 						'class': 'StandardListItemView',
-						title: '_QUIZ_BUTTON_AGAIN',
+						title: {
+							'class': 'Text',
+							content: '_QUIZ_BUTTON_AGAIN'
+						},
 						link: {
 							'class': 'InternalLink',
 							destination: ''
