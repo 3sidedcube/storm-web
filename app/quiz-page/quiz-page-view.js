@@ -73,11 +73,11 @@ module.exports = NavigationController.extend({
 	},
 
 	setPageTitle: function() {
-		this.$('> .header .progress-text').text((this.currentQuestion + 1) + ' ' + App.language.get('_QUIZ_OF') + ' ' + this.model.get('children').length)
+		this.$('> .navigation-controller-header .progress-text').text((this.currentQuestion + 1) + ' ' + App.language.get('_QUIZ_OF') + ' ' + this.model.get('children').length)
 
 		// Set progress bar value and caption.
 		var questions = this.model.get('children')
-		this.$('.header progress').attr('max', questions.length).attr('value', this.currentQuestion + 1)
+		this.$('.navigation-controller-header progress').attr('max', questions.length).attr('value', this.currentQuestion + 1)
 	},
 
 	nextQuestion: function() {

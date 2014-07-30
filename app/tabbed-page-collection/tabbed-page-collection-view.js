@@ -95,6 +95,6 @@ module.exports = NavigationController.extend({
 
 	setPageTitle: function() {
 		var title = Handlebars.helpers.l(this.currentView.model.get('title'))
-		this.$('> .header span').text(title)
+		this.$('> .navigation-controller-header .title').text(title)
 	}
 })
