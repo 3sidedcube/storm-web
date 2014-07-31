@@ -56,12 +56,12 @@ module.exports = NavigationController.extend({
 
 			this.setPage(startPage, true)
 			App.router.navigate(startPage, {replace: true})
-
-			// Set tab active state.
-			this.$('.TabBarItem[data-uri=\'' + startPage + '\']').addClass('active')
 		} else {
 			this.setPage(this.startUrl)
 		}
+
+		// Set tab active state.
+		this.$('.TabBarItem[data-uri=\'' + (startPage || this.startUrl) + '\']').addClass('active')
 
 		this.trigger('ready')
 	},
