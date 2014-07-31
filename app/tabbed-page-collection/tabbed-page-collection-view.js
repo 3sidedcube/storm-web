@@ -60,9 +60,6 @@ module.exports = NavigationController.extend({
 			this.setPage(this.startUrl)
 		}
 
-		// Set tab active state.
-		this.$('.TabBarItem[data-uri=\'' + (startPage || this.startUrl) + '\']').addClass('active')
-
 		this.trigger('ready')
 	},
 
@@ -96,5 +93,17 @@ module.exports = NavigationController.extend({
 	setPageTitle: function() {
 		var title = Handlebars.helpers.l(this.currentView.model.get('title'))
 		this.$('> .navigation-controller-header .title').text(title)
+	},
+
+	setPage: function(id) {
+		NavigationController.prototype.setPage.apply(this, arguments)
+
+		// Set tab active state.
+		var newTab = this.$('.TabBarItem[data-uri=\'' + id + '\']')
+
+		if (newTab.length) {
+			this.$('.TabBarItem.active').removeClass('active')
+			newTab.addClass('active')
+		}
 	}
 })
