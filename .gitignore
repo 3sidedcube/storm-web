@@ -1,3 +1,6 @@
 app/assets/bundle
 node_modules
 public
+phonegap/platforms
+phonegap/www
+phonegap/plugins
