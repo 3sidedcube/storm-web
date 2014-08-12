@@ -1,5 +1,4 @@
 @import "config.less";
-@import "vendor/styles/lesshat.less";
 
 .navigation-controller {
 	overflow: hidden;
@@ -19,9 +18,9 @@
 		-webkit-overflow-scrolling: touch;
 		overflow-y: scroll;
 
-		.animation-duration(0.75s);
-		.animation-timing-function(cubic-bezier(0.190, 1.000, 0.220, 1.000));
-		.box-shadow(0, 0, 20px, rgba(0, 0, 0, 0.5));
+		animation-duration: 0.75s;
+		animation-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+		box-shadow: 0, 0, 20px, rgba(0, 0, 0, 0.5);
 	}
 
 	.page-content {
@@ -35,8 +34,8 @@
 	}
 
 	.navigation-controller-header {
-		.display(flex);
-		.justify-content(space-between);
+		display: flex;
+		justify-content: space-between;
 
 		line-height: 50px;
 		text-align: center;

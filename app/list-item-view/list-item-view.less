@@ -1,13 +1,10 @@
 @import "../config.less";
-@import "vendor/styles/lesshat.less";
 
 .img-container {
 	display: inline-block;
 	float: left;
 	margin: -7px;
 	margin-right: 5px;
-
-	-webkit-mask-size: contain;
 	mask-size: contain;
 
 	img {
@@ -36,7 +33,7 @@
 	}
 
 	&.highlight {
-		.animation(highlight 0.5s linear);
+		animation: highlight 0.5s linear;
 	}
 
 	&:first-child {
@@ -158,10 +155,10 @@
 	}
 
 	.text-container {
-		.display(flex);
-		.flex-direction(row);
-		.flex-wrap(wrap);
-		.align-content(center);
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-content: center;
 		width: 100%;
 		height: 100%;
 	}
@@ -220,7 +217,7 @@
 		background-color: #E6E6E6;
 		overflow: hidden;
 		border: none;
-		.transition(background-color 0.2s linear);
+		transition: background-color 0.2s linear;
 
 		&:before {
 			content: "";
@@ -229,15 +226,15 @@
 			height: 100%;
 			background-color: #FFF;
 			border-radius: 50%;
-			.transition(all 0.2s cubic-bezier(0.455, 0.030, 0.515, 0.955));
-			.transform(scale(1));
+			transition: all 0.2s cubic-bezier(0.455, 0.030, 0.515, 0.955);
+			transform: scale(1);
 		}
 
 		&:checked {
 			background-color: #f93e3f;
 
 			&:before {
-				.transform(scale(0));
+				transform: scale(0);
 			}
 		}
 
@@ -270,7 +267,22 @@
 	}
 }
 
-.keyframes(~'highlight, 0% {background: rgba(0, 0, 0, 0.15);} 100% {background: rgba(0, 0, 0, 0);}');
+.SwitchListItemView {
+	ios-switch {
+		position: absolute;
+		right: 5px;
+		top: 50%;
+		margin-top: -16px;
+	}
+}
+
+@keyframes highlight {
+	0% {
+		background: rgba(0, 0, 0, 0.15);
+	} 100% {
+		background: rgba(0, 0, 0, 0);
+	}
+}
 
 // Override for browsers which support CSS masks.
 body.mask-images {

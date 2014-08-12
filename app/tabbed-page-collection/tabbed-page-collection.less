@@ -1,5 +1,4 @@
 @import "../config.less";
-@import "vendor/styles/lesshat.less";
 
 .TabbedPageCollection {
 	.page-content, .new-page-content {
@@ -8,7 +7,7 @@
 	}
 
 	.tab-bar {
-		.display(flex);
+		display: flex;
 
 		position: absolute;
 		bottom: 0;
@@ -24,7 +23,7 @@
 			float: left;
 			text-align: center;
 			margin: auto;
-			.flex-shrink(0);
+			flex-shrink: 0;
 
 			// Override for 'More' tab.
 			&[data-uri="app://more"] {
