@@ -18,23 +18,23 @@ module.exports = NavigationController.extend({
 		if (tabs.length > 5) {
 			var moreTabs = tabs.splice(4, tabs.length - 4)
 			MorePageView.tabs = moreTabs
-		}
 
-		tabs.push({
-			src: 'app://more',
-			tabBarItem: {
-				title: {
-					content: 'cik0t'
-				},
-				image: {
-					'class': 'Image',
-					src: {
-						x1: '',
-						x2: ''
+			tabs.push({
+				src: 'app://more',
+				tabBarItem: {
+					title: {
+						content: 'cik0t'
+					},
+					image: {
+						'class': 'Image',
+						src: {
+							x1: '',
+							x2: ''
+						}
 					}
 				}
-			}
-		})
+			})
+		}
 
 		return data
 	},
