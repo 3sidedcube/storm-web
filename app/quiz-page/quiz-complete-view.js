@@ -11,7 +11,9 @@ module.exports = ListPage.extend({
 
 		if (App.data.badges) {
 			this.badge = App.data.badges.get(badgeId)
-		} else {
+		}
+
+		if (!this.badge) {
 			this.badge = new Page({id: badgeId})
 			this.badge.once('sync', this.badgeLoaded, this)
 			this.badge.fetch()
