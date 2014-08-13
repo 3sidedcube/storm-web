@@ -35,13 +35,13 @@ exports.config =
 			joinTo: 'javascripts/app.js': appJs
 
 	modules:
-		addSourceURLs: yes
 		nameCleaner: (path) ->
 			path.replace(/^(platforms\/(\w+)\/)?app\//, '')
 
-	imageoptimizer:
-		smushit: false
-		path: 'images'
+	plugins:
+		imageoptimizer:
+			smushit: false
+			path: 'images'
 
 	framework: 'backbone'
 
