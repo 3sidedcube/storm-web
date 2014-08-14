@@ -1,0 +1,6 @@
+{{#each images}}
+	<div class="carousel-item clickable" data-uri="{{link.destination}}" data-link-type="{{link.class}}">
+		<div class="image" style="background-image:url('{{getImageUrl this}}')"></div>
+		<div class="text-container"><div>{{l text}}</div></div>
+	</div>
+{{/each}}

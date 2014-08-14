@@ -117,7 +117,6 @@
 .ImageListItemView,
 .VideoListItemView,
 .AnimatedImageListItemView,
-.SpotlightImageListItemView,
 .MultiVideoListItemView,
 .HeaderListItemView {
 	text-align: center;
@@ -173,6 +172,42 @@
 		&:first-of-type {
 			font-size: 40px;
 			line-height: 58px;
+		}
+	}
+}
+
+.SpotlightImageListItemView {
+	height: 140px;
+	padding: 0;
+
+	.carousel-item {
+		height: 100%;
+	}
+
+	.image {
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+	}
+
+	.text-container {
+		height: 100%;
+		margin-top: -140px;
+		display: flex;
+
+		div {
+			margin: auto;
+			color: #FFF;
+			font-size: 24px;
+		}
+	}
+}
+
+.AnimatedImageListItemView {
+	.image {
+		img {
+			width: 100%;
+			height: auto;
 		}
 	}
 }

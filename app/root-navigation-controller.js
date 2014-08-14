@@ -20,6 +20,10 @@ module.exports = NavigationController.extend({
 			linkType = $(e.currentTarget).data('link-type')
 
 		if (linkType === 'ExternalLink') {
+			if (!uri) {
+				return
+			}
+
 			// Open URL in internal browser.
 			var oldUri = this.currentView.id
 			this.setPage('app://browser', false)
