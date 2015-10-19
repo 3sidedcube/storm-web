@@ -43,7 +43,7 @@ module.exports = {
 		}
 	},
 
-	apiRoot: 'https://gdpc.cubeapis.com/v1.5/',
+	apiRoot: 'https://brc.cubeapis.com/v1.3/',
 
 	view: null,
 	app: null,
