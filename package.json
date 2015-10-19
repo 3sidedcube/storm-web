@@ -12,20 +12,12 @@
     "node": "~0.8.0"
   },
   "scripts": {
-    "start": "brunch watch --server --port 8009",
-    "start-wp": "env PLATFORM=wp npm start",
-    "build": "rm -r ./public/*; brunch build --production; open ./public"
+    "start": "gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.0.0",
   },
   "dependencies": {
-    "auto-reload-brunch": "^1.7.3",
-    "autoprefixer-brunch": "^1.8.2",
-    "clean-css-brunch": "^1.7.1",
-    "css-brunch": "^1.7.0",
-    "digest-brunch": "^1.3.0",
-    "handlebars-brunch": "^1.7.8",
-    "imageoptmizer-brunch": "^0.0.4",
-    "javascript-brunch": "^1.7.1",
-    "less-brunch": "^1.7.2",
-    "uglify-js-brunch": "^1.7.7"
   }
 }
