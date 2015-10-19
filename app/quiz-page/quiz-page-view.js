@@ -1,4 +1,4 @@
-var NavigationController = require('navigation-controller'),
+var NavigationController = require('../navigation-controller'),
 	QuizQuestionViewBuilder = require('./quiz-question-view-builder'),
 	QuizCompleteView = require('./quiz-complete-view')
 

@@ -1,4 +1,4 @@
-var ListItemViewBuilder = require('list-item-view/list-item-view-builder')
+var ListItemViewBuilder = require('../list-item-view/list-item-view-builder')
 
 module.exports = Backbone.View.extend({
 	template: require('./group-view-template'),

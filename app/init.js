@@ -1,10 +1,9 @@
-var StormLanguage = require('storm-language'),
-	StormData = require('storm-data')
+var StormLanguage = require('./storm-language'),
+	StormData = require('./storm-data')
 
-require('helpers')
-require('platform-init')
+require('./platform-init')
 
-window.App = require('application')
+window.App = require('./application')
 
 $(document).ready(function() {
 	App.init().then(appLoaded, appLoadError)

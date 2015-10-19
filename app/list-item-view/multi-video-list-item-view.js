@@ -1,4 +1,4 @@
-var ListItemView = require('list-item-view/list-item-view')
+var ListItemView = require('./list-item-view')
 
 module.exports = ListItemView.extend({
 	events: {

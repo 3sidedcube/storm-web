@@ -1,5 +1,5 @@
-var PageView = require('page-view'),
-	GroupView = require('group-view/group-view')
+var PageView = require('../page-view'),
+	GroupView = require('../group-view/group-view')
 
 module.exports = PageView.extend({
 	template: require('./list-page-view-template'),

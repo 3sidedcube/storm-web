@@ -1,4 +1,5 @@
-var QuizQuestion = require('./quiz-question-view')
+var QuizQuestion = require('./quiz-question-view'),
+	localise = require('../helpers/l')
 
 module.exports = QuizQuestion.extend({
 	template: require('./category-selection-question-view-template'),
@@ -11,7 +12,7 @@ module.exports = QuizQuestion.extend({
 			catCount = this.model.get('categories').length
 
 		this.model.get('options').forEach(function(option, i) {
-			var options = '<td>' + Handlebars.helpers.l(option) + '</td>'
+			var options = '<td>' + localise(option) + '</td>'
 
 			for (var j = 0; j < catCount; j++) {
 				options += '<td><input type="radio" name="category-' + this.id + '-' + i + '"></td>'

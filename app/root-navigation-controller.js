@@ -1,4 +1,4 @@
-var NavigationController = require('navigation-controller')
+var NavigationController = require('./navigation-controller')
 
 module.exports = NavigationController.extend({
 	template: require('./root-navigation-controller-template'),

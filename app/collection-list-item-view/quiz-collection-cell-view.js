@@ -1,4 +1,4 @@
-var Page = require('page')
+var Page = require('../page')
 
 module.exports = Backbone.View.extend({
 	template: require('./quiz-collection-cell-view-template'),

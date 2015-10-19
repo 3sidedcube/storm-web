@@ -1,7 +1,7 @@
-var ListItemView = require('list-item-view/list-item-view')
+var ListItemView = require('./list-item-view')
 
 var ViewTypes = {
-	CollectionListItemView: require('collection-list-item-view/collection-list-item-view'),
+	CollectionListItemView: require('../collection-list-item-view/collection-list-item-view'),
 	ToggleableListItemView: require('./toggleable-list-item-view'),
 	SpotlightImageListItemView: require('./spotlight-image-list-item-view'),
 	AnimatedImageListItemView: require('./animated-image-list-item-view'),

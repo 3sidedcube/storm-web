@@ -1,7 +1,8 @@
 var MAX_TABS = 5
 
-var NavigationController = require('navigation-controller'),
-	MorePageView = require('more-page-view/more-page-view')
+var NavigationController = require('../navigation-controller'),
+	MorePageView = require('../more-page-view/more-page-view'),
+	localise = require('../helpers/l')
 
 module.exports = NavigationController.extend({
 	template: require('./tabbed-page-collection-view-template'),
@@ -91,7 +92,7 @@ module.exports = NavigationController.extend({
 	},
 
 	setPageTitle: function() {
-		var title = Handlebars.helpers.l(this.currentView.model.get('title'))
+		var title = localise(this.currentView.model.get('title'))
 		this.$('> .navigation-controller-header .title').text(title)
 	},
 
