@@ -1,3 +1,7 @@
+var FastClick = require('fastclick')
+
+require('../../../style-paper.less')
+
 $(document).ready(function() {
 	$(document).on('touchstart', '.clickable', function(e) {
 		$(e.currentTarget).addClass('focus')

@@ -1,8 +1,8 @@
 var MAX_TABS = 5
 
-var NavigationController = require('../navigation-controller'),
-	MorePageView = require('../more-page-view/more-page-view'),
-	localise = require('../helpers/l')
+var NavigationController = require('../../../navigation-controller'),
+	MorePageView = require('../../../more-page-view/more-page-view'),
+	localise = require('../../../helpers/l')
 
 module.exports = NavigationController.extend({
 	template: require('./tabbed-page-collection-view-template'),

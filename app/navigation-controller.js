@@ -1,5 +1,8 @@
 var PageView = require('./page-view')
 
+require('./navigation-controller.less')
+require('./transitions.less')
+
 module.exports = PageView.extend({
 	initialize: function() {
 		PageView.prototype.initialize.apply(this, arguments)

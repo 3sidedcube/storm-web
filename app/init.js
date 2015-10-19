@@ -1,7 +1,8 @@
 var StormLanguage = require('./storm-language'),
 	StormData = require('./storm-data')
 
-require('./platform-init')
+require('./main.less')
+require('current-platform/platform-init')
 
 window.App = require('./application')
 

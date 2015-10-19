@@ -17,13 +17,13 @@ module.exports = {
     loaders: [
       {test: /\.css$/, loader: 'style!css'},
       {test: /\.less$/, loader: 'style!css!less'},
-      {test: /\.hbs$/, loader: 'handlebars?helperDirs[]=' + context + '/helpers'}
+      {test: /\.hbs$/, loader: 'handlebars?helperDirs[]=' + context + '/helpers'},
+      {test: /\.ttf/, loader: 'url'}
     ]
   },
   resolve: {
     alias: {
-      // Bind version of jquery
-      //jquery: 'jquery-2.0.3',
+      'current-platform': context + '/platforms/wp'
     },
     extensions: ['', '.webpack.js', '.web.js', '.js', '.hbs']
   },
