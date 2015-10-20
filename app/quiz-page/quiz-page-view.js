@@ -2,6 +2,8 @@ var NavigationController = require('../navigation-controller'),
 	QuizQuestionViewBuilder = require('./quiz-question-view-builder'),
 	QuizCompleteView = require('./quiz-complete-view')
 
+require('./quiz-page.less')
+
 module.exports = NavigationController.extend({
 	template: require('./quiz-page-view-template'),
 	className: 'QuizPage',
