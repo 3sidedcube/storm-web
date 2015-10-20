@@ -1,5 +1,7 @@
 var PageView = require('../../../page-view')
 
+require('./tabbed-page-collection.less')
+
 module.exports = PageView.extend({
 	template: require('./tabbed-page-collection-view-template'),
 	className: 'wp-TabbedPageCollection',
@@ -7,6 +9,8 @@ module.exports = PageView.extend({
 	getRenderData: function() {
 		var data = this.model.toJSON(),
 			tabs = data.pages || []
+
+		data.appName = App.app.get('title')
 
 		if (tabs.length > 5) {
 			this.moreTabs = tabs.splice(4, tabs.length - 4)

@@ -1,6 +1,6 @@
-<div id="pivotScenario3" data-win-control="WinJS.UI.Pivot" data-win-options="{ title: 'HAZARDS', selectedIndex: 0 }">
+<div data-win-control="WinJS.UI.Pivot" data-win-options="{ title: '{{l appName}}', selectedIndex: 0 }">
 	{{#each pages}}
-		<div class="listviewpivotitem" data-win-control="WinJS.UI.PivotItem" data-win-options="{ 'header': '{{l tabBarItem.title}}', managedLV: true }">
+		<div data-win-control="WinJS.UI.PivotItem" data-win-options="{ 'header': '{{l tabBarItem.title}}'}">
 			<div class="page-container" data-src="{{src}}"></div>
 		</div>
 	{{/each}}
