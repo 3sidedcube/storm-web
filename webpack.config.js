@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 
 var context =  __dirname + '/app';
 
@@ -16,7 +17,7 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.css$/, loader: 'style!css'},
-      {test: /\.less$/, loader: 'style!css!less'},
+      {test: /\.less$/, loader: 'style!css!postcss!less'},
       {test: /\.hbs$/, loader: 'handlebars?helperDirs[]=' + context + '/helpers'},
       {test: /\.ttf/, loader: 'url'}
     ]
@@ -37,5 +38,8 @@ module.exports = {
       Backbone: 'backbone',
       _: 'underscore'
     })
-  ]
+  ],
+  postcss: function() {
+    return [autoprefixer];
+  }
 };
