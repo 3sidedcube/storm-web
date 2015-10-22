@@ -1,7 +1,7 @@
-var StormApp = require('storm-app'),
-	StormManifest = require('storm-manifest'),
-	Router = require('router'),
-	RootNavigationController = require('root-navigation-controller')
+var StormApp = require('./storm-app'),
+	StormManifest = require('./storm-manifest'),
+	Router = require('./router'),
+	RootNavigationController = require('./root-navigation-controller')
 
 module.exports = {
 	init: function() {
@@ -43,7 +43,7 @@ module.exports = {
 		}
 	},
 
-	apiRoot: 'https://gdpc.cubeapis.com/v1.5/',
+	apiRoot: 'https://brc.cubeapis.com/v1.3/',
 
 	view: null,
 	app: null,
@@ -52,7 +52,7 @@ module.exports = {
 	imageDensity: 1,
 	mode: 0,
 	target: 0,
-	utils: require('utils'),
+	utils: require('./utils'),
 
 	APP_MODE_FULL: 0,
 	APP_MODE_PAGE: 1,

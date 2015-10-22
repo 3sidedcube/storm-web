@@ -1,13 +1,13 @@
 var PageTypes = {
-	'Page': require('page-view'),
-	'ListPage': require('list-page/list-page-view'),
-	'TabbedPageCollection': require('tabbed-page-collection/tabbed-page-collection-view'),
-	'QuizPage': require('quiz-page/quiz-page-view')
+	'Page': require('./page-view'),
+	'ListPage': require('current-platform/list-page-view/list-page-view'),
+	'TabbedPageCollection': require('current-platform/tabbed-page-collection/tabbed-page-collection-view'),
+	'QuizPage': require('./quiz-page/quiz-page-view')
 }
 
 var NativeContent = {
-	'more': require('more-page-view/more-page-view'),
-	'browser': require('browser-view/browser-view')
+	'more': require('./more-page-view/more-page-view'),
+	'browser': require('./browser-view/browser-view')
 }
 
 module.exports = {

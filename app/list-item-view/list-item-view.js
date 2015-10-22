@@ -1,3 +1,5 @@
+require('./list-item-view.less')
+
 module.exports = Backbone.View.extend({
 	template: require('./list-item-view-template'),
 	className: 'ListItem',

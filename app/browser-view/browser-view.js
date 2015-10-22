@@ -1,3 +1,5 @@
+require('./browser-view.less')
+
 module.exports = Backbone.View.extend({
 	template: require('./browser-view-template'),
 	className: 'browser-view',

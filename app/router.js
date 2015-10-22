@@ -1,3 +1,6 @@
+var TabbedPageCollection = require('current-platform/tabbed-page-collection/tabbed-page-collection-view'),
+  NavigationController = require('./navigation-controller')
+
 module.exports = Backbone.Router.extend({
 	routes: {
 		''        : 'home',
@@ -11,7 +14,7 @@ module.exports = Backbone.Router.extend({
 
 	page: function(url) {
 		// Don't push content pages onto the root controller in full app mode.
-		if (App.mode === App.APP_MODE_FULL && App.target === App.APP_TARGET_LOCAL) {
+		if (App.mode === App.APP_MODE_FULL && App.target === App.APP_TARGET_LOCAL && TabbedPageCollection instanceof NavigationController) {
 			var page = App.app.map[url]
 
 			if (!page || page.type === 'ListPage') {

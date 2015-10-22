@@ -1,4 +1,7 @@
-var PageView = require('page-view')
+var PageView = require('./page-view')
+
+require('./navigation-controller.less')
+require('./transitions.less')
 
 module.exports = PageView.extend({
 	initialize: function() {
@@ -81,7 +84,7 @@ module.exports = PageView.extend({
 
 			// Replace abstract Page instances with typed views, if the type wasn't available at fetch.
 			if (newView.constructor === PageView) {
-				var PageViewBuilder = require('page-view-builder')
+				var PageViewBuilder = require('./page-view-builder')
 				newView = this.currentView = PageViewBuilder.buildFromModel(newView.id, newView.model)
 				this.newPageContent.html(newView.el)
 				newView.render()
@@ -134,7 +137,7 @@ module.exports = PageView.extend({
 	},
 
 	buildView: function(url) {
-		var PageViewBuilder = require('page-view-builder')
+		var PageViewBuilder = require('./page-view-builder')
 		return PageViewBuilder.build(url)
 	},
 

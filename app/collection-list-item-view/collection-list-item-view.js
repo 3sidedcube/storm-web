@@ -4,6 +4,8 @@ var CollectionCell = {
 	LinkCollectionCell: require('./link-collection-cell-view')
 }
 
+require('./collection-list-item-view.less')
+
 module.exports = Backbone.View.extend({
 	template: require('./collection-list-item-view-template'),
 	className: 'CollectionListItemView',

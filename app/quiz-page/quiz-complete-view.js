@@ -1,5 +1,5 @@
-var ListPage = require('list-page/list-page-view'),
-	Page = require('page')
+var ListPage = require('current-platform/list-page-view/list-page-view'),
+	Page = require('../page')
 
 module.exports = ListPage.extend({
 	initialize: function(options) {
