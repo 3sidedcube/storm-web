@@ -1,8 +1,10 @@
-<div data-win-control="WinJS.UI.Pivot" data-win-options="{ title: '{{l appName}}', selectedIndex: 0 }">
-	{{#each pages}}
-		<div data-win-control="WinJS.UI.PivotItem" data-win-options="{ 'header': '{{l tabBarItem.title}}'}">
-			<div class="page-container" data-src="{{src}}"></div>
-		</div>
-	{{/each}}
+<div data-win-control="WinJS.UI.Pivot"
+     data-win-options="{ title: '{{l appName}}', selectedIndex: 0 }">
+  {{#each pages}}
+    <div data-win-control="WinJS.UI.PivotItem"
+         data-win-options="{ 'header': '{{l tabBarItem.title}}'}">
+      <div class="page-container" data-src="{{src}}"></div>
+    </div>
+  {{/each}}
 </div>
 

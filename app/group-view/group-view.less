@@ -1,110 +1,110 @@
 @import "../config.less";
 
 .Text {
-	box-sizing: border-box;
-	overflow: auto;
-	color: @text-color;
+  box-sizing: border-box;
+  overflow: auto;
+  color: @text-color;
 }
 
 .GroupView {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 
-	ul {
-		overflow: visible;
-		list-style: none;
-		min-height: 34px;
-		margin-bottom: 20px;
-	}
+  ul {
+    overflow: visible;
+    list-style: none;
+    min-height: 34px;
+    margin-bottom: 20px;
+  }
 
-	img[src=""] {
-		display: none;
-	}
+  img[src=""] {
+    display: none;
+  }
 
-	.header, .footer {
-		color: @groupview-header-color;
-		text-transform: uppercase;
-		min-height: 0;
-	}
+  .header, .footer {
+    color: @groupview-header-color;
+    text-transform: uppercase;
+    min-height: 0;
+  }
 
-	.header {
-		padding: 0 10px 5px 10px;
+  .header {
+    padding: 0 10px 5px 10px;
 
-		&:empty {
-			padding-bottom: 0;
-		}
-	}
+    &:empty {
+      padding-bottom: 0;
+    }
+  }
 
-	.footer {
-		text-align: center;
-		margin-top: -2px;
-	}
+  .footer {
+    text-align: center;
+    margin-top: -2px;
+  }
 
-	.TextListItemView {
-		text-align: center;
-		background-color: @background-color;
-		border-color: @background-color;
-		border: none;
-	}
+  .TextListItemView {
+    text-align: center;
+    background-color: @background-color;
+    border-color: @background-color;
+    border: none;
+  }
 
-	.StandardListItemView, .ChunkyListItemView {
-		.Text {
-			margin-right: 15px;
-		}
+  .StandardListItemView, .ChunkyListItemView {
+    .Text {
+      margin-right: 15px;
+    }
 
-		.img-container {
-			background-color: @highlight-color;
+    .img-container {
+      background-color: @highlight-color;
 
-			img {
-				background-color: #FFF;
-			}
-		}
-	}
+      img {
+        background-color: #FFF;
+      }
+    }
+  }
 
-	.ChunkyListItemView {
-		padding-top: 20px;
-		padding-bottom: 20px;
-	}
+  .ChunkyListItemView {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 
-	.VideoListItemView, .MultiVideoListItemView {
-		background-color: #333;
-		min-height: 90px;
+  .VideoListItemView, .MultiVideoListItemView {
+    background-color: #333;
+    min-height: 90px;
 
-		.chevron {
-			display: none;
-		}
+    .chevron {
+      display: none;
+    }
 
-		i {
-			position: absolute;
-			top: 50%;
-			margin-top: -40px;
-			color: #FFF;
-			font-size: 80px;
-			left: 0;
-			width: 100%;
+    i {
+      position: absolute;
+      top: 50%;
+      margin-top: -40px;
+      color: #FFF;
+      font-size: 80px;
+      left: 0;
+      width: 100%;
 
-			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-			filter: alpha(opacity=90);
-			opacity: 0.9;
-		}
-	}
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+      filter: alpha(opacity=90);
+      opacity: 0.9;
+    }
+  }
 
-	.LogoListItemView, .LockedLogoListItemView {
-		background: transparent;
-		border: none !important;
-		text-align: center;
+  .LogoListItemView, .LockedLogoListItemView {
+    background: transparent;
+    border: none !important;
+    text-align: center;
 
-		.img-container {
-			float: none;
-			margin: 10px;
+    .img-container {
+      float: none;
+      margin: 10px;
 
-			img {
-				width: 57px;
-				height: 55px
-			}
-		}
+      img {
+        width: 57px;
+        height: 55px
+      }
+    }
 
-		.Text {
-			color: #7D7D7D !important;
-		}
-	}
+    .Text {
+      color: #7D7D7D !important;
+    }
+  }
 }

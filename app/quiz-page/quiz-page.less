@@ -1,92 +1,92 @@
 @import "../config.less";
 
 .QuizPage {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 100%;
-	overflow: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
 
-	> .navigation-controller-header {
-		color: @highlight-color;
-		font-size: 18px;
+  > .navigation-controller-header {
+    color: @highlight-color;
+    font-size: 18px;
 
-		.quiz-title {
-			display: none;
-			color: #000;
-		}
+    .quiz-title {
+      display: none;
+      color: #000;
+    }
 
-		.quiz-back-button, .quiz-next-button, .quiz-finish-button, .quiz-share-button {
-			flex-grow: 0;
-			padding: 0 10px;
+    .quiz-back-button, .quiz-next-button, .quiz-finish-button, .quiz-share-button {
+      flex-grow: 0;
+      padding: 0 10px;
 
-			&.glow {
-				opacity: 0.15;
-			}
-		}
+      &.glow {
+        opacity: 0.15;
+      }
+    }
 
-		.quiz-finish-button, .quiz-share-button {
-			display: none;
-		}
+    .quiz-finish-button, .quiz-share-button {
+      display: none;
+    }
 
-		.progress {
-			line-height: 12px;
-			font-size: 12px;
-			margin: 0 30px;
+    .progress {
+      line-height: 12px;
+      font-size: 12px;
+      margin: 0 30px;
 
-			flex-grow: 1;
+      flex-grow: 1;
 
-			.progress-text {
-				margin-top: 5px;
-				font-weight: bold;
-			}
+      .progress-text {
+        margin-top: 5px;
+        font-weight: bold;
+      }
 
-			progress {
-				-webkit-appearance: none;
-				background-color: #B7B7B7;
-				height: 2px;
-				width: 100%;
+      progress {
+        -webkit-appearance: none;
+        background-color: #B7B7B7;
+        height: 2px;
+        width: 100%;
 
-				&::-webkit-progress-bar {
-					background-color: #B7B7B7;
-				}
+        &::-webkit-progress-bar {
+          background-color: #B7B7B7;
+        }
 
-				&::-webkit-progress-bar-value {
-					background-color: @highlight-color;
-				}
+        &::-webkit-progress-bar-value {
+          background-color: @highlight-color;
+        }
 
-				&::-webkit-progress-value {
-					background-color: @highlight-color;
-				}
+        &::-webkit-progress-value {
+          background-color: @highlight-color;
+        }
 
-				&::-moz-progress-bar {
-					background-color: @highlight-color;
-				}
+        &::-moz-progress-bar {
+          background-color: @highlight-color;
+        }
 
-				&::-ms-fill {
-					background-color: @highlight-color;
-				}
-			}
-		}
-	}
+        &::-ms-fill {
+          background-color: @highlight-color;
+        }
+      }
+    }
+  }
 
-	.page-content, .new-page-content {
-		top: 51px;
-	}
+  .page-content, .new-page-content {
+    top: 51px;
+  }
 
-	.question-header {
-		text-align: center;
-	}
+  .question-header {
+    text-align: center;
+  }
 
-	.hint {
+  .hint {
 
-	}
+  }
 }
 
 .completion {
-	.ImageListItemView {
-		background: transparent;
-		width: 250px;
-		margin: 0 auto;
-	}
+  .ImageListItemView {
+    background: transparent;
+    width: 250px;
+    margin: 0 auto;
+  }
 }

@@ -1,117 +1,117 @@
 @import "../config.less";
 
 .img-container {
-	display: inline-block;
-	float: left;
-	margin: -7px;
-	margin-right: 5px;
-	mask-size: contain;
+  display: inline-block;
+  float: left;
+  margin: -7px;
+  margin-right: 5px;
+  mask-size: contain;
 
-	img {
-		width: 34px;
-		height: 34px;
-		max-width: 100%;
-		display: block;
+  img {
+    width: 34px;
+    height: 34px;
+    max-width: 100%;
+    display: block;
 
-		&[src=""] {
-			width: 0;
-			height: 0;
-		}
-	}
+    &[src=""] {
+      width: 0;
+      height: 0;
+    }
+  }
 }
 
 .ListItem {
-	padding: 11px;
-	border-bottom: 1px solid @border-color;
-	position: relative;
-	min-height: 20px;
-	overflow: auto;
-	background-color: @foreground-color;
+  padding: 11px;
+  border-bottom: 1px solid @border-color;
+  position: relative;
+  min-height: 20px;
+  overflow: auto;
+  background-color: @foreground-color;
 
-	&.focus {
-		background: rgba(0, 0, 0, 0.1);
-	}
+  &.focus {
+    background: rgba(0, 0, 0, 0.1);
+  }
 
-	&.highlight {
-		animation: highlight 0.5s linear;
-	}
+  &.highlight {
+    animation: highlight 0.5s linear;
+  }
 
-	&:first-child {
-		border-top: 1px solid @border-color;
-	}
+  &:first-child {
+    border-top: 1px solid @border-color;
+  }
 
-	input {
-		height: auto;
-	}
+  input {
+    height: auto;
+  }
 
-	.chevron {
-		position: absolute;
-		top: 50%;
-		right: 6px;
-		margin-top: -7px;
-		color: @border-color;
-		color: #c8c7cc;
-		font-size: 14px;
-	}
+  .chevron {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    margin-top: -7px;
+    color: @border-color;
+    color: #c8c7cc;
+    font-size: 14px;
+  }
 
-	.Text:nth-of-type(1) {
-		font-size: @title-font-size;
-		color: @title-color;
-		line-height: 22px;
-	}
+  .Text:nth-of-type(1) {
+    font-size: @title-font-size;
+    color: @title-color;
+    line-height: 22px;
+  }
 
-	.Text:nth-of-type(2) {
-		min-height: 0;
-		font-size: @font-size;
-		margin-top: 5px;
+  .Text:nth-of-type(2) {
+    min-height: 0;
+    font-size: @font-size;
+    margin-top: 5px;
 
-		&:empty {
-			margin-top: 0;
-		}
-	}
+    &:empty {
+      margin-top: 0;
+    }
+  }
 
-	input {
-		float: left;
-		margin-right: 3px;
-	}
+  input {
+    float: left;
+    margin-right: 3px;
+  }
 
-	.annotation {
-		float: left;
-		width: 30px;
-		line-height: 30px;
-		text-align: center;
-		margin-right: 10px;
-		color: @highlight-color;
-		font-size: 30px;
-		display: inline-block;
-	}
+  .annotation {
+    float: left;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 10px;
+    color: @highlight-color;
+    font-size: 30px;
+    display: inline-block;
+  }
 
-	button {
-		margin-top: 10px;
-	}
+  button {
+    margin-top: 10px;
+  }
 }
 
 .ChunkyListItemView {
-	padding-top: 10px;
-	padding-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
-	.Text {
-		margin-left: 32px;
-	}
+  .Text {
+    margin-left: 32px;
+  }
 }
 
 .GroupedTextListItemView {
-	.Text:nth-of-type(1) {
-		font-size: @font-size;
-		color: @text-color;
-		line-height: inherit;
-	}
+  .Text:nth-of-type(1) {
+    font-size: @font-size;
+    color: @text-color;
+    line-height: inherit;
+  }
 }
 
 .AnnotatedListItemView {
-	.Text {
-		margin-left: 40px;
-	}
+  .Text {
+    margin-left: 40px;
+  }
 }
 
 .ImageListItemView,
@@ -119,231 +119,232 @@
 .AnimatedImageListItemView,
 .MultiVideoListItemView,
 .HeaderListItemView {
-	text-align: center;
-	padding: 0;
-	min-height: 80px;
+  text-align: center;
+  padding: 0;
+  min-height: 80px;
 
-	.img-container {
-		margin: 0;
-		width: 100%;
+  .img-container {
+    margin: 0;
+    width: 100%;
 
-		img {
-			width: 100%;
-			height: auto;
-		}
-	}
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 
 .ImageListItemView, .SpotlightImageListItemView {
-	border: none !important;
+  border: none !important;
 }
 
 .HeaderListItemView {
-	height: 284px;
-	overflow: hidden;
+  height: 284px;
+  overflow: hidden;
 
-	.img-container {
-		height: 100%;
-		width: 1000px;
-		margin-left: -340px;
+  .img-container {
+    height: 100%;
+    width: 1000px;
+    margin-left: -340px;
 
-		img {
-			width: auto;
-			height: 100%;
-		}
-	}
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
 
-	.text-container {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-content: center;
-		width: 100%;
-		height: 100%;
-	}
+  .text-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+  }
 
-	.Text {
-		margin-left: -1px;
-		top: -284px;
-		color: #FFF !important;
+  .Text {
+    margin-left: -1px;
+    top: -284px;
+    color: #FFF !important;
 
-		flex: 1 100%;
+    flex: 1 100%;
 
-		&:first-of-type {
-			font-size: 40px;
-			line-height: 58px;
-		}
-	}
+    &:first-of-type {
+      font-size: 40px;
+      line-height: 58px;
+    }
+  }
 }
 
 .SpotlightImageListItemView {
-	height: 140px;
-	padding: 0;
+  height: 140px;
+  padding: 0;
 
-	.carousel-item {
-		height: 100%;
-	}
+  .carousel-item {
+    height: 100%;
+  }
 
-	.image {
-		height: 100%;
-		background-size: cover;
-		background-position: center;
-	}
+  .image {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
 
-	.text-container {
-		height: 100%;
-		margin-top: -140px;
-		display: flex;
+  .text-container {
+    height: 100%;
+    margin-top: -140px;
+    display: flex;
 
-		div {
-			margin: auto;
-			color: #FFF;
-			font-size: 24px;
-		}
-	}
+    div {
+      margin: auto;
+      color: #FFF;
+      font-size: 24px;
+    }
+  }
 }
 
 .AnimatedImageListItemView {
-	.image {
-		img {
-			width: 100%;
-			height: auto;
-		}
-	}
+  .image {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 
 .MultiVideoListItemView {
-	&:after {
-		position: absolute;
-		content: "\f04b";
-		color: #FFF;
-		font-family: FontAwesome;
-		width: 74px;
-		height: 74px;
-		padding: 12px 4px 12px 12px;
-		box-sizing: border-box;
-		top: 50%;
-		left: 50%;
-		margin-top: -37px;
-		margin-left: -37px;
-		font-size: 40px;
-		border: 5px solid #FFF;
-		border-radius: 50%;
-	}
+  &:after {
+    position: absolute;
+    content: "\f04b";
+    color: #FFF;
+    font-family: FontAwesome;
+    width: 74px;
+    height: 74px;
+    padding: 12px 4px 12px 12px;
+    box-sizing: border-box;
+    top: 50%;
+    left: 50%;
+    margin-top: -37px;
+    margin-left: -37px;
+    font-size: 40px;
+    border: 5px solid #FFF;
+    border-radius: 50%;
+  }
 }
 
 .TextListItemView {
-	border-top: none !important;
+  border-top: none !important;
 }
 
 .TextListItemView .Text {
-	text-align: center;
-	font-size: @font-size;
-	color: @groupview-header-color;
+  text-align: center;
+  font-size: @font-size;
+  color: @groupview-header-color;
 }
 
 .BulletListItemView {
-	padding-left: 20px;
+  padding-left: 20px;
 
-	&:before {
-		content: '';
-		position: absolute;
-		top: 7px;
-		bottom: 7px;
-		left: 7px;
-		width: 4px;
-		background-color: @highlight-color;
-	}
+  &:before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    bottom: 7px;
+    left: 7px;
+    width: 4px;
+    background-color: @highlight-color;
+  }
 }
 
 .CheckableListItemView {
-	padding-left: 50px;
+  padding-left: 50px;
 
-	input {
-		position: absolute;
-		width: 28px;
-		height: 28px;
-		padding: 1px;
-		border-radius: 50%;
-		-webkit-appearance: none;
-		top: 50%;
-		left: 10px;
-		margin-top: -15px;
-		background-color: #E6E6E6;
-		overflow: hidden;
-		border: none;
-		transition: background-color 0.2s linear;
+  input {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    padding: 1px;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    top: 50%;
+    left: 10px;
+    margin-top: -15px;
+    background-color: #E6E6E6;
+    overflow: hidden;
+    border: none;
+    transition: background-color 0.2s linear;
 
-		&:before {
-			content: "";
-			display: block;
-			width: 100%;
-			height: 100%;
-			background-color: #FFF;
-			border-radius: 50%;
-			transition: all 0.2s cubic-bezier(0.455, 0.030, 0.515, 0.955);
-			transform: scale(1);
-		}
+    &:before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: #FFF;
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.455, 0.030, 0.515, 0.955);
+      transform: scale(1);
+    }
 
-		&:checked {
-			background-color: #f93e3f;
+    &:checked {
+      background-color: #f93e3f;
 
-			&:before {
-				transform: scale(0);
-			}
-		}
+      &:before {
+        transform: scale(0);
+      }
+    }
 
-		&:focus {
-			outline: none;
-		}
-	}
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 .ToggleableListItemView {
-	padding-right: 30px;
+  padding-right: 30px;
 
-	&:before {
-		content: "\F077";
-		font-family: FontAwesome;
-		position: absolute;
-		right: 10px;
-		top: 12px;
-		color: #AAA;
-	}
+  &:before {
+    content: "\F077";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    color: #AAA;
+  }
 
-	&.toggled {
-		.Text:last-child {
-			display: none;
-		}
+  &.toggled {
+    .Text:last-child {
+      display: none;
+    }
 
-		&:before {
-			content: "\F078";
-		}
-	}
+    &:before {
+      content: "\F078";
+    }
+  }
 }
 
 .SwitchListItemView {
-	ios-switch {
-		position: absolute;
-		right: 5px;
-		top: 50%;
-		margin-top: -16px;
-	}
+  ios-switch {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -16px;
+  }
 }
 
 @keyframes highlight {
-	0% {
-		background: rgba(0, 0, 0, 0.15);
-	} 100% {
-		background: rgba(0, 0, 0, 0);
-	}
+  0% {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0);
+  }
 }
 
 // Override for browsers which support CSS masks.
 body.mask-images {
-	.StandardListItemView .img-container, .ChunkyListItemView .img-container {
-		img {
-			visibility: hidden;
-		}
-	}
+  .StandardListItemView .img-container, .ChunkyListItemView .img-container {
+    img {
+      visibility: hidden;
+    }
+  }
 }

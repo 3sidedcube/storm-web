@@ -1,9 +1,15 @@
 <div class="question-header">
-	<div class="question-title">{{l title}}</div>
+  <div class="question-title">{{l title}}</div>
 </div>
-<div class="slider-image" style="background-image:url('{{getImageUrl image}}')"></div>
+<div class="slider-image"
+     style="background-image:url('{{getImageUrl image}}')"></div>
 <div class="slider-footer">
-	<div class="value"><span class="count">{{initialPosition}}</span> {{l unit}}</div>
-	<div class="slider"><input type="range" min="{{range.start}}" max="{{add range.start range.length}}" value="{{initialPosition}}"></div>
-	<div class="question-hint">{{l hint}}</div>
+  <div class="value">
+    <span class="count">{{initialPosition}}</span> {{l unit}}
+  </div>
+  <div class="slider">
+    <input type="range" min="{{range.start}}"
+           max="{{add range.start range.length}}" value="{{initialPosition}}">
+  </div>
+  <div class="question-hint">{{l hint}}</div>
 </div>

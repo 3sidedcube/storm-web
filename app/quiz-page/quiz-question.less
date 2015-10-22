@@ -1,192 +1,192 @@
 @import "../config.less";
 
 .QuizQuestion {
-	.question-header {
-		margin-bottom: 10px;
-	}
+  .question-header {
+    margin-bottom: 10px;
+  }
 
-	.question-title {
-		font-weight: bold;
-		margin: 10px;
-	}
+  .question-title {
+    font-weight: bold;
+    margin: 10px;
+  }
 
-	.question-hint {
-		opacity: 0.3;
-		font-size: 12px;
-	}
+  .question-hint {
+    opacity: 0.3;
+    font-size: 12px;
+  }
 }
 
 .TextSelectionQuestion {
-	.options {
-		background-color: #FFF;
-	}
+  .options {
+    background-color: #FFF;
+  }
 }
 
 .ImageSelectionQuestion {
-	.options {
-		width: 320px;
-		margin: 0 auto;
-	}
+  .options {
+    width: 320px;
+    margin: 0 auto;
+  }
 
-	.image-selection-option {
-		width: 160px;
-		height: 160px;
-		background-size: cover;
-		background-position: center;
-		float: left;
-		border: 1px solid @background-color;
-		box-sizing: border-box;
-		border-radius: 5px;
-		color: #FFF;
-		text-align: center;
-		font-weight: bold;
+  .image-selection-option {
+    width: 160px;
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+    float: left;
+    border: 1px solid @background-color;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #FFF;
+    text-align: center;
+    font-weight: bold;
 
-		animation-duration: 0.25s;
+    animation-duration: 0.25s;
 
-		align-items: flex-end;
-		display: flex;
+    align-items: flex-end;
+    display: flex;
 
-		.item-name {
-			width: 100%;
-			padding: 20px 5px 10px 5px;
-			background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
-		}
+    .item-name {
+      width: 100%;
+      padding: 20px 5px 10px 5px;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    }
 
-		&.active {
-			box-shadow: inset 0 0 0 4px red, inset 0 0 0 5px #FFF;
-			animation-name: bounce;
-		}
-	}
+    &.active {
+      box-shadow: inset 0 0 0 4px red, inset 0 0 0 5px #FFF;
+      animation-name: bounce;
+    }
+  }
 }
 
 .ImageSliderSelectionQuestion {
-	height: 100%;
-	overflow: hidden;
-	background-color: #FFF;
+  height: 100%;
+  overflow: hidden;
+  background-color: #FFF;
 
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	.slider-image {
-		height: 100%;
-		background-position: center;
-		background-size: contain;
-		background-repeat: no-repeat;
-	}
+  .slider-image {
+    height: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 
-	.slider-footer {
-		text-align: center;
-		padding: 10px;
-		flex-shrink: 0;
+  .slider-footer {
+    text-align: center;
+    padding: 10px;
+    flex-shrink: 0;
 
-		.question-hint {
-			font-size: 18px;
-		}
-	}
+    .question-hint {
+      font-size: 18px;
+    }
+  }
 
-	.slider {
-		input[type="range"] {
-			-webkit-appearance: none;
-			-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-			width: 200px;
-			height: 2px;
-			margin: 20px auto;
-			display: block;
-			border: none;
-			border-radius: 1px;
-			background: #B7B7B7;
-			outline: none; /* no focus outline */
-		}
+  .slider {
+    input[type="range"] {
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      width: 200px;
+      height: 2px;
+      margin: 20px auto;
+      display: block;
+      border: none;
+      border-radius: 1px;
+      background: #B7B7B7;
+      outline: none; /* no focus outline */
+    }
 
-		input[type="range"]::-moz-range-track {
-			border: inherit;
-			background: transparent;
-		}
+    input[type="range"]::-moz-range-track {
+      border: inherit;
+      background: transparent;
+    }
 
-		input[type="range"]::-ms-track {
-			border: inherit;
-			color: transparent; /* don't drawn vertical reference line */
-			background: transparent;
-		}
+    input[type="range"]::-ms-track {
+      border: inherit;
+      color: transparent; /* don't drawn vertical reference line */
+      background: transparent;
+    }
 
-		input[type="range"]::-ms-fill-lower,
-		input[type="range"]::-ms-fill-upper {
-			background: transparent;
-		}
+    input[type="range"]::-ms-fill-lower,
+    input[type="range"]::-ms-fill-upper {
+      background: transparent;
+    }
 
-		input[type="range"]::-ms-tooltip {
-			display: none;
-		}
+    input[type="range"]::-ms-tooltip {
+      display: none;
+    }
 
-		/* thumb */
+    /* thumb */
 
-		input[type="range"]::-webkit-slider-thumb {
-			-webkit-appearance: none;
-			width: 28px;
-			height: 28px;
-			border: 1px solid #DDD;
-			border-radius: 15px;
-			background-color: #FFF;
-			box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-		}
-		input[type="range"]::-moz-range-thumb {
-			width: 28px;
-			height: 28px;
-			border: 1px solid #DDD;
-			border-radius: 15px;
-			background-color: #FFF;
-		}
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #DDD;
+      border-radius: 15px;
+      background-color: #FFF;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #DDD;
+      border-radius: 15px;
+      background-color: #FFF;
+    }
 
-		input[type="range"]::-ms-thumb {
-			width: 28px;
-			height: 28px;
-			border-radius: 15px;
-			border: 1px solid #DDD;
-			background-color: #FFF;
-		}
-	}
+    input[type="range"]::-ms-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: 1px solid #DDD;
+      background-color: #FFF;
+    }
+  }
 }
 
 .AreaSelectionQuestion {
-	height: 100%;
-	overflow: hidden;
-	background-color: #FFF;
+  height: 100%;
+  overflow: hidden;
+  background-color: #FFF;
 
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	.area-image {
-		height: 100%;
-		position: relative;
-		display: flex;
-		align-items: center;
+  .area-image {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
 
-		img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-	}
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
 
-	.selected-region {
-		border: 3px solid #000;
-		border-radius: 50%;
-		position: absolute;
-		pointer-events: none;
-		box-sizing: border-box;
-		animation-name: bounce;
-		animation-duration: 0.2s;
-	}
+  .selected-region {
+    border: 3px solid #000;
+    border-radius: 50%;
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    animation-name: bounce;
+    animation-duration: 0.2s;
+  }
 }
 
 .CategorySelectionQuestion {
-	.category-grid {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 10px;
+  .category-grid {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
 
-		th, td {
-			text-align: center;
-			height: 40px;
-		}
-	}
+    th, td {
+      text-align: center;
+      height: 40px;
+    }
+  }
 }

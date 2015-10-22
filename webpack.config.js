@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
-var context =  __dirname + '/app';
+var context = __dirname + '/app';
 
 module.exports = {
   cache: true,
