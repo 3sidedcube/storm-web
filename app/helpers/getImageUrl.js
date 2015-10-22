@@ -4,13 +4,13 @@
  */
 module.exports = function(image) {
   if (!image) {
-    return
+    return;
   }
 
   if (image['class'] === 'NativeImage') {
     // TODO
   } else {
-    var cacheUrl = image.src['x' + App.imageDensity]
-    return cacheUrl.replace('cache://', 'bundle/')
+    var cacheUrl = image.src['x' + App.imageDensity];
+    return cacheUrl.replace('cache://', 'bundle/');
   }
-}
+};

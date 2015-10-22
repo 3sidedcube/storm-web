@@ -1,4 +1,4 @@
-var QuizQuestion = require('./quiz-question-view')
+var QuizQuestion = require('./quiz-question-view');
 
 module.exports = QuizQuestion.extend({
   template: require('./image-slider-selection-question-view-template'),
@@ -9,10 +9,10 @@ module.exports = QuizQuestion.extend({
   },
 
   inputChange: function(e) {
-    this.$('.count').text(e.currentTarget.value)
+    this.$('.count').text(e.currentTarget.value);
   },
 
   isCorrect: function() {
-    return +this.$('.slider input').val() === this.model.get('answer')
+    return +this.$('.slider input').val() === this.model.get('answer');
   }
-})
+});

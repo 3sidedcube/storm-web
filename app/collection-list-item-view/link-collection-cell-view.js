@@ -1,1 +1,1 @@
-module.exports = Backbone.View.extend({})
+module.exports = Backbone.View.extend({});

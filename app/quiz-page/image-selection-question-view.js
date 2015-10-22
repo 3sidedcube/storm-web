@@ -1,4 +1,4 @@
-var QuizQuestion = require('./quiz-question-view')
+var QuizQuestion = require('./quiz-question-view');
 
 module.exports = QuizQuestion.extend({
   template: require('./image-selection-question-view-template'),
@@ -9,46 +9,46 @@ module.exports = QuizQuestion.extend({
   },
 
   getRenderData: function() {
-    var data = this.model.toJSON()
+    var data = this.model.toJSON();
 
     for (var i in data.options) {
-      data.options[i].image = data.images[i]
+      data.options[i].image = data.images[i];
     }
 
-    return data
+    return data;
   },
 
   optionClick: function(e) {
-    $(e.currentTarget).toggleClass('active')
+    $(e.currentTarget).toggleClass('active');
 
-    var checkedCount = this.$('.image-selection-option.active').length
+    var checkedCount = this.$('.image-selection-option.active').length;
 
     if (checkedCount > this.model.get('limit')) {
-      this.lastOptionSelected.classList.remove('active')
+      this.lastOptionSelected.classList.remove('active');
     }
 
     if (e.currentTarget.classList.contains('active')) {
-      this.lastOptionSelected = e.currentTarget
+      this.lastOptionSelected = e.currentTarget;
     }
   },
 
   isCorrect: function() {
-    var answer = this.model.get('answer').sort()
+    var answer = this.model.get('answer').sort();
 
     var selected = this.$('.image-selection-option.active').map(function() {
-      return +$(this).data('index')
-    }).get()
+      return +$(this).data('index');
+    }).get();
 
     if (answer.length !== selected.length) {
-      return false
+      return false;
     }
 
     for (var i in answer) {
       if (answer[i] !== selected[i]) {
-        return false
+        return false;
       }
     }
 
-    return true
+    return true;
   }
-})
+});

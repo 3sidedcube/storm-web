@@ -1,4 +1,4 @@
-require('./browser-view.less')
+require('./browser-view.less');
 
 module.exports = Backbone.View.extend({
   template: require('./browser-view-template'),
@@ -16,48 +16,48 @@ module.exports = Backbone.View.extend({
   },
 
   afterRender: function() {
-    this.backTarget = null
-    this.iframe = this.$('iframe')[0]
-    this.trigger('ready')
+    this.backTarget = null;
+    this.iframe = this.$('iframe')[0];
+    this.trigger('ready');
   },
 
   // Set iframe location.
   setUri: function(uri) {
-    this.iframe.src = uri
+    this.iframe.src = uri;
   },
 
   // Store a reference to the previously loaded page so we can navigate back.
   setBackTarget: function(uri) {
-    this.backTarget = uri
+    this.backTarget = uri;
   },
 
   // Push iframe back.
   back: function() {
-    history.back()
+    history.back();
   },
 
   // Push iframe forward.
   forward: function() {
-    history.forward()
+    history.forward();
   },
 
   // Open (original) URL in external browser.
   share: function() {
-    window.open(this.iframe.src, '_blank')
+    window.open(this.iframe.src, '_blank');
   },
 
   // Navigate back to previous page.
   exit: function() {
-    App.router.navigate(this.backTarget, {trigger: true, replace: true})
+    App.router.navigate(this.backTarget, {trigger: true, replace: true});
   },
 
   // Add glow state to buttons on touch.
   buttonTouchStart: function(e) {
-    e.currentTarget.classList.add('glow')
+    e.currentTarget.classList.add('glow');
   },
 
   // Remove glow state from buttons.
   buttonTouchEnd: function(e) {
-    e.currentTarget.classList.remove('glow')
+    e.currentTarget.classList.remove('glow');
   }
-})
+});

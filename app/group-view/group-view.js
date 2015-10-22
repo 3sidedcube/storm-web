@@ -1,26 +1,26 @@
-var ListItemViewBuilder = require('../list-item-view/list-item-view-builder')
+var ListItemViewBuilder = require('../list-item-view/list-item-view-builder');
 
-require('./group-view.less')
+require('./group-view.less');
 
 module.exports = Backbone.View.extend({
   template: require('./group-view-template'),
   className: 'GroupView',
 
   initialize: function() {
-    this.listViews = []
+    this.listViews = [];
   },
 
   afterRender: function() {
     this.listViews.forEach(function(view) {
-      view.destroy()
-    })
+      view.destroy();
+    });
 
-    this.listViews = []
+    this.listViews = [];
 
     this.model.get('children').forEach(function(child) {
-      var view = ListItemViewBuilder.build(child)
-      this.listViews.push(view)
-      this.$('> .children').append(view.render().el)
-    }, this)
+      var view = ListItemViewBuilder.build(child);
+      this.listViews.push(view);
+      this.$('> .children').append(view.render().el);
+    }, this);
   }
-})
+});

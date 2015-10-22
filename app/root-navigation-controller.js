@@ -1,4 +1,4 @@
-var NavigationController = require('./navigation-controller')
+var NavigationController = require('./navigation-controller');
 
 module.exports = NavigationController.extend({
   template: require('./root-navigation-controller-template'),
@@ -9,8 +9,8 @@ module.exports = NavigationController.extend({
   },
 
   initialize: function() {
-    NavigationController.prototype.initialize.apply(this, arguments)
-    this.render()
+    NavigationController.prototype.initialize.apply(this, arguments);
+    this.render();
   },
 
   setPageTitle: function() {
@@ -18,28 +18,28 @@ module.exports = NavigationController.extend({
 
   linkClick: function(e) {
     var uri      = $(e.currentTarget).data('uri'),
-        linkType = $(e.currentTarget).data('link-type')
+        linkType = $(e.currentTarget).data('link-type');
 
     if (linkType === 'ExternalLink') {
       if (!uri) {
-        return
+        return;
       }
 
       // Open URL in internal browser.
-      var oldUri = this.currentView.id
-      this.setPage('app://browser', false)
-      this.currentView.setUri(uri)
-      this.currentView.setBackTarget(oldUri)
+      var oldUri = this.currentView.id;
+      this.setPage('app://browser', false);
+      this.currentView.setUri(uri);
+      this.currentView.setBackTarget(oldUri);
     } else if (linkType === 'UriLink') {
       // Open URL in external browser.
-      window.open(uri, '_blank')
+      window.open(uri, '_blank');
     } else if (linkType === 'ShareLink') {
       // TODO share functionality
     } else {
-      this.setPage(uri, false)
-      App.router.navigate(uri)
+      this.setPage(uri, false);
+      App.router.navigate(uri);
     }
 
-    e.stopPropagation()
+    e.stopPropagation();
   }
-})
+});

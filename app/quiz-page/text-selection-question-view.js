@@ -1,4 +1,4 @@
-var QuizQuestion = require('./quiz-question-view')
+var QuizQuestion = require('./quiz-question-view');
 
 module.exports = QuizQuestion.extend({
   template: require('./text-selection-question-view-template'),
@@ -9,38 +9,39 @@ module.exports = QuizQuestion.extend({
   },
 
   initialize: function() {
-    this.lastOptionSelected = null
+    this.lastOptionSelected = null;
   },
 
   inputChange: function(e) {
-    var checkedCount = this.$('.CheckableListItemView input:checked').length
+    var checkedCount = this.$('.CheckableListItemView input:checked').length;
 
     if (checkedCount > this.model.get('limit')) {
-      this.lastOptionSelected.checked = false
+      this.lastOptionSelected.checked = false;
     }
 
     if (e.currentTarget.checked) {
-      this.lastOptionSelected = e.currentTarget
+      this.lastOptionSelected = e.currentTarget;
     }
   },
 
   isCorrect: function() {
-    var answer = this.model.get('answer').sort()
+    var answer = this.model.get('answer').sort(),
+        checkedSelector = '.CheckableListItemView input:checked';
 
-    var selected = this.$('.CheckableListItemView input:checked').map(function() {
-      return +$(this).data('index')
-    }).get()
+    var selected = this.$(checkedSelector).map(function() {
+      return +$(this).data('index');
+    }).get();
 
     if (answer.length !== selected.length) {
-      return false
+      return false;
     }
 
-    for (var i in answer) {
+    for (var i = 0; i < answer.length; i++) {
       if (answer[i] !== selected[i]) {
-        return false
+        return false;
       }
     }
 
-    return true
+    return true;
   }
-})
+});

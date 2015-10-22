@@ -1,6 +1,6 @@
-var PageView = require('../../../page-view')
+var PageView = require('../../../page-view');
 
-require('./tabbed-page-collection.less')
+require('./tabbed-page-collection.less');
 
 module.exports = PageView.extend({
   template: require('./tabbed-page-collection-view-template'),
@@ -8,12 +8,12 @@ module.exports = PageView.extend({
 
   getRenderData: function() {
     var data = this.model.toJSON(),
-        tabs = data.pages || []
+        tabs = data.pages || [];
 
-    data.appName = App.app.get('title')
+    data.appName = App.app.get('title');
 
     if (tabs.length > 5) {
-      this.moreTabs = tabs.splice(4, tabs.length - 4)
+      this.moreTabs = tabs.splice(4, tabs.length - 4);
     }
 
     tabs.push({
@@ -30,27 +30,27 @@ module.exports = PageView.extend({
           }
         }
       }
-    })
+    });
 
-    return data
+    return data;
   },
 
   afterRender: function() {
     var PageViewBuilder = require('../../../page-view-builder'),
-        self            = this
+        self            = this;
 
     // Render out all main tab pages.
     this.$('.page-container').each(function() {
       var url  = $(this).data('src'),
-          view = PageViewBuilder.build(url)
+          view = PageViewBuilder.build(url);
 
-      self.listViews.push(view)
+      self.listViews.push(view);
 
-      $(this).html(view.render().el)
-    })
+      $(this).html(view.render().el);
+    });
 
     setTimeout(function() {
-      WinJS.UI.processAll()
-    })
+      WinJS.UI.processAll();
+    });
   }
-})
+});

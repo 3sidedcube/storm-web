@@ -1,4 +1,4 @@
-var ListItemView = require('./list-item-view')
+var ListItemView = require('./list-item-view');
 
 module.exports = ListItemView.extend({
   events: {
@@ -6,11 +6,11 @@ module.exports = ListItemView.extend({
   },
 
   afterRender: function() {
-    ListItemView.prototype.afterRender.apply(this, arguments)
-    this.$el.addClass('toggled')
+    ListItemView.prototype.afterRender.apply(this, arguments);
+    this.$el.addClass('toggled');
   },
 
   click: function() {
-    this.$el.toggleClass('toggled')
+    this.$el.toggleClass('toggled');
   }
-})
+});
