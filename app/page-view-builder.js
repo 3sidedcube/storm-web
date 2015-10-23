@@ -1,9 +1,11 @@
+/* eslint-disable */
 var PageTypes = {
   'Page': require('./page-view'),
   'ListPage': require('current-platform/list-page-view/list-page-view'),
   'TabbedPageCollection': require('current-platform/tabbed-page-collection/tabbed-page-collection-view'),
   'QuizPage': require('./quiz-page/quiz-page-view')
 };
+/* eslint-enable */
 
 var NativeContent = {
   'more': require('./more-page-view/more-page-view'),
@@ -12,7 +14,6 @@ var NativeContent = {
 
 module.exports = {
   build: function(url) {
-
     if (url.substr(0, 6) === 'app://') {
       var NativeView = NativeContent[url.substr(6)];
 

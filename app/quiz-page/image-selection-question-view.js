@@ -11,7 +11,7 @@ module.exports = QuizQuestion.extend({
   getRenderData: function() {
     var data = this.model.toJSON();
 
-    for (var i in data.options) {
+    for (var i = 0; i < data.options.length; i++) {
       data.options[i].image = data.images[i];
     }
 
@@ -43,7 +43,7 @@ module.exports = QuizQuestion.extend({
       return false;
     }
 
-    for (var i in answer) {
+    for (var i = 0; i < answer.length; i++) {
       if (answer[i] !== selected[i]) {
         return false;
       }

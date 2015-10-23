@@ -29,14 +29,15 @@ module.exports = Backbone.View.extend({
     }
 
     // Limit collection view contents to type in first cell.
-    var type = cells[0]['class'];
+    var type = cells[0].class;
 
     cells.forEach(function(cell) {
-      if (cell['class'] !== type) {
+      if (cell.class !== type) {
         return;
       }
 
       var view = new CollectionCell[type]({model: new Backbone.Model(cell)});
+
       this.listItems.push(view);
       this.$('.cells').append(view.render().el);
     }, this);
@@ -45,7 +46,9 @@ module.exports = Backbone.View.extend({
   },
 
   renderPagingDots: function() {
+    /* eslint-disable */
     console.log(this.$('.cells')[0].scrollWidth);
     console.log(this.$('.cells')[0].offsetWidth);
+    /* eslint-enable */
   }
 });

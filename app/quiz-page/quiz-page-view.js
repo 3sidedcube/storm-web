@@ -68,6 +68,7 @@ module.exports = NavigationController.extend({
       this.$('.quiz-share-button').css('visibility', visibility);
     } else {
       var model = new Backbone.Model(questions[id]);
+
       view = QuizQuestionViewBuilder.build(model);
     }
 
@@ -77,11 +78,18 @@ module.exports = NavigationController.extend({
   },
 
   setPageTitle: function() {
-    this.$('> .navigation-controller-header .progress-text').text((this.currentQuestion + 1) + ' ' + App.language.get('_QUIZ_OF') + ' ' + this.model.get('children').length);
+    var questionNumber = this.currentQuestion + 1,
+        questions      = this.model.get('children'),
+        questionCount  = questions.length,
+        of             = App.language.get('_QUIZ_OF');
+
+    this.$('> .navigation-controller-header .progress-text')
+        .text(questionNumber + ' ' + of + ' ' + questionCount);
 
     // Set progress bar value and caption.
-    var questions = this.model.get('children');
-    this.$('.navigation-controller-header progress').attr('max', questions.length).attr('value', this.currentQuestion + 1);
+    this.$('.navigation-controller-header progress')
+        .attr('max', questionCount)
+        .attr('value', questionNumber);
   },
 
   nextQuestion: function() {

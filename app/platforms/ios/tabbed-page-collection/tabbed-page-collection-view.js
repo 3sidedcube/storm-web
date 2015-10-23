@@ -16,9 +16,8 @@ module.exports = NavigationController.extend({
     var data = this.model.toJSON(),
         tabs = data.pages || [];
 
-    if (tabs.length > 5) {
-      var moreTabs = tabs.splice(4, tabs.length - 4);
-      MorePageView.tabs = moreTabs;
+    if (tabs.length > MAX_TABS) {
+      MorePageView.tabs = tabs.splice(4, tabs.length - 4);
 
       tabs.push({
         src: 'app://more',
@@ -48,7 +47,7 @@ module.exports = NavigationController.extend({
       var pages     = this.model.get('pages'),
           startPage = pages[0].src;
 
-      for (var i in pages) {
+      for (var i = 0; i < pages.length; i++) {
         if (pages[i].startPage) {
           startPage = pages[i].src;
           break;
@@ -93,6 +92,7 @@ module.exports = NavigationController.extend({
 
   setPageTitle: function() {
     var title = localise(this.currentView.model.get('title'));
+
     this.$('> .navigation-controller-header .title').text(title);
   },
 

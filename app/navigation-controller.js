@@ -73,7 +73,9 @@ module.exports = PageView.extend({
       transitionClass = 'scale';
     }
 
-    var canGoBack = !(newStack || this.viewStack.length === 0 && newView === lastView);
+    var stackLength = this.viewStack.length,
+        canGoBack = !(newStack || stackLength === 0 && newView === lastView);
+
     this.$('.back-button').toggle(canGoBack);
 
     this.newPageContent.html(newView.el);
@@ -82,10 +84,13 @@ module.exports = PageView.extend({
     newView.once('ready', function() {
       console.info('View ready');
 
-      // Replace abstract Page instances with typed views, if the type wasn't available at fetch.
+      // Replace abstract Page instances with typed views, if the type wasn't
+      // available at fetch.
       if (newView.constructor === PageView) {
         var PageViewBuilder = require('./page-view-builder');
-        newView = this.currentView = PageViewBuilder.buildFromModel(newView.id, newView.model);
+
+        newView = PageViewBuilder.buildFromModel(newView.id, newView.model);
+        this.currentView = newView;
         this.newPageContent.html(newView.el);
         newView.render();
       }
@@ -103,19 +108,20 @@ module.exports = PageView.extend({
           return;
         }
 
-        self.pageContent.toggleClass('page-content new-page-content').removeClass(transitionClass);
-        self.newPageContent.toggleClass('page-content new-page-content').removeClass(transitionClass);
+        self.pageContent.toggleClass('page-content new-page-content')
+            .removeClass(transitionClass);
+        self.newPageContent.toggleClass('page-content new-page-content')
+            .removeClass(transitionClass);
 
         var temp = self.pageContent;
+
         self.pageContent = self.newPageContent;
         self.newPageContent = temp;
 
         if (oldView && !newStack) {
           self.viewStack.push(oldView);
-        } else {
-          if (oldView) {
-            oldView.destroy();
-          }
+        } else if (oldView) {
+          oldView.destroy();
         }
       });
 
@@ -138,6 +144,7 @@ module.exports = PageView.extend({
 
   buildView: function(url) {
     var PageViewBuilder = require('./page-view-builder');
+
     return PageViewBuilder.build(url);
   },
 

@@ -22,7 +22,7 @@ module.exports = ListItemView.extend({
       return;
     }
 
-    if (video.src['class'] === 'InternalLink') {
+    if (video.src.class === 'InternalLink') {
       // Local video.
       document.location = video.src.destination.replace('cache://', 'bundle/');
     } else {

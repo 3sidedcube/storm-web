@@ -19,7 +19,8 @@ module.exports = Backbone.View.extend({
       this.badge.fetch();
     }
 
-    var quizId = App.utils.getIdFromCacheUrl(this.model.get('quiz').destination);
+    var url    = this.model.get('quiz').destination,
+        quizId = App.utils.getIdFromCacheUrl(url);
 
     this.quizPage = new Page({id: quizId});
     this.quizPage.once('sync', this.render, this);
@@ -28,6 +29,7 @@ module.exports = Backbone.View.extend({
 
   getRenderData: function() {
     var data = this.model.toJSON();
+
     data.badge = this.badge.toJSON();
     data.quizPage = this.quizPage.toJSON();
     return data;

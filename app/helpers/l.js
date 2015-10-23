@@ -1,7 +1,7 @@
 /** Storm localisation Handlebars helper. */
 module.exports = function(key) {
   if (!key) {
-    return;
+    return '';
   }
 
   if (key.content) {
@@ -13,6 +13,7 @@ module.exports = function(key) {
   if (typeof key === 'object') {
     // Streaming object.
     var lang = navigator.language.substr(0, 2);
+
     string = key[lang] || key[Object.keys(key)[0]];
   } else {
     // Local bundle.

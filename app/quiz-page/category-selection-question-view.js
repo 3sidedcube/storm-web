@@ -15,7 +15,8 @@ module.exports = QuizQuestion.extend({
       var options = '<td>' + localise(option) + '</td>';
 
       for (var j = 0; j < catCount; j++) {
-        options += '<td><input type="radio" name="category-' + this.id + '-' + i + '"></td>';
+        options += '<td><input type="radio" name="category-' +
+            this.id + '-' + i + '"></td>';
       }
 
       html += '<tr>' + options + '</tr>';
@@ -32,11 +33,16 @@ module.exports = QuizQuestion.extend({
     for (var option = 0; option < catCount; option++) {
       selected[option] = -1;
 
-      this.$('input[name="category-' + this.id + '-' + option + '"]').each(function(i) {
+      var selector = 'input[name="category-' + this.id + '-' + option + '"]';
+
+      // Legacy code. Fix in future.
+      /* eslint-disable */
+      this.$(selector).each(function(i) {
         if ($(this).is(':checked')) {
           selected[option] = i;
         }
       });
+      /* eslint-disable */
     }
 
     // Check array values are the same.
@@ -44,8 +50,8 @@ module.exports = QuizQuestion.extend({
       return false;
     }
 
-    for (var i in answer) {
-      if (answer[i] !== selected[i]) {
+    for (var j = 0; j < answer.length; j++) {
+      if (answer[j] !== selected[j]) {
         return false;
       }
     }

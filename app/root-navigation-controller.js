@@ -27,6 +27,7 @@ module.exports = NavigationController.extend({
 
       // Open URL in internal browser.
       var oldUri = this.currentView.id;
+
       this.setPage('app://browser', false);
       this.currentView.setUri(uri);
       this.currentView.setBackTarget(oldUri);

@@ -17,8 +17,6 @@ module.exports = QuizQuestion.extend({
   },
 
   areaTouch: function(e) {
-    var container = this.$('.area-image')[0];
-
     var touchX = e.offsetX + e.currentTarget.offsetLeft,
         touchY = e.offsetY + e.currentTarget.offsetTop;
 
@@ -43,10 +41,11 @@ module.exports = QuizQuestion.extend({
       y: e.offsetY / imageH
     };
 
-    // Check whether the selected point is within any of the allowed Zone polygons.
+    // Check whether the selected point is within any of the allowed Zone
+    // polygons.
     this._isCorrect = false;
 
-    for (var i in zones) {
+    for (var i = 0; i < zones.length; i++) {
       var zone     = zones[i],
           isInside = pointIsInsidePolygon(point, zone.coordinates);
 
@@ -69,8 +68,12 @@ function pointIsInsidePolygon(point, polygon) {
     var xi = polygon[i].x, yi = polygon[i].y;
     var xj = polygon[j].x, yj = polygon[j].y;
 
-    var intersect = ((yi > point.y) != (yj > point.y)) && (point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi);
-    if (intersect) inside = !inside;
+    var intersect = yi > point.y !== yj > point.y &&
+        point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi;
+
+    if (intersect) {
+      inside = !inside;
+    }
   }
 
   return inside;

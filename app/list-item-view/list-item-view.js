@@ -13,20 +13,23 @@ module.exports = Backbone.View.extend({
 
     if (this.model.has('link')) {
       this.$el.attr('data-uri', this.model.get('link').destination);
-      this.$el.attr('data-link-type', this.model.get('link')['class']);
+      this.$el.attr('data-link-type', this.model.get('link').class);
       this.$el.addClass('clickable');
     }
 
     if (this.model.get('class') === 'CheckableListItemView') {
       this.$el.prepend('<input type="checkbox">');
 
-      var checkState = localStorage.getItem('check-' + this.model.id) === 'true';
-      this.$('input')[0].checked = checkState;
+      var isChecked = localStorage.getItem('check-' + this.model.id) === 'true';
+
+      this.$('input')[0].checked = isChecked;
     }
   },
 
   inputChange: function(e) {
-    if (this.model.get('class') === 'CheckableListItemView' && !this.model.get('volatile')) {
+    var isCheckable = this.model.get('class') === 'CheckableListItemView';
+
+    if (isCheckable && !this.model.get('volatile')) {
       localStorage.setItem('check-' + this.model.id, e.currentTarget.checked);
     }
   }

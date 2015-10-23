@@ -19,6 +19,7 @@ module.exports = Backbone.View.extend({
 
     this.model.get('children').forEach(function(child) {
       var view = ListItemViewBuilder.build(child);
+
       this.listViews.push(view);
       this.$('> .children').append(view.render().el);
     }, this);

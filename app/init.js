@@ -1,6 +1,8 @@
 var StormLanguage = require('./storm-language'),
     StormData     = require('./storm-data');
 
+var MASK_SIZE = '(-webkit-mask-size: contain) or (mask-size: contain)';
+
 require('./main.less');
 require('current-platform/platform-init');
 
@@ -9,8 +11,9 @@ window.App = require('./application');
 $(document).ready(function() {
   App.init().then(appLoaded, appLoadError);
 
-  $(document).on('click', '.CheckableListItemView', function(e) {
+  $(document).on('click', '.CheckableListItemView', function() {
     var input = $(this).find('input')[0];
+
     input.checked = !input.checked;
     $(input).trigger('change');
 
@@ -21,14 +24,14 @@ $(document).ready(function() {
     });
   });
 
-  // Revert state on checkbox click so that the parent event handler can update it.
-  $(document).on('click', '.CheckableListItemView input', function(e) {
+  // Revert state on checkbox click so that parent event handler can update it.
+  $(document).on('click', '.CheckableListItemView input', function() {
     this.checked = !this.checked;
   });
 
   var isIOS = navigator.userAgent.match(/(iPod|iPhone|iPad)/) !== null;
 
-  if (isIOS || window.CSS && window.CSS.supports('(-webkit-mask-size: contain) or (mask-size: contain)')) {
+  if (isIOS || window.CSS && window.CSS.supports(MASK_SIZE)) {
     document.body.classList.add('mask-images');
   }
 });
@@ -103,7 +106,7 @@ Backbone.View.prototype.template = function() {
 };
 
 Backbone.View.prototype.getRenderData = function() {
-  return (this.model) ? this.model.toJSON() : {};
+  return this.model ? this.model.toJSON() : {};
 };
 
 Backbone.View.prototype.render = function(data) {
