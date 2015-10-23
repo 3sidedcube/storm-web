@@ -1,42 +1,42 @@
+/* eslint-disable */
 var TabbedPageCollection = require('current-platform/tabbed-page-collection/tabbed-page-collection-view'),
-  NavigationController = require('./navigation-controller')
+    NavigationController = require('./navigation-controller');
+/* eslint-enable */
 
 module.exports = Backbone.Router.extend({
-	routes: {
-		''        : 'home',
-		'*nomatch': 'page'
-	},
+  routes: {
+    '': 'home',
+    '*nomatch': 'page'
+  },
 
-	home: function() {
-		var rootPage = App.app.get('vector')
-		this.page(rootPage)
-	},
+  home: function() {
+    var rootPage = App.app.get('vector');
 
-	page: function(url) {
-		// Don't push content pages onto the root controller in full app mode.
-		if (App.mode === App.APP_MODE_FULL && App.target === App.APP_TARGET_LOCAL && TabbedPageCollection instanceof NavigationController) {
-			var page = App.app.map[url]
+    this.page(rootPage);
+  },
 
-			if (!page || page.type === 'ListPage') {
-				if (!App.view.currentView || App.view.currentView.id !== App.app.get('vector')) {
-					this.home()
-					App.view.currentView.startUrl = url
-				} else {
-					App.view.currentView.setPage(url)
-				}
+  page: function(url) {
+    var isBundledApp = App.mode === App.APP_MODE_FULL &&
+        App.target === App.APP_TARGET_LOCAL;
 
-				return
-			}
-		}
+    // Don't push content pages onto the root controller in full app mode.
+    if (isBundledApp && TabbedPageCollection instanceof NavigationController) {
+      var page = App.app.map[url];
 
-		App.view.setPage(url)
-	}
-})
+      if (!page || page.type === 'ListPage') {
+        var viewIsRoot = App.view.currentView.id === App.app.get('vector');
 
-function setView(view) {
-	if (App.view) {
-		App.view.destroy()
-	}
+        if (!App.view.currentView || !viewIsRoot) {
+          this.home();
+          App.view.currentView.startUrl = url;
+        } else {
+          App.view.currentView.setPage(url);
+        }
 
-	App.view = view
-}
+        return;
+      }
+    }
+
+    App.view.setPage(url);
+  }
+});

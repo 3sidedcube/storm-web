@@ -1,77 +1,77 @@
 @import "config.less";
 
 .style_paper {
-	background-color: #FFF;
+  background-color: #FFF;
 
-	.GroupView .header {
-		text-transform: none;
-		text-align: center;
-		font-size: 24px;
-		line-height: 32px;
-		margin-top: 20px;
-		color: @highlight-color;
+  .GroupView .header {
+    text-transform: none;
+    text-align: center;
+    font-size: 24px;
+    line-height: 32px;
+    margin-top: 20px;
+    color: @highlight-color;
 
-		&:after {
-			content: "";
-			margin: 12px 44px 0 44px;
-			height: 2px;
-			background-color: #eee;
-			display: block;
-		}
+    &:after {
+      content: "";
+      margin: 12px 44px 0 44px;
+      height: 2px;
+      background-color: #eee;
+      display: block;
+    }
 
-		&:empty {
-			margin-top: 0;
+    &:empty {
+      margin-top: 0;
 
-			&:after {
-				display: none;
-			}
-		}
-	}
+      &:after {
+        display: none;
+      }
+    }
+  }
 
-	.ListItem {
-		border-bottom: none;
+  .ListItem {
+    border-bottom: none;
 
-		&:first-child {
-			border-top: none;
-		}
+    &:first-child {
+      border-top: none;
+    }
 
-		&.AnnotatedListItemView {
-			.annotation {
-				font-size: 24px;
-				width: 24px;
-				margin-right: 0;
-				text-align: left;
-			}
+    &.AnnotatedListItemView {
+      .annotation {
+        font-size: 24px;
+        width: 24px;
+        margin-right: 0;
+        text-align: left;
+      }
 
-			.Text {
-				margin-left: 24px;
-			}
-		}
+      .Text {
+        margin-left: 24px;
+      }
+    }
 
-		&.BulletListItemView {
-			&:before {
-				width: 2px;
-				left: 18px;
-			}
+    &.BulletListItemView {
+      &:before {
+        width: 2px;
+        left: 18px;
+      }
 
-			.Text {
-				margin-left: 15px;
-			}
-		}
+      .Text {
+        margin-left: 15px;
+      }
+    }
 
-		&.TextListItemView {
-			background-color: #FFF;
-			padding-bottom: 12px;
-		}
+    &.TextListItemView {
+      background-color: #FFF;
+      padding-bottom: 12px;
+    }
 
-		&.ImageListItemView {
-			box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-		}
-	}
+    &.ImageListItemView {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    }
+  }
 
-	.GroupView {
-		ul {
-			margin-bottom: 0;
-		}
-	}
+  .GroupView {
+    ul {
+      margin-bottom: 0;
+    }
+  }
 }

@@ -1,26 +1,26 @@
 var MorePageView = Backbone.View.extend({
-	template: require('./more-page-view-template'),
+  template: require('./more-page-view-template'),
 
-	initialize: function() {
-		this.id = 'app://more'
-		this.model = new Backbone.Model({
-			title: {
-				content: {
-					en: 'More'
-				}
-			}
-		})
-	},
+  initialize: function() {
+    this.id = 'app://more';
+    this.model = new Backbone.Model({
+      title: {
+        content: {
+          en: 'More'
+        }
+      }
+    });
+  },
 
-	getRenderData: function() {
-		return {tabs: MorePageView.tabs}
-	},
+  getRenderData: function() {
+    return {tabs: MorePageView.tabs};
+  },
 
-	afterRender: function() {
-		this.trigger('ready')
-	}
-})
+  afterRender: function() {
+    this.trigger('ready');
+  }
+});
 
-MorePageView.tabs = []
+MorePageView.tabs = [];
 
-module.exports = MorePageView
+module.exports = MorePageView;

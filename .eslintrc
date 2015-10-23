@@ -35,6 +35,9 @@
 		"jQuery": false,
 		"$": false,
 		"_": false,
+		"Backbone": false,
+		"WinJS": false,
+		"App": false
 	},
 	"rules": {
 		/*
@@ -57,7 +60,7 @@
 		"no-undef": 2,
 		"no-undefined": 2,
 		"no-unused-vars": [1, {"vars": "all", "args": "all"}], // `[2, {"vars": "all", "args": "after-used"}]` is default, optionally set `[2, {"vars": "all", "args": "after-used", "varsIgnorePattern": "<regex>", "argsIgnorePattern": "<regex>"}]`
-		"no-use-before-define": 1,
+		"no-use-before-define": [1, "nofunc"],
 
 		/*
 		**  POSSIBLE ERRORS
@@ -66,7 +69,7 @@
 		*/
 		"comma-dangle": [2, "never"],
 		"no-cond-assign": [2, "except-parens"],
-		"no-console": 1, // `2` is default. Set to `0` when developing with node
+		"no-console": 0, // `2` is default. Set to `0` when developing with node
 		"no-constant-condition": 2,
 		"no-control-regex": 2,
 		"no-debugger": 2,
@@ -80,7 +83,7 @@
 		"no-extra-parens": [1, "all"], // `[2, "all"]` is default
 		"no-extra-semi": 1, // `2` is default
 		"no-func-assign": 2,
-		"no-inner-declarations": [2, "both"], // `[2, "functions"]` is default
+		"no-inner-declarations": [2, "functions"], // `[2, "functions"]` is default
 		"no-invalid-regexp": 2,
 		"no-irregular-whitespace": 2,
 		"no-negated-in-lhs": 2,
@@ -120,7 +123,7 @@
 		"no-extra-bind": 2,
 		"no-fallthrough": 1, // `2` is recommended
 		"no-floating-decimal": 1, // `2` is recommended
-		"no-implicit-coercion": [1, {"boolean": false, "number": true, "string": false}], // `[2, {"boolean": true, "number": true, "string": true}],` is recommended
+		"no-implicit-coercion": [1, {"boolean": false, "number": false, "string": false}], // `[2, {"boolean": true, "number": true, "string": true}],` is recommended
 		"no-implied-eval": 2,
 		"no-invalid-this": 0, // `2` is recommended
 		"no-iterator": 2,
@@ -135,7 +138,7 @@
 		"no-new": 2,
 		"no-octal-escape": 2,
 		"no-octal": 2,
-		"no-param-reassign": 1, // `2` is recommended and actually defaults to `[2, {"props": false}]`
+		"no-param-reassign": 0, // `2` is recommended and actually defaults to `[2, {"props": false}]`
 		"no-process-env": 1, // `2` is recommended
 		"no-proto": 2,
 		"no-redeclare": [2, {"builtinGlobals": true}], // `2` is recommended and actually defaults to `[2, {"builtinGlobals": false}]`
@@ -148,10 +151,10 @@
 		"no-useless-call": 1, // `2` is recommended
 		"no-useless-concat": 2,
 		"no-void": 2,
-		"no-warning-comments": [1, {"terms": ["todo", "fixme"], "location": "start"}], // `[0, { "terms": ["todo", "fixme", "xxx"], "location": "start" }]` is recommended
+		"no-warning-comments": [0, {"terms": ["todo", "fixme"], "location": "start"}], // `[0, { "terms": ["todo", "fixme", "xxx"], "location": "start" }]` is recommended
 		"no-with": 2,
 		"radix": 1, // `2` is recommended
-		"vars-on-top": 1, // `2` is recommended
+		"vars-on-top": 0, // `2` is recommended
 		"wrap-iife": [2, "inside"], // `[2, "outside"]` is recommended
 		"yoda": [1, "never"], // `[2, "never"]` is recommended, optionally set `[2, "never", {"exceptRange": true, "onlyEquality": false}]
 
@@ -197,7 +200,7 @@
 		"no-underscore-dangle": 0,
 		"no-unneeded-ternary": [1, {"defaultAssignment": true}],
 		"object-curly-spacing": [1, "never"], // optionally set `[2, "always", {"objectsInObjects": false, "arraysInObjects": false}]`
-		"one-var": [1, {"uninitialized": "always", "initialized": "never"}], // optionally set `[2, {"var": "always", "let": "never", "const": "never"}]`
+		"one-var": [0, {"uninitialized": "always", "initialized": "never"}], // optionally set `[2, {"var": "always", "let": "never", "const": "never"}]`
 		"operator-assignment": 0, // optionally set `[2, "always"]`
 		"operator-linebreak": [1, "after"], // optionally set `[2, "before", {"overrides": {"?": "after"}}]`
 		"padded-blocks": [1, "never"],
@@ -261,10 +264,10 @@
 		**  JSHint/JSLint counterpart, the functionality is the same.
 		*/
 		"max-depth": 0, // `[2, 4]` is default
-		"max-len": 0, // `[2, 80, 4]` is default, optionally set `[2, 80, 4, {"ignoreComments": true, "ignoreUrls": true}]`
+		"max-len": [2, 80, 4], // `[2, 80, 4]` is default, optionally set `[2, 80, 4, {"ignoreComments": true, "ignoreUrls": true}]`
 		"max-params": 0, // no default, optionally set `[2, 3]`
 		"max-statements": 0, // no default, optionally set `[2, 2]`
-		"no-bitwise": 1, // `2` is default
+		"no-bitwise": 0, // `2` is default
 		"no-plusplus": 0, // `2` is default
 	}
 }

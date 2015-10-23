@@ -1,1 +1,1 @@
-module.exports = Backbone.Collection.extend()
+module.exports = Backbone.Collection.extend();

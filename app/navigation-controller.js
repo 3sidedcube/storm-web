@@ -1,151 +1,158 @@
-var PageView = require('./page-view')
+var PageView = require('./page-view');
 
-require('./navigation-controller.less')
-require('./transitions.less')
+require('./navigation-controller.less');
+require('./transitions.less');
 
 module.exports = PageView.extend({
-	initialize: function() {
-		PageView.prototype.initialize.apply(this, arguments)
-		this.viewStack = []
-		this.currentView = null
-	},
+  initialize: function() {
+    PageView.prototype.initialize.apply(this, arguments);
+    this.viewStack = [];
+    this.currentView = null;
+  },
 
-	afterRender: function() {
-		this.pageContent = this.$('> .page-content')
-		this.newPageContent = this.$('> .new-page-content')
-		this.$el.addClass('navigation-controller')
-	},
+  afterRender: function() {
+    this.pageContent = this.$('> .page-content');
+    this.newPageContent = this.$('> .new-page-content');
+    this.$el.addClass('navigation-controller');
+  },
 
-	setPage: function(id, newStack) {
-		console.info('Pushing to view ID', id)
+  setPage: function(id, newStack) {
+    console.info('Pushing to view ID', id);
 
-		// Stop any animations still running.
-		var classes = ['slide-left', 'slide-right', 'scale']
+    // Stop any animations still running.
+    var classes = ['slide-left', 'slide-right', 'scale'];
 
-		for (var i = 0; i < this.pageContent[0].classList.length; i++) {
-			var className = this.pageContent[0].classList[i]
+    for (var i = 0; i < this.pageContent[0].classList.length; i++) {
+      var className = this.pageContent[0].classList[i];
 
-			if (classes.indexOf(className) > -1) {
-				this.pageContent.trigger('animationend')
-				break
-			}
-		}
+      if (classes.indexOf(className) > -1) {
+        this.pageContent.trigger('animationend');
+        break;
+      }
+    }
 
-		var oldView = this.currentView,
-			newView,
-			transitionClass
+    var oldView = this.currentView,
+        newView,
+        transitionClass;
 
-		// Don't navigate to the current view.
-		if (oldView && id === oldView.id) {
-			return
-		}
+    // Don't navigate to the current view.
+    if (oldView && id === oldView.id) {
+      return;
+    }
 
-		if (newStack) {
-			this.viewStack.forEach(function(view) {
-				view.destroy()
-			})
+    if (newStack) {
+      this.viewStack.forEach(function(view) {
+        view.destroy();
+      });
 
-			this.viewStack = []
-		}
+      this.viewStack = [];
+    }
 
-		// Check if the view we want is on top of the stack.
-		var lastView = this.viewStack[this.viewStack.length - 1],
-			rerender = false
+    // Check if the view we want is on top of the stack.
+    var lastView = this.viewStack[this.viewStack.length - 1],
+        rerender = false;
 
-		if (lastView && lastView.id === id) {
-			console.info('Pushing back to last view')
+    if (lastView && lastView.id === id) {
+      console.info('Pushing back to last view');
 
-			this.viewStack.splice(this.viewStack.length - 1, 1)
-			this.setPageTitle()
+      this.viewStack.splice(this.viewStack.length - 1, 1);
+      this.setPageTitle();
 
-			newView = lastView
-			transitionClass = 'slide-right'
+      newView = lastView;
+      transitionClass = 'slide-right';
 
-			oldView = null
-		} else {
-			newView = this.buildView(id)
-			rerender = true
+      oldView = null;
+    } else {
+      newView = this.buildView(id);
+      rerender = true;
 
-			transitionClass = 'slide-left'
-		}
+      transitionClass = 'slide-left';
+    }
 
-		if (newStack) {
-			transitionClass = 'scale'
-		}
+    if (newStack) {
+      transitionClass = 'scale';
+    }
 
-		var canGoBack = !(newStack || this.viewStack.length === 0 && newView === lastView)
-		this.$('.back-button').toggle(canGoBack)
+    var stackLength = this.viewStack.length,
+        canGoBack = !(newStack || stackLength === 0 && newView === lastView);
 
-		this.newPageContent.html(newView.el)
-		this.currentView = newView
+    this.$('.back-button').toggle(canGoBack);
 
-		newView.once('ready', function() {
-			console.info('View ready')
+    this.newPageContent.html(newView.el);
+    this.currentView = newView;
 
-			// Replace abstract Page instances with typed views, if the type wasn't available at fetch.
-			if (newView.constructor === PageView) {
-				var PageViewBuilder = require('./page-view-builder')
-				newView = this.currentView = PageViewBuilder.buildFromModel(newView.id, newView.model)
-				this.newPageContent.html(newView.el)
-				newView.render()
-			}
+    newView.once('ready', function() {
+      console.info('View ready');
 
-			var self = this
+      // Replace abstract Page instances with typed views, if the type wasn't
+      // available at fetch.
+      if (newView.constructor === PageView) {
+        var PageViewBuilder = require('./page-view-builder');
 
-			this.setPageTitle()
+        newView = PageViewBuilder.buildFromModel(newView.id, newView.model);
+        this.currentView = newView;
+        this.newPageContent.html(newView.el);
+        newView.render();
+      }
 
-			this.pageContent.addClass(transitionClass)
-			this.newPageContent.addClass(transitionClass)
+      var self = this;
 
-			this.pageContent.one('animationend webkitAnimationEnd', function() {
-				// Don't do anything if we've already navigated away from this view.
-				if (newView.id !== self.currentView.id) {
-					return
-				}
+      this.setPageTitle();
 
-				self.pageContent.toggleClass('page-content new-page-content').removeClass(transitionClass)
-				self.newPageContent.toggleClass('page-content new-page-content').removeClass(transitionClass)
+      this.pageContent.addClass(transitionClass);
+      this.newPageContent.addClass(transitionClass);
 
-				var temp = self.pageContent
-				self.pageContent = self.newPageContent
-				self.newPageContent = temp
+      this.pageContent.one('animationend webkitAnimationEnd', function() {
+        // Don't do anything if we've already navigated away from this view.
+        if (newView.id !== self.currentView.id) {
+          return;
+        }
 
-				if (oldView && !newStack) {
-					self.viewStack.push(oldView)
-				} else {
-					if (oldView) {
-						oldView.destroy()
-					}
-				}
-			})
+        self.pageContent.toggleClass('page-content new-page-content')
+            .removeClass(transitionClass);
+        self.newPageContent.toggleClass('page-content new-page-content')
+            .removeClass(transitionClass);
 
-			setTimeout(function() {
-				self.newPageContent.find('.focus').removeClass('focus')
-			}, 600)
-		}, this)
+        var temp = self.pageContent;
 
-		if (rerender) {
-			newView.render()
-		} else {
-			newView.delegateEvents()
-		}
+        self.pageContent = self.newPageContent;
+        self.newPageContent = temp;
 
-		// If we've popped the last view off the stack it's already ready.
-		if (lastView && lastView.id === id) {
-			newView.trigger('ready')
-		}
-	},
+        if (oldView && !newStack) {
+          self.viewStack.push(oldView);
+        } else if (oldView) {
+          oldView.destroy();
+        }
+      });
 
-	buildView: function(url) {
-		var PageViewBuilder = require('./page-view-builder')
-		return PageViewBuilder.build(url)
-	},
+      setTimeout(function() {
+        self.newPageContent.find('.focus').removeClass('focus');
+      }, 600);
+    }, this);
 
-	destroy: function() {
-		PageView.prototype.destroy.call(this)
+    if (rerender) {
+      newView.render();
+    } else {
+      newView.delegateEvents();
+    }
 
-		this.viewStack.forEach(function(view) {
-			view.destroy()
-		})
-	}
-})
+    // If we've popped the last view off the stack it's already ready.
+    if (lastView && lastView.id === id) {
+      newView.trigger('ready');
+    }
+  },
+
+  buildView: function(url) {
+    var PageViewBuilder = require('./page-view-builder');
+
+    return PageViewBuilder.build(url);
+  },
+
+  destroy: function() {
+    PageView.prototype.destroy.call(this);
+
+    this.viewStack.forEach(function(view) {
+      view.destroy();
+    });
+  }
+});

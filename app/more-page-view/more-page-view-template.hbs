@@ -1,15 +1,18 @@
 <div class="GroupView">
-	<div class="children">
-		{{#each tabs}}
-			<div class="ListItem StandardListItem clickable" data-uri="{{src}}" data-link-type="InternalLink">
-				<span class="img-container" style="-webkit-mask-image:url('{{getImageUrl tabBarItem.image}}'); mask-image:url('{{getImageUrl tabBarItem.image}}')">
+  <div class="children">
+    {{#each tabs}}
+      <div class="ListItem StandardListItem clickable" data-uri="{{src}}"
+           data-link-type="InternalLink">
+				<span class="img-container"
+              style="-webkit-mask-image:url('{{getImageUrl tabBarItem.image}}'); mask-image:url('{{getImageUrl tabBarItem.image}}')">
 					<img src="{{getImageUrl tabBarItem.image}}">
 				</span>
-				<div class="text-container">
-					<div class="Text">{{{l tabBarItem.title}}}</div>
-				</div>
-				<span class="chevron"><i class="fa fa-chevron-right"></i></span>
-			</div>
-		{{/each}}
-	</div>
+
+        <div class="text-container">
+          <div class="Text">{{{l tabBarItem.title}}}</div>
+        </div>
+        <span class="chevron"><i class="fa fa-chevron-right"></i></span>
+      </div>
+    {{/each}}
+  </div>
 </div>
