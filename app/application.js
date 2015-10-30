@@ -1,7 +1,8 @@
 var StormApp                 = require('./storm-app'),
     StormManifest            = require('./storm-manifest'),
     Router                   = require('./router'),
-    RootNavigationController = require('./root-navigation-controller');
+    RootNavigationController = require('./root-navigation-controller'),
+    BundleManager            = require('./bundle-manager');
 
 module.exports = {
   init: function() {
@@ -28,6 +29,7 @@ module.exports = {
   },
 
   initRemote: function() {
+    this.bundleManager.update();
     return $.when();
   },
 
@@ -53,6 +55,7 @@ module.exports = {
   mode: 0,
   target: 0,
   utils: require('./utils'),
+  bundleManager: new BundleManager(),
 
   APP_MODE_FULL: 0,
   APP_MODE_PAGE: 1,
