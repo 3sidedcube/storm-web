@@ -40,7 +40,6 @@
     "backbone": "^1.2.3",
     "es6-promise": "^3.0.2",
     "fastclick": "^1.0.6",
-    "filer": "0.0.44",
     "jquery": "^2.1.4",
     "underscore": "^1.8.3",
     "winjs": "^4.4.0"
