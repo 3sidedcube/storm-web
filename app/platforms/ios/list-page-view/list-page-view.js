@@ -11,7 +11,7 @@ module.exports = PageView.extend({
 
     this.listViews = [];
 
-    var children = this.model.get('children');
+    var children = this.model.get('children') || [];
 
     for (var i = 0; i < children.length; i++) {
       var child = children[i],
