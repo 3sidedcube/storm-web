@@ -12,7 +12,7 @@
     "node": "~0.8.0"
   },
   "scripts": {
-    "start": "gulp watch"
+    "start": "gulp webpack-dev-server"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
