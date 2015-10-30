@@ -19,7 +19,7 @@ gulp.task('copy-assets', function() {
 });
 
 // Production build
-gulp.task('build', ['copy-assets', 'webpack:build']);
+gulp.task('build', ['lint', 'copy-assets', 'webpack:build']);
 
 gulp.task('webpack:build', function(callback) {
   // modify some webpack config options
