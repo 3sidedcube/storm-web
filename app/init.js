@@ -149,3 +149,5 @@ Backbone.View.prototype.destroy = function() {
   this.remove();
   this.unbind();
 };
+
+require('es6-promise').polyfill();
