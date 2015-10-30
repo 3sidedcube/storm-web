@@ -38,7 +38,7 @@ module.exports = {
 
     return new PageView({
       id: id,
-      url: url
+      url: App.bundleManager.getResourceUrl(url)
     });
   },
 
@@ -48,7 +48,7 @@ module.exports = {
 
     return new PageView({
       model: model,
-      url: url
+      url: App.bundleManager.getResourceUrl(url)
     });
   }
 };

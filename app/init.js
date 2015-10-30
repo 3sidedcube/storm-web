@@ -88,7 +88,7 @@ function fetchData() {
     var filename = data.src.slice(0, -5),
         model    = new StormData();
 
-    model.url = 'bundle/data/' + data.src;
+    model.url = App.bundleManager.getResourceUrl('bundle/data/' + data.src);
 
     App.data[filename] = model;
     requests.push(model.fetch());
