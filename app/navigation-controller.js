@@ -1,5 +1,9 @@
 var PageView = require('./page-view');
 
+var SLIDE_LEFT  = 'slide-left',
+    SLIDE_RIGHT = 'slide-right',
+    SCALE       = 'scale';
+
 require('./navigation-controller.less');
 require('./transitions.less');
 
@@ -8,6 +12,7 @@ module.exports = PageView.extend({
     PageView.prototype.initialize.apply(this, arguments);
     this.viewStack = [];
     this.currentView = null;
+    this.prevView = null;
   },
 
   afterRender: function() {
@@ -20,7 +25,7 @@ module.exports = PageView.extend({
     console.info('Pushing to view ID', id);
 
     // Stop any animations still running.
-    var classes = ['slide-left', 'slide-right', 'scale'];
+    var classes = [SLIDE_LEFT, SLIDE_RIGHT, SCALE];
 
     for (var i = 0; i < this.pageContent[0].classList.length; i++) {
       var className = this.pageContent[0].classList[i];
@@ -49,8 +54,9 @@ module.exports = PageView.extend({
     }
 
     // Check if the view we want is on top of the stack.
-    var lastView = this.viewStack[this.viewStack.length - 1],
-        rerender = false;
+    var lastView  = this.viewStack[this.viewStack.length - 1],
+        rerender  = false,
+        goingBack = false;
 
     if (lastView && lastView.id === id) {
       console.info('Pushing back to last view');
@@ -59,22 +65,15 @@ module.exports = PageView.extend({
       this.setPageTitle();
 
       newView = lastView;
-      transitionClass = 'slide-right';
-
+      goingBack = true;
       oldView = null;
     } else {
       newView = this.buildView(id);
       rerender = true;
-
-      transitionClass = 'slide-left';
-    }
-
-    if (newStack) {
-      transitionClass = 'scale';
     }
 
     var stackLength = this.viewStack.length,
-        canGoBack = !(newStack || stackLength === 0 && newView === lastView);
+        canGoBack   = !(newStack || stackLength === 0 && newView === lastView);
 
     this.$('.back-button').toggle(canGoBack);
 
@@ -98,36 +97,32 @@ module.exports = PageView.extend({
       var self = this;
 
       this.setPageTitle();
+      this.prevView = oldView;
 
-      this.pageContent.addClass(transitionClass);
-      this.newPageContent.addClass(transitionClass);
+      var transition;
 
-      this.pageContent.one('animationend webkitAnimationEnd', function() {
-        // Don't do anything if we've already navigated away from this view.
-        if (newView.id !== self.currentView.id) {
-          return;
-        }
+      if (newStack) {
+        transition = this.transitionNew();
+      } else if (goingBack) {
+        transition = this.transitionBackward();
+      } else {
+        transition = this.transitionForward();
+      }
 
-        self.pageContent.toggleClass('page-content new-page-content')
-            .removeClass(transitionClass);
-        self.newPageContent.toggleClass('page-content new-page-content')
-            .removeClass(transitionClass);
+      transition.then(function() {
+        console.log('hi')
+        self.pageContent.toggleClass('page-content new-page-content');
+        self.newPageContent.toggleClass('page-content new-page-content');
 
         var temp = self.pageContent;
 
         self.pageContent = self.newPageContent;
         self.newPageContent = temp;
 
-        if (oldView && !newStack) {
-          self.viewStack.push(oldView);
-        } else if (oldView) {
-          oldView.destroy();
-        }
+        setTimeout(function() {
+          self.newPageContent.find('.focus').removeClass('focus');
+        }, 100);
       });
-
-      setTimeout(function() {
-        self.newPageContent.find('.focus').removeClass('focus');
-      }, 600);
     }, this);
 
     if (rerender) {
@@ -140,6 +135,81 @@ module.exports = PageView.extend({
     if (lastView && lastView.id === id) {
       newView.trigger('ready');
     }
+  },
+
+  transitionForward: function() {
+    var newView = this.currentView,
+        oldView = this.prevView;
+
+    return new Promise(function(resolve) {
+      this.pageContent.addClass(SLIDE_LEFT);
+      this.newPageContent.addClass(SLIDE_LEFT);
+
+      this.pageContent.one('animationend webkitAnimationEnd', function() {
+        // Don't do anything if we've already navigated away from this view.
+        if (newView.id !== this.currentView.id) {
+          return;
+        }
+
+        this.pageContent.removeClass(SLIDE_LEFT);
+        this.newPageContent.removeClass(SLIDE_LEFT);
+
+        if (oldView) {
+          this.viewStack.push(oldView);
+        }
+
+        resolve();
+      }.bind(this));
+    }.bind(this));
+  },
+
+  transitionBackward: function() {
+    var newView = this.currentView,
+        oldView = this.prevView;
+
+    return new Promise(function(resolve) {
+      this.pageContent.addClass(SLIDE_RIGHT);
+      this.newPageContent.addClass(SLIDE_RIGHT);
+
+      this.pageContent.one('animationend webkitAnimationEnd', function() {
+        // Don't do anything if we've already navigated away from this view.
+        if (newView.id !== this.currentView.id) {
+          return;
+        }
+
+        this.pageContent.removeClass(SLIDE_RIGHT);
+        this.newPageContent.removeClass(SLIDE_RIGHT);
+
+        // TODO clean up previous view?
+        resolve();
+      }.bind(this));
+    }.bind(this));
+  },
+
+  transitionNew: function() {
+    var newView = this.currentView,
+        oldView = this.prevView;
+
+    return new Promise(function(resolve) {
+      this.pageContent.addClass(SCALE);
+      this.newPageContent.addClass(SCALE);
+
+      this.pageContent.one('animationend webkitAnimationEnd', function() {
+        // Don't do anything if we've already navigated away from this view.
+        if (newView.id !== this.currentView.id) {
+          return;
+        }
+
+        this.pageContent.removeClass(SCALE);
+        this.newPageContent.removeClass(SCALE);
+
+        if (oldView) {
+          oldView.destroy();
+        }
+
+        resolve();
+      }.bind(this));
+    }.bind(this));
   },
 
   buildView: function(url) {
