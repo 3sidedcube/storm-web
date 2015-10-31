@@ -1,8 +1,7 @@
 window.requestFileSystem = window.requestFileSystem ||
     window.webkitRequestFileSystem;
 
-/** @const {number} */
-var FS_SIZE = 10 * 1024 * 1024; // 10MB
+var FileSystem = require('./file-system');
 
 /** @const {string} */
 var RESOURCE_MAP_PATH = 'updatedResources.dat';
@@ -22,30 +21,24 @@ module.exports = Backbone.Model.extend({
    * @returns {Promise} Promise which resolves on cache load completion.
    */
   init: function() {
+    this.fs_ = FileSystem;
+
     var self = this;
 
-    return new Promise(function(resolve) {
-      window.requestFileSystem(window.PERSISTENT, FS_SIZE, function(fs) {
-        self.fs_ = fs;
+    return new Promise(function(resolve, reject) {
+      FileSystem.init()
+          .then(function() {
+            return FileSystem.readFileAsText(RESOURCE_MAP_PATH);
+          }, reject)
+          .then(function(data) {
+            var paths = data.split('\n');
 
-        fs.root.readFile(RESOURCE_MAP_PATH, {}, function(fileEntry) {
-          fileEntry.file(function(file) {
-            var reader = new FileReader();
+            for (var i = 0; i < paths.length; i++) {
+              self.updatedResources_[paths[i]] = true;
+            }
 
-            reader.onloadend = function() {
-              var paths = this.result.split('\n');
-
-              for (var i = 0; i < paths.length; i++) {
-                self.updatedResources_[paths[i]] = true;
-              }
-
-              resolve();
-            };
-
-            reader.readAsText(file);
-          });
-        }, resolve);
-      });
+            resolve();
+          }, resolve);
     });
   },
 
