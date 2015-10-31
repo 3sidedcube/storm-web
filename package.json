@@ -12,7 +12,8 @@
     "node": "~0.8.0"
   },
   "scripts": {
-    "start": "gulp webpack-dev-server"
+    "start": "gulp webpack-dev-server",
+    "test": "karma run karma.conf.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
@@ -30,7 +31,11 @@
     "karma-webpack": "^1.7.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "mocha": "^2.3.3",
     "postcss-loader": "^0.7.0",
+    "rewire": "^2.3.4",
+    "rewire-webpack": "^1.0.0",
+    "sinon": "^1.17.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
