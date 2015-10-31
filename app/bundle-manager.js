@@ -6,6 +6,10 @@ var FileSystem = require('./file-system');
 /** @const {string} */
 var RESOURCE_MAP_PATH = 'updatedResources.dat';
 
+/**
+ * Manages local bundle updating and resolving cache:// URLs to either original
+ * bundle resources or resources downloaded through a delta.
+ */
 module.exports = Backbone.Model.extend({
   /** @override @constructor */
   initialize: function() {
