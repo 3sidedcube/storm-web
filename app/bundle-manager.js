@@ -65,7 +65,7 @@ module.exports = Backbone.Model.extend({
    * @returns {string} Path to the resource from the bundle.
    */
   getResourceUrl: function(url) {
-    var localPath = url.replace('cache://', 'bundle');
+    var localPath = url.replace('cache://', 'bundle/');
 
     if (this.updatedResources_[localPath]) {
       return 'cdvfile://persistent/' + localPath;
