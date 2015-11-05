@@ -1,0 +1,7 @@
+<div class="badge-list">
+  {{#each badges}}
+    <div class="badge-list-item{{#if isCompleted}} completed{{/if}}" data-src="cache://pages/{{id}}.json">
+      <img src="{{getImageUrl badge.icon}}">
+    </div>
+  {{/each}}
+</div>
