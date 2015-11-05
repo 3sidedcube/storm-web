@@ -1,5 +1,8 @@
-require('winjs');
-require('winjs/css/ui-light.css');
+if (!window.WinJS) {
+  require('winjs');
+  require('winjs/css/ui-light.css');
+}
+
 require('./overrides.less');
 
 var NavigationController = require('../../navigation-controller');
