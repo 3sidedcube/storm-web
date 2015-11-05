@@ -1,6 +1,8 @@
 window.requestFileSystem = window.requestFileSystem ||
     window.webkitRequestFileSystem;
 
+var WinJSFileSystem = require('./winjs-file-system');
+
 /** @const {number} */
 var FS_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -60,4 +62,12 @@ var FileSystem = Backbone.Model.extend({
   }
 });
 
-module.exports = new FileSystem();
+var fsInstance;
+
+if (WinJS) {
+  fsInstance = new WinJSFileSystem();
+} else {
+  fsInstance = new FileSystem();
+}
+
+module.exports = fsInstance;
