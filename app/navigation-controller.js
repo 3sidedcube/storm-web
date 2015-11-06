@@ -164,7 +164,7 @@ module.exports = PageView.extend({
   },
 
   transitionBackward: function() {
-    var newView = this.currentView
+    var newView = this.currentView;
 
     return new Promise(function(resolve) {
       this.pageContent.addClass(SLIDE_RIGHT);
