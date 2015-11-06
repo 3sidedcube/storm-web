@@ -15,6 +15,7 @@ module.exports = ListItemView.extend({
 
   /** @override */
   events: {
+    'touchstart': 'touchEventHandler',
     'click .badge-list-item': 'badgeListItemClick'
   },
 
@@ -66,5 +67,14 @@ module.exports = ListItemView.extend({
     var src = $(e.currentTarget).data('src');
 
     App.router.navigate(src, {trigger: true});
+  },
+
+  /**
+   * Handles touch events on the badge list to stop the parent Pivot control in
+   * WP from scrolling.
+   * @param {Event} e DOM touch event.
+   */
+  touchEventHandler: function(e) {
+    e.stopPropagation();
   }
 });
