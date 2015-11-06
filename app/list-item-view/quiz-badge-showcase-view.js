@@ -1,5 +1,6 @@
 var ListItemView = require('./list-item-view'),
-    Page = require('../page');
+    Page         = require('../page'),
+    QuizUtils    = require('../quiz-page/quiz-utils');
 
 require('./quiz-badge-showcase.less');
 
@@ -48,7 +49,7 @@ module.exports = ListItemView.extend({
         title: page.get('title'),
         badge: badge ? badge.toJSON() : {},
         id: page.id,
-        isComplete: isQuizComplete(page.id)
+        isComplete: QuizUtils.isQuizComplete(page.id)
       };
     });
 
@@ -67,13 +68,3 @@ module.exports = ListItemView.extend({
     App.router.navigate(src, {trigger: true});
   }
 });
-
-/**
- * Checks whether the quiz with the specified {@param id} has been previously
- * completed.
- * @param id The ID of the quiz page to check.
- * @returns {boolean} Whether the quiz has previously been completed.
- */
-function isQuizComplete(id) {
-  return localStorage.getItem('quiz-' + id) !== null;
-}
