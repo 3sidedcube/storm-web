@@ -25,12 +25,14 @@ module.exports = PageView.extend({
     console.info('Pushing to view ID', id);
 
     // Stop any animations still running.
-    var classes = [SLIDE_LEFT, SLIDE_RIGHT, SCALE];
+    var animationClasses = [SLIDE_LEFT, SLIDE_RIGHT, SCALE];
 
-    for (var i = 0; i < this.pageContent[0].classList.length; i++) {
-      var className = this.pageContent[0].classList[i];
+    var classes = this.pageContent[0] ? this.pageContent[0].classList : [];
 
-      if (classes.indexOf(className) > -1) {
+    for (var i = 0; i < classes.length; i++) {
+      var className = classes[i];
+
+      if (animationClasses.indexOf(className) > -1) {
         this.pageContent.trigger('animationend');
         break;
       }
