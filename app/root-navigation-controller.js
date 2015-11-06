@@ -1,3 +1,4 @@
+/* global Windows */
 var NavigationController = require('./navigation-controller');
 
 module.exports = NavigationController.extend({
