@@ -1,5 +1,6 @@
 var StormLanguage = require('./storm-language'),
-    StormData     = require('./storm-data');
+    StormData     = require('./storm-data'),
+    stormConfig   = require('../storm-config.json');
 
 var MASK_SIZE = '(-webkit-mask-size: contain) or (mask-size: contain)';
 
@@ -10,7 +11,7 @@ window.App = require('./application');
 
 $(document).ready(function() {
   // TODO read platform from manifest.
-  $('body').addClass('wp');
+  $('body').addClass(stormConfig.platform);
 
   /* When running with a local bundle, bundle manager *MUST* be started before
    any other resources are loaded, so that paths can be resolved correctly if

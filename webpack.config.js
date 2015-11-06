@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
+var stormConfig = require('./storm-config.json');
 
 var context = __dirname + '/app';
 
@@ -19,12 +20,13 @@ module.exports = {
       {test: /\.css$/, loader: 'style!css'},
       {test: /\.less$/, loader: 'style!css!postcss!less'},
       {test: /\.hbs$/, loader: 'handlebars?helperDirs[]=' + context + '/helpers'},
-      {test: /\.ttf/, loader: 'url'}
+      {test: /\.ttf$/, loader: 'url'},
+      {test: /\.json$/, loader: 'json'}
     ]
   },
   resolve: {
     alias: {
-      'current-platform': context + '/platforms/wp'
+      'current-platform': context + '/platforms/' + stormConfig.platform
     },
     extensions: ['', '.webpack.js', '.web.js', '.js', '.hbs']
   },

@@ -2,7 +2,8 @@ var StormApp                 = require('./storm-app'),
     StormManifest            = require('./storm-manifest'),
     Router                   = require('./router'),
     RootNavigationController = require('./root-navigation-controller'),
-    BundleManager            = require('./bundle-manager');
+    BundleManager            = require('./bundle-manager'),
+    stormConfig              = require('../storm-config.json');
 
 module.exports = {
   init: function() {
@@ -45,7 +46,7 @@ module.exports = {
     }
   },
 
-  apiRoot: 'https://brc.cubeapis.com/v1.3/',
+  apiRoot: stormConfig.apiRoot,
 
   view: null,
   app: null,

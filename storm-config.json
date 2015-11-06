@@ -1,0 +1,10 @@
+{
+	"apiRoot": "https://storm.cubeapis.com/v1.3/",
+	"appId": 0,
+	"platform": "wp",
+	"wp-settings": {
+		"app-bar-urls": [
+			"cache://pages/16330.json"
+		]
+	}
+}

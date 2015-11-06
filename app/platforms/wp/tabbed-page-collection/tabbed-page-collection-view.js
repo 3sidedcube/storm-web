@@ -1,4 +1,5 @@
-var PageView = require('../../../page-view');
+var PageView = require('../../../page-view'),
+    stormConfig = require('../../../../storm-config.json');
 
 require('./tabbed-page-collection.less');
 
@@ -13,12 +14,17 @@ module.exports = PageView.extend({
     data.appName = App.app.get('title');
     data.appBarTabs = [];
 
-    // TODO specify an array of page IDs to be linked to from app bar in
-    // manifest.
-    for (var i = 0; i < tabs.length; i++) {
-      if (tabs[i].src === 'cache://pages/16330.json') {
-        data.appBarTabs.push(tabs[i]);
-        tabs.splice(i, 1);
+    // Move specified pages from TabbedPageCollection to AppBar.
+    var wpSettings = stormConfig['wp-settings'];
+
+    if (wpSettings) {
+      var appBarURLs = wpSettings['app-bar-urls'] || [];
+
+      for (var i = 0; i < tabs.length; i++) {
+        if (appBarURLs.indexOf(tabs[i].src) > -1) {
+          data.appBarTabs.push(tabs[i]);
+          tabs.splice(i, 1);
+        }
       }
     }
 
