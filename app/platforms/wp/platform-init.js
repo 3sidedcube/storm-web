@@ -4,6 +4,7 @@ if (!window.WinJS) {
 }
 
 require('./overrides.less');
+require('./../../../vendor/winstore-jscompat');
 
 var NavigationController = require('../../navigation-controller');
 
