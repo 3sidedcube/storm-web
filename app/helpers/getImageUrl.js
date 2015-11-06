@@ -10,8 +10,9 @@ module.exports = function(image) {
   if (image.class === 'NativeImage') {
     // TODO
   } else {
-    var cacheUrl = image.src['x' + App.imageDensity];
+    var cacheUrl = image.src['x' + App.imageDensity],
+        path = cacheUrl.replace('cache://', 'bundle/');
 
-    return cacheUrl.replace('cache://', 'bundle/');
+    return App.bundleManager.getResourceUrl(path);
   }
 };

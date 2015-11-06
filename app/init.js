@@ -9,7 +9,16 @@ require('current-platform/platform-init');
 window.App = require('./application');
 
 $(document).ready(function() {
-  App.init().then(appLoaded, appLoadError);
+  /* When running with a local bundle, bundle manager *MUST* be started before
+   any other resources are loaded, so that paths can be resolved correctly if
+   any resources have been updated through delta updates. */
+  if (App.target === App.APP_TARGET_REMOTE) {
+    App.bundleManager.init()
+        .then(App.init)
+        .then(appLoaded, appLoadError);
+  } else {
+    App.init().then(appLoaded, appLoadError);
+  }
 
   $(document).on('click', '.CheckableListItemView', function() {
     var input = $(this).find('input')[0];
@@ -79,7 +88,7 @@ function fetchData() {
     var filename = data.src.slice(0, -5),
         model    = new StormData();
 
-    model.url = 'bundle/data/' + data.src;
+    model.url = App.bundleManager.getResourceUrl('bundle/data/' + data.src);
 
     App.data[filename] = model;
     requests.push(model.fetch());

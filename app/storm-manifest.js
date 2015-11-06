@@ -1,5 +1,7 @@
 module.exports = Backbone.Model.extend({
-  url: 'bundle/manifest.json',
+  url: function() {
+    return App.bundleManager.getResourceUrl('bundle/manifest.json');
+  },
 
   initialize: function() {
     this.map = {};
