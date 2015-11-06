@@ -64,7 +64,7 @@ var FileSystem = Backbone.Model.extend({
 
 var fsInstance;
 
-if (WinJS) {
+if (window.WinJS) {
   fsInstance = new WinJSFileSystem();
 } else {
   fsInstance = new FileSystem();
