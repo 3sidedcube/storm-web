@@ -27,7 +27,7 @@ module.exports = ListItemView.extend({
 
     /** @private @type {Array.<Page>} */
     this.pages_ = this.model.get('quizzes').map(function(url) {
-      var id = App.utils.getIdFromCacheUrl(url),
+      var id   = App.utils.getIdFromCacheUrl(url),
           page = new Page({id: id});
 
       requests.push(page.fetch());

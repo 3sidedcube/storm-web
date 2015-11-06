@@ -39,8 +39,7 @@ module.exports = PageView.extend({
     }
 
     var oldView = this.currentView,
-        newView,
-        transitionClass;
+        newView;
 
     // Don't navigate to the current view.
     if (oldView && id === oldView.id) {
@@ -112,7 +111,6 @@ module.exports = PageView.extend({
       }
 
       transition.then(function() {
-        console.log('hi')
         self.pageContent.toggleClass('page-content new-page-content');
         self.newPageContent.toggleClass('page-content new-page-content');
 
@@ -166,8 +164,7 @@ module.exports = PageView.extend({
   },
 
   transitionBackward: function() {
-    var newView = this.currentView,
-        oldView = this.prevView;
+    var newView = this.currentView;
 
     return new Promise(function(resolve) {
       this.pageContent.addClass(SLIDE_RIGHT);
