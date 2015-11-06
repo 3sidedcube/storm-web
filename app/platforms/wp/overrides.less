@@ -13,6 +13,40 @@
     }
   }
 
+  .wp-TabbedPageCollection .page-container {
+    .GroupView .children {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .ListItem {
+        width: 100%;
+
+        &.StandardListItemView {
+          width: ~"calc(50% - 5px)";
+          height: 85px;
+          box-sizing: border-box;
+          margin-top: 10px;
+          background-color: #F2F1EF !important;
+          border-bottom: none;
+          justify-content: space-between;
+          display: flex;
+          flex-direction: column;
+
+          .img-container {
+            float: none;
+          }
+
+          .ListItem .Text:nth-of-type(1) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
+        }
+      }
+    }
+  }
+
   .ListItem {
     background-color: transparent !important;
 
