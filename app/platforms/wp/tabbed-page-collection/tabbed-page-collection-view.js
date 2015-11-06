@@ -11,26 +11,16 @@ module.exports = PageView.extend({
         tabs = data.pages || [];
 
     data.appName = App.app.get('title');
+    data.appBarTabs = [];
 
-    if (tabs.length > 5) {
-      this.moreTabs = tabs.splice(4, tabs.length - 4);
-    }
-
-    tabs.push({
-      src: 'app://more',
-      tabBarItem: {
-        title: {
-          content: 'cik0t'
-        },
-        image: {
-          'class': 'Image',
-          src: {
-            x1: '',
-            x2: ''
-          }
-        }
+    // TODO specify an array of page IDs to be linked to from app bar in
+    // manifest.
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].src === 'cache://pages/16330.json') {
+        data.appBarTabs.push(tabs[i]);
+        tabs.splice(i, 1);
       }
-    });
+    }
 
     return data;
   },

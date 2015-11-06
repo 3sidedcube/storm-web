@@ -7,4 +7,17 @@
     </div>
   {{/each}}
 </div>
+<div data-win-control="WinJS.UI.AppBar"
+     data-win-options="{placement:'bottom'}">
+  {{#each appBarTabs}}
+    <button class="clickable"
+            data-uri="{{src}}"
+            data-win-control="WinJS.UI.AppBarCommand"
+            data-win-options="{id:'{{src}}',
+              type:'button',
+              section:'primary',
+              label:'{{l tabBarItem.title}}',
+              icon:'{{getImageUrl tabBarItem.image}}'"></button>
+  {{/each}}
+</div>
 
