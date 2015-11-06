@@ -107,7 +107,7 @@
 		"complexity": [1, 10], // `[2, 2]` is recommended
 		"consistent-return": 2,
 		"curly": [2, "all"],
-		"default-case": 2,
+		"default-case": 0,
 		"dot-notation": [2, {"allowKeywords": true, "allowPattern": ""}],
 		"dot-location": [2, "property"], // `[2, "object"]` is recommended
 		"eqeqeq": 2, // `2` is recommended, optionally set `[2, "smart"]` or `[2, "allow-null"]`

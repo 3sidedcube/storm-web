@@ -9,6 +9,9 @@ require('current-platform/platform-init');
 window.App = require('./application');
 
 $(document).ready(function() {
+  // TODO read platform from manifest.
+  $('body').addClass('wp');
+
   /* When running with a local bundle, bundle manager *MUST* be started before
    any other resources are loaded, so that paths can be resolved correctly if
    any resources have been updated through delta updates. */
