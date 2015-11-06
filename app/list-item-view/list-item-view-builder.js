@@ -7,7 +7,8 @@ var ViewTypes = {
   SpotlightImageListItemView: require('./spotlight-image-list-item-view'),
   AnimatedImageListItemView: require('./animated-image-list-item-view'),
   MultiVideoListItemView: require('./multi-video-list-item-view'),
-  QuizBadgeShowcase: require('./quiz-badge-showcase-view')
+  QuizBadgeShowcase: require('./quiz-badge-showcase-view'),
+  QuizProgressListItemView: require('./quiz-progress-list-item-view')
 };
 
 module.exports = {
