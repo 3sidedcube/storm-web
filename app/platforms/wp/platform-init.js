@@ -1,3 +1,5 @@
+/* global Windows */
+
 if (!window.WinJS) {
   require('winjs');
   require('winjs/css/ui-light.css');
@@ -6,7 +8,13 @@ if (!window.WinJS) {
 require('./overrides.less');
 require('./../../../vendor/winstore-jscompat');
 
-var NavigationController = require('../../navigation-controller');
+var NavigationController = require('../../navigation-controller'),
+    HardwareButtons      = Windows.Phone.UI.Input.HardwareButtons;
+
+HardwareButtons.addEventListener('backpressed', function(e) {
+  e.handled = true;
+  history.back();
+});
 
 var transition = function() {
   var newPage = this.newPageContent,
