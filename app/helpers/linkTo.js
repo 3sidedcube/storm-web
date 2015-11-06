@@ -32,12 +32,10 @@ module.exports = function(link) {
     case 'TimerLink':
       // TODO
       throw new Error('Not yet implemented');
-      break;
 
     case 'AppLink':
       // TODO
       throw new Error('Not yet implemented');
-      break;
   }
 
   var components = Object.keys(attrs).map(function(key) {
