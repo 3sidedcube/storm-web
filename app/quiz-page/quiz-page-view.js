@@ -81,7 +81,7 @@ module.exports = NavigationController.extend({
     var questionNumber = this.currentQuestion + 1,
         questions      = this.model.get('children'),
         questionCount  = questions.length,
-        of             = App.language.get('_QUIZ_OF');
+        of             = App.language.get('_QUIZ_OF') || 'of';
 
     this.$('> .navigation-controller-header .progress-text')
         .text(questionNumber + ' ' + of + ' ' + questionCount);

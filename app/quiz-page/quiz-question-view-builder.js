@@ -15,3 +15,5 @@ module.exports = {
     return new Question({model: model});
   }
 };
+
+require('./quiz-question.less');
