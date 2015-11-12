@@ -1,5 +1,6 @@
-var ListPage = require('current-platform/list-page-view/list-page-view'),
-    Page     = require('../page');
+var ListPage  = require('current-platform/list-page-view/list-page-view'),
+    Page      = require('../page'),
+    QuizUtils = require('./quiz-utils');
 
 module.exports = ListPage.extend({
   initialize: function(options) {
@@ -26,6 +27,7 @@ module.exports = ListPage.extend({
 
     if (this.answers.indexOf(false) === -1) {
       this.generateSuccessModel();
+      QuizUtils.setQuizComplete(this.page.id);
     } else {
       this.generateFailureModel();
     }
