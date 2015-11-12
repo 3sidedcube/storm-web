@@ -106,10 +106,27 @@ module.exports = PageView.extend({
 
       if (newStack) {
         transition = this.transitionNew();
+
+        // Clean up final view (was never pushed to view stack).
+        transition.then(function() {
+          if (oldView) {
+            oldView.destroy();
+          }
+        });
       } else if (goingBack) {
         transition = this.transitionBackward();
+
+        transition.then(function() {
+          if (oldView) {
+            oldView.destroy();
+          }
+        });
       } else {
         transition = this.transitionForward();
+
+        if (oldView) {
+          this.viewStack.push(oldView);
+        }
       }
 
       transition.then(function() {
@@ -140,8 +157,7 @@ module.exports = PageView.extend({
   },
 
   transitionForward: function() {
-    var newView = this.currentView,
-        oldView = this.prevView;
+    var newView = this.currentView;
 
     return new Promise(function(resolve) {
       this.pageContent.addClass(SLIDE_LEFT);
@@ -155,10 +171,6 @@ module.exports = PageView.extend({
 
         this.pageContent.removeClass(SLIDE_LEFT);
         this.newPageContent.removeClass(SLIDE_LEFT);
-
-        if (oldView) {
-          this.viewStack.push(oldView);
-        }
 
         resolve();
       }.bind(this));
@@ -203,10 +215,6 @@ module.exports = PageView.extend({
 
         this.pageContent.removeClass(SCALE);
         this.newPageContent.removeClass(SCALE);
-
-        if (oldView) {
-          oldView.destroy();
-        }
 
         resolve();
       }.bind(this));
