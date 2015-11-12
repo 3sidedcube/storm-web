@@ -24,6 +24,8 @@ module.exports = PageView.extend({
   setPage: function(id, newStack) {
     console.info('Pushing to view ID', id);
 
+    var pageId = App.bundleManager.getResourceUrl(id);
+
     // Stop any animations still running.
     var animationClasses = [SLIDE_LEFT, SLIDE_RIGHT, SCALE];
 
@@ -42,7 +44,7 @@ module.exports = PageView.extend({
         newView;
 
     // Don't navigate to the current view.
-    if (oldView && id === oldView.id) {
+    if (oldView && pageId === oldView.id) {
       return;
     }
 
@@ -59,10 +61,10 @@ module.exports = PageView.extend({
         rerender  = false,
         goingBack = false;
 
-    if (lastView && lastView.id === id) {
+    if (lastView && lastView.id === pageId) {
       console.info('Pushing back to last view');
 
-      this.viewStack.splice(this.viewStack.length - 1, 1);
+      this.viewStack.pop();
       this.setPageTitle();
 
       newView = lastView;
@@ -132,7 +134,7 @@ module.exports = PageView.extend({
     }
 
     // If we've popped the last view off the stack it's already ready.
-    if (lastView && lastView.id === id) {
+    if (lastView && lastView.id === pageId) {
       newView.trigger('ready');
     }
   },
