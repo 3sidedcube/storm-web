@@ -43,12 +43,13 @@ gulp.task('webpack:build', function(callback) {
 });
 
 // modify some webpack config options
-var myDevConfig = Object.create(webpackConfig);
-myDevConfig.devtool = 'sourcemap';
-myDevConfig.debug = true;
+var webpackDevConfig = Object.create(webpackConfig);
+
+webpackDevConfig.devtool = 'sourcemap';
+webpackDevConfig.debug = true;
 
 // create a single instance of the compiler to allow caching
-var devCompiler = webpack(myDevConfig);
+var devCompiler = webpack(webpackDevConfig);
 
 gulp.task('webpack:build-dev', function(callback) {
   // run webpack
@@ -63,27 +64,31 @@ gulp.task('webpack:build-dev', function(callback) {
 
 gulp.task('webpack-dev-server', ['copy-assets'], function(callback) {
   // modify some webpack config options
-  var myConfig = Object.create(webpackConfig);
-  myConfig.devtool = 'eval';
-  myConfig.debug = true;
+  var webpackDevServerConfig = Object.create(webpackConfig);
+
+  webpackDevServerConfig.devtool = 'eval';
+  webpackDevServerConfig.debug = true;
 
   // Start a webpack-dev-server
-  new WebpackDevServer(webpack(myConfig), {
-    contentBase: myConfig.output.path,
-    publicPath: '/' + myConfig.output.publicPath,
+  new WebpackDevServer(webpack(webpackDevServerConfig), {
+    contentBase: webpackDevServerConfig.output.path,
+    publicPath: '/' + webpackDevServerConfig.output.publicPath,
     stats: {
       colors: true
     }
   }).listen(8080, function(err) {
-        if (err) throw new gutil.PluginError('webpack-dev-server', err);
-        gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
-      });
+    if (err) {
+      throw new gutil.PluginError('webpack-dev-server', err);
+    }
+
+    gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
+  });
 });
 
 /**
  * Run all tests and exit.
  */
-gulp.task('test', function (done) {
+gulp.task('test', function(done) {
   new KarmaServer({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
