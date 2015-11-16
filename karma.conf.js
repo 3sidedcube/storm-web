@@ -2,12 +2,21 @@
 // Generated on Fri Oct 30 2015 21:24:16 GMT+0000 (GMT)
 
 var webpackConfig = require('./webpack.config.js'),
-    RewirePlugin  = require('rewire-webpack');
+    RewirePlugin  = require('rewire-webpack'),
+    path          = require('path');
 
 delete webpackConfig.entry;
 delete webpackConfig.output;
 
 webpackConfig.plugins.push(new RewirePlugin());
+webpackConfig.module.preLoaders = [
+  // instrument only testing sources with Istanbul
+  {
+    test: /\.js$/,
+    include: path.resolve('app/'),
+    loader: 'istanbul-instrumenter'
+  }
+];
 
 module.exports = function(config) {
   config.set({
@@ -40,7 +49,14 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
+
+    coverageReporter: {
+      type: 'lcovonly',
+      reporters: [
+        {type: 'lcov', subdir: 'lcov'}
+      ]
+    },
 
     // web server port
     port: 9876,
