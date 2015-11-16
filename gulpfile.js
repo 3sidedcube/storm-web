@@ -6,6 +6,7 @@ var gulp             = require('gulp'),
     WebpackDevServer = require('webpack-dev-server'),
     gutil            = require('gulp-util'),
     BomPlugin        = require('webpack-utf8-bom'),
+    KarmaServer      = require('karma').Server,
     webpackConfig    = require('./webpack.config.js');
 
 gulp.task('lint', function() {
@@ -79,4 +80,14 @@ gulp.task('webpack-dev-server', ['copy-assets'], function(callback) {
       });
 });
 
-gulp.task('default', ['lint', 'build']);
+/**
+ * Run all tests and exit.
+ */
+gulp.task('test', function (done) {
+  new KarmaServer({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('default', ['lint', 'test', 'build']);
