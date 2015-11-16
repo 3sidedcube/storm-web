@@ -5,6 +5,7 @@ var gulp             = require('gulp'),
     webpack          = require('webpack'),
     WebpackDevServer = require('webpack-dev-server'),
     gutil            = require('gulp-util'),
+    BomPlugin        = require('webpack-utf8-bom'),
     webpackConfig    = require('./webpack.config.js');
 
 gulp.task('lint', function() {
@@ -26,7 +27,8 @@ gulp.task('webpack:build', function(callback) {
   var myConfig = Object.create(webpackConfig);
   myConfig.plugins = myConfig.plugins.concat(
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
+      new BomPlugin(true)
   );
 
   // run webpack
