@@ -7,7 +7,8 @@ var gulp             = require('gulp'),
     gutil            = require('gulp-util'),
     BomPlugin        = require('webpack-utf8-bom'),
     KarmaServer      = require('karma').Server,
-    webpackConfig    = require('./webpack.config.js');
+    webpackConfig    = require('./webpack.config.js'),
+    extend           = require('util')._extend;
 
 gulp.task('lint', function() {
   return gulp.src(['app/**/*.js'])
@@ -25,16 +26,20 @@ gulp.task('build', ['lint', 'copy-assets', 'webpack:build']);
 
 gulp.task('webpack:build', function(callback) {
   // modify some webpack config options
-  var myConfig = Object.create(webpackConfig);
-  myConfig.plugins = myConfig.plugins.concat(
+  var webpackBuildConfig = extend({}, webpackConfig);
+
+  webpackBuildConfig.plugins = webpackBuildConfig.plugins.concat(
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin(),
       new BomPlugin(true)
   );
 
   // run webpack
-  webpack(myConfig, function(err, stats) {
-    if (err) throw new gutil.PluginError('webpack:build', err);
+  webpack(webpackBuildConfig, function(err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack:build', err);
+    }
+
     gutil.log('[webpack:build]', stats.toString({
       colors: true
     }));
@@ -42,19 +47,19 @@ gulp.task('webpack:build', function(callback) {
   });
 });
 
-// modify some webpack config options
-var webpackDevConfig = Object.create(webpackConfig);
-
-webpackDevConfig.devtool = 'sourcemap';
-webpackDevConfig.debug = true;
-
-// create a single instance of the compiler to allow caching
-var devCompiler = webpack(webpackDevConfig);
-
 gulp.task('webpack:build-dev', function(callback) {
+  // modify some webpack config options
+  var webpackDevConfig = extend({}, webpackConfig);
+
+  webpackDevConfig.devtool = 'sourcemap';
+  webpackDevConfig.debug = true;
+
   // run webpack
-  devCompiler.run(function(err, stats) {
-    if (err) throw new gutil.PluginError('webpack:build-dev', err);
+  webpack(webpackDevConfig, function(err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack:build-dev', err);
+    }
+
     gutil.log('[webpack:build-dev]', stats.toString({
       colors: true
     }));
@@ -64,7 +69,7 @@ gulp.task('webpack:build-dev', function(callback) {
 
 gulp.task('webpack-dev-server', ['copy-assets'], function(callback) {
   // modify some webpack config options
-  var webpackDevServerConfig = Object.create(webpackConfig);
+  var webpackDevServerConfig = extend({}, webpackConfig);
 
   webpackDevServerConfig.devtool = 'eval';
   webpackDevServerConfig.debug = true;

@@ -3,7 +3,10 @@
 
 var webpackConfig = require('./webpack.config.js'),
     RewirePlugin  = require('rewire-webpack'),
-    path          = require('path');
+    path          = require('path'),
+    extend        = require('util')._extend;
+
+webpackConfig = extend({}, webpackConfig);
 
 delete webpackConfig.entry;
 delete webpackConfig.output;
