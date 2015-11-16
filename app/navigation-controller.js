@@ -200,8 +200,7 @@ module.exports = PageView.extend({
   },
 
   transitionNew: function() {
-    var newView = this.currentView,
-        oldView = this.prevView;
+    var newView = this.currentView;
 
     return new Promise(function(resolve) {
       this.pageContent.addClass(SCALE);

@@ -19,6 +19,6 @@ module.exports = Backbone.Model.extend({
    *     file or reject with an error if the path does not exist.
    */
   readFileAsText: function(path) {
-    return Promise.reject();
+    return Promise.reject(path);
   }
 });
