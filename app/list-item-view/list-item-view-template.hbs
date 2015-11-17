@@ -1,66 +1,81 @@
 {{#if annotation}}
-	<span class="annotation">{{annotation}}</span>
+  <span class="annotation">{{annotation}}</span>
 {{/if}}
 
 {{#if image}}
-	<span class="img-container" style="-webkit-mask-image:url('{{getImageUrl image}}'); mask-image:url('{{getImageUrl image}}')">
+  <span class="img-container"
+        style="-webkit-mask-image:url('{{getImageUrl image}}'); mask-image:url('{{getImageUrl image}}')">
 		<img src="{{getImageUrl image}}">
 	</span>
 {{/if}}
 
 {{#if images}}
-	<span></span>
-	<div class="image-overlay"></div>
-{{/if}}
-
-{{#if volatile}}
-	<input type="checkbox">
+  <span></span>
+  <div class="image-overlay"></div>
 {{/if}}
 
 <div class="text-container">
-	{{#if title}}
-		<div class="{{title.class}}">{{{l title}}}</div>
-	{{/if}}
+  {{#if title}}
+    <div class="{{title.class}}">{{{l title}}}</div>
+  {{/if}}
 
-	{{#if description}}
-		<div class="{{description.class}}">{{{l description}}}</div>
-	{{/if}}
+  {{#if description}}
+    <div class="{{description.class}}">{{{l description}}}</div>
+  {{/if}}
+
+  {{#if link}}
+    {{#if link.title}}
+      <div class="link-title {{link.title.class}}">{{l link.title}}</div>
+    {{/if}}
+  {{/if}}
 </div>
 
 {{#if link}}
-	<span class="chevron"><i class="icon-chevron-right"></i></span>
+  <span class="chevron"><i class="fa fa-chevron-right"></i></span>
 {{/if}}
 
 {{#if showLinkTitle}}
-	<div class="link-title">{{l link.title}}</div>
+  <div class="link-title">{{l link.title}}</div>
 {{/if}}
 
 {{#if button}}
-	<button class="{{button.class}} btn input-block-level">{{{l button.title}}}</button>
+  <button class="{{button.class}} btn input-block-level">
+    {{{l button.title}}}
+  </button>
 {{/if}}
 
 {{#if duration}}
-	{{!-- This will be removed when VideoListItemView is deprecated --}}
-	<i class="icon-play-circle"></i>
+{{!-- This will be removed when VideoListItemView is deprecated --}}
+  <i class="icon-play-circle"></i>
 {{/if}}
 
 {{#if videos}}
-	<i class="icon-play-circle"></i>
+  <i class="icon-play-circle"></i>
 {{/if}}
 
 {{#if progressMessage}}
-	<div class="Text">{{{l progressMessage}}}
-	<span class="chevron"><i class="icon-chevron-right"></i></span>
+  <div class="Text">
+    {{{l progressMessage}}}&nbsp;
+    <span class="chevron">
+      <i class="icon-chevron-right"></i>
+    </span>
+  </div>
 {{/if}}
 
 {{#if quizzes}}
-	<span>[Quizzes]</span>
+  <span>[Quizzes]</span>
 {{/if}}
 
 {{#if embeddedMedia}}
-	<div class="embedded-media">
-		{{#each embeddedMedia}}
-			<img src="{{getImageUrl this}}">
-		{{/each}}
-	</div>
+  <div class="embedded-media">
+    {{#each embeddedMedia}}
+      <img src="{{getImageUrl this}}">
+    {{/each}}
+  </div>
 {{/if}}
+
+{{#each embeddedLinks}}
+  <button class="embedded-link clickable" {{{linkTo this}}}>
+    {{l title}}
+  </button>
+{{/each}}

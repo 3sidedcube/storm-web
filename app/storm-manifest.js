@@ -1,16 +1,20 @@
 module.exports = Backbone.Model.extend({
-	url: 'bundle/manifest.json',
+  url: function() {
+    return App.bundleManager.getResourceUrl('bundle/manifest.json');
+  },
 
-	generateMap: function() {
-		this.map = {}
+  initialize: function() {
+    this.map = {};
+  },
 
-		var languages = this.get('languages')
+  generateMap: function() {
+    var languages = this.get('languages') || [];
 
-		for (var i = 0; i < languages.length; i++) {
-			var language = languages[i],
-				code = language.src.substr(4)
+    for (var i = 0; i < languages.length; i++) {
+      var language = languages[i],
+          code     = language.src.substr(4);
 
-			this.map[code] = language
-		}
-	}
-})
+      this.map[code] = language;
+    }
+  }
+});

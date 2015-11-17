@@ -1,0 +1,20 @@
+.QuizBadgeShowcase, .QuizBadgeShowcase:first-child {
+  border: none;
+
+  .badge-list {
+    display: flex;
+  }
+
+  .badge-list-item {
+    display: inline-block;
+    opacity: 0.5;
+
+    img {
+      width: 100px;
+    }
+
+    &.completed {
+      opacity: 1;
+    }
+  }
+}

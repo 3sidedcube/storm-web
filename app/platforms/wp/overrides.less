@@ -1,0 +1,105 @@
+@import "../../config.less";
+
+.win-commandimage {
+  background: no-repeat center;
+  background-size: 20px;
+}
+
+.wp {
+  .win-pivot .win-pivot-header {
+    color: fade(@highlight-color, 60%);
+
+    &.win-pivot-header-selected {
+      color: @highlight-color;
+    }
+  }
+
+  #container {
+    .page-content, .new-page-content {
+      > div {
+        padding: 0 24px;
+
+        &.wp-TabbedPageCollection, &.QuizPage {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .wp-TabbedPageCollection .page-container {
+    .GroupView .children {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .ListItem {
+        width: 100%;
+
+        &.StandardListItemView {
+          width: ~"calc(50% - 5px)";
+          height: 85px;
+          box-sizing: border-box;
+          margin-top: 10px;
+          background-color: #F2F1EF !important;
+          border-bottom: none;
+          justify-content: space-between;
+          display: flex;
+          flex-direction: column;
+
+          .img-container {
+            float: none;
+          }
+
+          .ListItem .Text:nth-of-type(1) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
+        }
+      }
+    }
+  }
+
+  .ListItem {
+    background-color: transparent !important;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    .annotation {
+      background-color: @highlight-color;
+      color: #FFF;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .CheckableListItemView input {
+    border-radius: 0;
+
+    &:before {
+      border-radius: 0;
+    }
+  }
+
+  .QuizBadgeShowcase {
+    background-color: #E4282F !important;
+  }
+
+  .navigation-controller .page-transitioning.new-page-content {
+    left: 0;
+    right: 0;
+  }
+
+  .GroupView .header {
+    background-color: #81756A;
+    color: #FFF;
+    font-weight: bold;
+    padding: 5px 10px;
+  }
+
+  .TextSelectionQuestion .options {
+    background-color: transparent;
+  }
+}

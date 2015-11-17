@@ -1,0 +1,13 @@
+<div class="question-header">
+  <div class="question-title">{{l title}}</div>
+  <div class="question-hint">{{l hint}}</div>
+</div>
+<div class="options">
+  {{#each options}}
+    <div class="image-selection-option"
+         style="background-image:url('{{getImageUrl image}}')"
+         data-index="{{@index}}">
+      <div class="item-name">{{l this}}</div>
+    </div>
+  {{/each}}
+</div>

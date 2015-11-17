@@ -1,0 +1,12 @@
+<div class="question-header">
+  <div class="question-title">{{l title}}</div>
+  <div class="question-hint">{{l hint}}</div>
+</div>
+<div class="options">
+  {{#each options}}
+    <div class="ListItem CheckableListItemView">
+      <input type="checkbox" data-index="{{@index}}">
+      <span>{{l this}}</span>
+    </div>
+  {{/each}}
+</div>

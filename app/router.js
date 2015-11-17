@@ -1,30 +1,42 @@
-var PageViewBuilder = require('page-view-builder')
+/* eslint-disable */
+var TabbedPageCollection = require('current-platform/tabbed-page-collection/tabbed-page-collection-view'),
+    NavigationController = require('./navigation-controller');
+/* eslint-enable */
 
 module.exports = Backbone.Router.extend({
-	routes: {
-		'*nomatch'   : 'page'
-	},
+  routes: {
+    '': 'home',
+    '*nomatch': 'page'
+  },
 
-	page: function(url) {
-		if (App.view) {
-			App.view.setPage('cache://' + url)
-		} else {
-			var rootPage = App.app.get('vector')
-			setView(PageViewBuilder.build(rootPage.substr(8)))
+  home: function() {
+    var rootPage = App.app.get('vector');
 
-			if (url) {
-				App.view.startUrl = 'cache://' + url
-			}
-		}
-	}
-})
+    this.page(rootPage);
+  },
 
-function setView(view) {
-	if (App.view) {
-		App.view.destroy()
-	}
+  page: function(url) {
+    var isBundledApp = App.mode === App.APP_MODE_FULL &&
+        App.target === App.APP_TARGET_LOCAL;
 
-	App.view = view
+    // Don't push content pages onto the root controller in full app mode.
+    if (isBundledApp && TabbedPageCollection instanceof NavigationController) {
+      var page = App.app.map[url];
 
-	$('#container').html(view.render().el)
-}
+      if (!page || page.type === 'ListPage') {
+        var viewIsRoot = App.view.currentView.id === App.app.get('vector');
+
+        if (!App.view.currentView || !viewIsRoot) {
+          this.home();
+          App.view.currentView.startUrl = url;
+        } else {
+          App.view.currentView.setPage(url);
+        }
+
+        return;
+      }
+    }
+
+    App.view.setPage(url);
+  }
+});

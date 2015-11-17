@@ -1,13 +1,36 @@
+require('./list-item-view.less');
+
 module.exports = Backbone.View.extend({
-	template: require('./list-item-view-template'),
-	className: 'ListItem',
+  template: require('./list-item-view-template'),
+  className: 'ListItem',
 
-	afterRender: function() {
-		this.$el.addClass(this.model.get('class'))
+  events: {
+    'change input': 'inputChange'
+  },
 
-		if (this.model.has('link')) {
-			this.$el.attr('data-uri', this.model.get('link').destination)
-			this.$el.addClass('clickable')
-		}
-	}
-})
+  afterRender: function() {
+    this.$el.addClass(this.model.get('class'));
+
+    if (this.model.has('link')) {
+      this.$el.attr('data-uri', this.model.get('link').destination);
+      this.$el.attr('data-link-type', this.model.get('link').class);
+      this.$el.addClass('clickable');
+    }
+
+    if (this.model.get('class') === 'CheckableListItemView') {
+      this.$el.prepend('<input type="checkbox">');
+
+      var isChecked = localStorage.getItem('check-' + this.model.id) === 'true';
+
+      this.$('input')[0].checked = isChecked;
+    }
+  },
+
+  inputChange: function(e) {
+    var isCheckable = this.model.get('class') === 'CheckableListItemView';
+
+    if (isCheckable && !this.model.get('volatile')) {
+      localStorage.setItem('check-' + this.model.id, e.currentTarget.checked);
+    }
+  }
+});

@@ -1,3 +1,7 @@
 app/assets/bundle
 node_modules
-public
+dist
+brcfa/platforms
+brcfa/plugins
+brcfa/www
+coverage
