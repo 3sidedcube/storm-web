@@ -31,6 +31,16 @@ module.exports = PageView.extend({
     return data;
   },
 
+  afterInitialize: function() {
+    this.on('ready', function() {
+      var viewport = this.$('.win-pivot-viewport')[0];
+
+      if (viewport) {
+        viewport.scrollLeft = 20000;
+      }
+    }, this);
+  },
+
   afterRender: function() {
     var PageViewBuilder = require('../../../page-view-builder'),
         self            = this;
