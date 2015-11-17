@@ -1,5 +1,4 @@
 #Storm Web
-===
 
 [![Build Status](https://travis-ci.org/3sidedcube/storm-web.svg)](https://travis-ci.org/3sidedcube/storm-web)
 [![Dependecies](https://david-dm.org/3sidedcube/storm-web.svg)](https://david-dm.org/3sidedcube/storm-web)
