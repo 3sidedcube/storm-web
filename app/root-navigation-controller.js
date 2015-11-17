@@ -114,6 +114,15 @@ module.exports = NavigationController.extend({
   handleUriLink_: function(uri) {
     // Handle Windows apps using the native SDK.
     if (window.Windows) {
+      // Windows dislikes tel links with double slashes. Remove them.
+      uri = uri.replace('tel://', 'tel:');
+
+      // Windows Phone doesn't natively support sms links.
+      if (uri.match(/^sms:/)) {
+        sendWindowsSMS(uri);
+        return;
+      }
+
       var url = new Windows.Foundation.Uri(uri);
 
       Windows.System.Launcher.launchUriAsync(url);
@@ -148,3 +157,30 @@ module.exports = NavigationController.extend({
     throw new Error('Not yet implemented');
   }
 });
+
+/**
+ * Handles an sms: link natively on Windows Phone to bring up the SMS compose
+ * view with the recipients and body pre-populated.
+ * @param {string} uri The sms: URI to handle.
+ */
+function sendWindowsSMS(uri) {
+  var Chat = Windows.ApplicationModel.Chat,
+      smsParams = uri.match(/^sms:(?:\/\/)?([^\?]*)(?:\?body=(.*))?$/),
+      sms       = new Chat.ChatMessage();
+
+  if (smsParams[1]) {
+    var recipients = smsParams[1].split(',');
+
+    for (var i = 0; i < recipients.length; i++) {
+      var recipient = decodeURIComponent(recipients[i]);
+
+      sms.recipients.push(recipient);
+    }
+  }
+
+  if (smsParams[2]) {
+    sms.body = decodeURIComponent(smsParams[2]);
+  }
+
+  Chat.ChatMessageManager.showComposeSmsMessageAsync(sms);
+}
