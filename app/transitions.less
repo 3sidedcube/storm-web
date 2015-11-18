@@ -1,24 +1,29 @@
+.transitioning {
+  .page-content, .new-page-content {
+    left: 0;
+    right: 0;
+  }
+}
+
 .slide-left {
   &.page-content {
-    animation-name: half-slide-left;
-    z-index: 0;
+    animation-name: slide-left;
+    z-index: 1;
   }
 
   &.new-page-content {
-    animation-name: slide-left;
-    z-index: 1;
+    animation-name: half-slide-left;
+    z-index: 0;
   }
 }
 
 .slide-right {
-  &.new-page-content {
+  &.page-content {
     animation-name: half-slide-right;
-    left: -100%;
-    right: 100%;
     z-index: 0;
   }
 
-  &.page-content {
+  &.new-page-content {
     animation-name: slide-right;
     z-index: 1;
   }
@@ -38,11 +43,11 @@
 
 @keyframes slide-left {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(100%, 0, 0);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(0%, 0, 0);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 }
@@ -90,10 +95,10 @@
 
 @keyframes half-slide-right {
   0% {
-    transform: translate3d(75%, 0, 0);
+    transform: translate3d(-25%, 0, 0);
   }
   100% {
-    transform: translate3d(100%, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
