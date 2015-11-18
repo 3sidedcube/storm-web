@@ -12,7 +12,6 @@ module.exports = PageView.extend({
     PageView.prototype.initialize.apply(this, arguments);
     this.viewStack = [];
     this.currentView = null;
-    this.prevView = null;
   },
 
   afterRender: function() {
@@ -100,7 +99,6 @@ module.exports = PageView.extend({
       var self = this;
 
       this.setPageTitle();
-      this.prevView = oldView;
 
       var transition;
 
