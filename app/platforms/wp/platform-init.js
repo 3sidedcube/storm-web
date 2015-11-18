@@ -19,22 +19,23 @@ if (window.Windows) {
   });
 }
 
+var Animation = WinJS.UI.Animation;
+
 var transition = function() {
-  var newPage = this.newPageContent,
-      oldPage = this.pageContent;
+  var newPage = this.pageContent,
+      oldPage = this.newPageContent;
 
   return new Promise(function(resolve) {
-    WinJS.UI.Animation.exitPage(oldPage[0], null).done(function() {
-      newPage.addClass('page-transitioning');
-
-      WinJS.UI.Animation.enterPage(newPage[0], null).done(function() {
-        newPage.removeClass('page-transitioning');
+    Animation.exitPage(oldPage[0], null).done(function() {
+      Animation.enterPage(newPage[0], null).done(function() {
         resolve();
       });
     });
   });
 };
 
-NavigationController.prototype.transitionForward = transition;
-NavigationController.prototype.transitionBackward = transition;
-NavigationController.prototype.transitionNew = transition;
+var Nav = NavigationController.prototype;
+
+Nav.transitionForward = transition;
+Nav.transitionBackward = transition;
+Nav.transitionNew = transition;

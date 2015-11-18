@@ -12,6 +12,7 @@ module.exports = PageView.extend({
     PageView.prototype.initialize.apply(this, arguments);
     this.viewStack = [];
     this.currentView = null;
+    this.transitionCount = 0;
   },
 
   afterRender: function() {
@@ -23,7 +24,8 @@ module.exports = PageView.extend({
   setPage: function(id, newStack) {
     console.info('Pushing to view ID', id);
 
-    var pageId = App.bundleManager.getResourceUrl(id);
+    this.$el.addClass('transitioning');
+    this.transitionCount++;
 
     // Stop any animations still running.
     var animationClasses = [SLIDE_LEFT, SLIDE_RIGHT, SCALE];
@@ -39,7 +41,8 @@ module.exports = PageView.extend({
       }
     }
 
-    var oldView = this.currentView,
+    var pageId  = App.bundleManager.getResourceUrl(id),
+        oldView = this.currentView,
         newView;
 
     // Don't navigate to the current view.
@@ -81,6 +84,14 @@ module.exports = PageView.extend({
 
     this.newPageContent.html(newView.el);
     this.currentView = newView;
+
+    this.pageContent.toggleClass('page-content new-page-content');
+    this.newPageContent.toggleClass('page-content new-page-content');
+
+    var temp = this.pageContent;
+
+    this.pageContent = this.newPageContent;
+    this.newPageContent = temp;
 
     newView.once('ready', function() {
       console.info('View ready');
@@ -128,16 +139,16 @@ module.exports = PageView.extend({
       }
 
       transition.then(function() {
-        self.pageContent.toggleClass('page-content new-page-content');
-        self.newPageContent.toggleClass('page-content new-page-content');
-
-        var temp = self.pageContent;
-
-        self.pageContent = self.newPageContent;
-        self.newPageContent = temp;
+        if (--self.transitionCount === 0) {
+          self.$el.removeClass('transitioning');
+        }
 
         setTimeout(function() {
-          self.newPageContent.find('.focus').removeClass('focus');
+          if (!oldView) {
+            return;
+          }
+
+          oldView.$('.focus').removeClass('focus');
         }, 100);
       });
     }, this);
