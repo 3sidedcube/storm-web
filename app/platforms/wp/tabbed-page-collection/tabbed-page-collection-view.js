@@ -5,7 +5,7 @@ require('./tabbed-page-collection.less');
 
 module.exports = PageView.extend({
   template: require('./tabbed-page-collection-view-template'),
-  className: 'wp-TabbedPageCollection',
+  className: 'wp-TabbedPageCollection win-type-body',
 
   getRenderData: function() {
     var data = this.model.toJSON(),
