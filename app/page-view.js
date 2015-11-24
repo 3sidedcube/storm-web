@@ -26,6 +26,8 @@ module.exports = Backbone.View.extend({
     if (this.pageId) {
       this.$el.addClass('page-' + this.pageId);
     }
+
+    return this;
   },
 
   ready: function() {
