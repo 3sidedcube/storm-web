@@ -17,6 +17,13 @@ if (window.Windows) {
     e.handled = true;
     history.back();
   });
+
+  var statusBar = Windows.UI.ViewManagement.StatusBar.getForCurrentView();
+
+  statusBar.backgroundOpacity = 1;
+  statusBar.backgroundColor = Windows.UI.ColorHelper.fromArgb(255, 252, 61, 56);
+  statusBar.foregroundColor = Windows.UI.Colors.lightGray;
+  statusBar.showAsync();
 }
 
 var Animation = WinJS.UI.Animation;
