@@ -5,7 +5,6 @@ module.exports = Backbone.View.extend({
     options = options || {};
 
     this.id = options.url;
-    this.pageId = options.pageId;
     this.listViews = [];
 
     if (!this.model && options.pageId) {
@@ -13,6 +12,8 @@ module.exports = Backbone.View.extend({
       this.model.once('sync', this.ready, this);
       this.model.fetch();
     }
+
+    this.pageId = this.model.id;
 
     this.afterInitialize();
   },
