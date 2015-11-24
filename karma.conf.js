@@ -7,6 +7,8 @@ var webpackConfig = require('./webpack.config.js'),
     extend        = require('util')._extend;
 
 webpackConfig = extend({}, webpackConfig);
+webpackConfig.plugins = webpackConfig.plugins.slice(0);
+webpackConfig.module = extend({}, webpackConfig.module);
 
 delete webpackConfig.entry;
 delete webpackConfig.output;
@@ -35,7 +37,8 @@ module.exports = function(config) {
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
       'tests/promise-polyfiller.js',
-      'tests/**/*.spec.js'
+      'tests/**/*.spec.js',
+      './app/backbone-extends.js'
     ],
 
     // list of files to exclude
