@@ -7,13 +7,23 @@ module.exports = Backbone.View.extend({
     this.id = options.url;
     this.listViews = [];
 
-    if (!this.model && options.id) {
-      this.model = new Page({id: options.id});
+    if (!this.model && options.pageId) {
+      this.model = new Page({id: options.pageId});
       this.model.once('sync', this.ready, this);
       this.model.fetch();
     }
 
+    this.pageId = this.model.id;
+
     this.afterInitialize();
+  },
+
+  render: function() {
+    Backbone.View.prototype.render.apply(this, arguments);
+
+    if (this.pageId) {
+      this.$el.addClass('page-' + this.pageId);
+    }
   },
 
   ready: function() {

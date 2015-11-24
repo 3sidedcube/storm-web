@@ -4,6 +4,9 @@ var StormLanguage = require('./storm-language'),
 
 var MASK_SIZE = '(-webkit-mask-size: contain) or (mask-size: contain)';
 
+require('./backbone-extends');
+require('es6-promise').polyfill();
+
 require('./main.less');
 require('current-platform/platform-init');
 
@@ -111,56 +114,3 @@ function startApp() {
 function appStartError() {
   console.error('Failed to load auxillary data from manifest.');
 }
-
-Backbone.View.prototype.afterInitialize = function() {
-};
-
-Backbone.View.prototype.template = function() {
-};
-
-Backbone.View.prototype.getRenderData = function() {
-  return this.model ? this.model.toJSON() : {};
-};
-
-Backbone.View.prototype.render = function(data) {
-  // Render from template
-  this.$el.html(this.template(this.getRenderData(), {data: data}));
-
-  // Render all subviews
-  _.each(this.views, function(view) {
-    this.$el.append(view.render().el);
-  }, this);
-
-  this.afterRender();
-  return this;
-};
-
-Backbone.View.prototype.afterRender = function() {
-};
-
-Backbone.View.prototype.beforeDestroy = function() {
-};
-
-Backbone.View.prototype.destroy = function() {
-  // Run any extra cleanup (saving etc)
-  this.beforeDestroy();
-
-  // Remove any child views first
-  if (this.views) {
-    this.views.forEach(function(view) {
-      view.destroy();
-    });
-  }
-
-  if (this.listViews) {
-    this.listViews.forEach(function(view) {
-      view.destroy();
-    });
-  }
-
-  // Remove view
-  this.remove();
-  this.unbind();
-};
-
-require('es6-promise').polyfill();

@@ -37,7 +37,7 @@ module.exports = {
         id       = App.utils.getIdFromCacheUrl(url);
 
     return new PageView({
-      id: id,
+      pageId: id,
       url: App.bundleManager.getResourceUrl(url)
     });
   },
