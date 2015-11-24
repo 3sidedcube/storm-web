@@ -13,7 +13,9 @@ module.exports = Backbone.View.extend({
       this.model.fetch();
     }
 
-    this.pageId = this.model.id;
+    if (this.model) {
+      this.pageId = this.model.id;
+    }
 
     this.afterInitialize();
   },
