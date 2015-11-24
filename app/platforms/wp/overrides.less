@@ -26,7 +26,13 @@
     }
   }
 
-  .wp-TabbedPageCollection .page-container {
+  .wp-TabbedPageCollection {
+    .page-title {
+      display: none;
+    }
+  }
+
+  .wp-TabbedPageCollection .page-container, .page-16330 {
     .GroupView .children {
       display: flex;
       flex-direction: row;
@@ -38,7 +44,7 @@
 
         &.StandardListItemView {
           width: ~"calc(50% - 5px)";
-          height: 85px;
+          height: 100px;
           box-sizing: border-box;
           margin-top: 10px;
           background-color: #F2F1EF !important;
@@ -60,6 +66,10 @@
     }
   }
 
+  .page-title {
+    margin: 10px 0 20px;
+  }
+
   .ListItem {
     background-color: transparent !important;
 
@@ -77,6 +87,7 @@
 
   .CheckableListItemView input {
     border-radius: 0;
+    background-color: #FFF;
 
     &:before {
       border-radius: 0;
@@ -84,12 +95,7 @@
   }
 
   .QuizBadgeShowcase {
-    background-color: #E4282F !important;
-  }
-
-  .navigation-controller .page-transitioning.new-page-content {
-    left: 0;
-    right: 0;
+    background-color: #FFF !important;
   }
 
   .GroupView .header {
@@ -101,5 +107,18 @@
 
   .TextSelectionQuestion .options {
     background-color: transparent;
+  }
+
+  .SpotlightImageListItemView .text-container {
+    align-items: flex-end;
+    text-align: left;
+
+    div {
+      margin: 0;
+      padding: 10px;
+      font-size: 20px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+      font-weight: 200;
+    }
   }
 }

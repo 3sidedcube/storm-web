@@ -72,7 +72,7 @@ module.exports = NavigationController.extend({
       view = QuizQuestionViewBuilder.build(model);
     }
 
-    view.id = id;
+    view.pageId = id;
 
     return view;
   },

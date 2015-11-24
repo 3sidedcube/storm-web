@@ -1,10 +1,15 @@
 var PageView  = require('../../../page-view'),
-    GroupView = require('../../../group-view/group-view');
+    GroupView = require('../../../group-view/group-view'),
+    localise  = require('../../../helpers/l');
 
 module.exports = PageView.extend({
   template: require('./list-page-view-template'),
 
   afterRender: function() {
+    var title = localise(this.model.get('title'));
+
+    this.$('> .page-title').text(title);
+
     this.listViews.forEach(function(oldView) {
       oldView.destroy();
     });
