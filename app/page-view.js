@@ -5,10 +5,11 @@ module.exports = Backbone.View.extend({
     options = options || {};
 
     this.id = options.url;
+    this.pageId = options.pageId;
     this.listViews = [];
 
-    if (!this.model && options.id) {
-      this.model = new Page({id: options.id});
+    if (!this.model && options.pageId) {
+      this.model = new Page({id: options.pageId});
       this.model.once('sync', this.ready, this);
       this.model.fetch();
     }
