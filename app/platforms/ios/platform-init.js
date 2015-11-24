@@ -1,6 +1,7 @@
 var FastClick = require('fastclick');
 
 require('../../../style-paper.less');
+require('./overrides.less');
 
 $(document).ready(function() {
   $(document).on('touchstart', '.clickable', function(e) {
