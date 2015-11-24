@@ -17,6 +17,14 @@ module.exports = Backbone.View.extend({
     this.afterInitialize();
   },
 
+  render: function() {
+    Backbone.View.prototype.render.apply(this, arguments);
+
+    if (this.pageId) {
+      this.$el.addClass('page-' + this.pageId);
+    }
+  },
+
   ready: function() {
     this.trigger('ready');
     this.render();
