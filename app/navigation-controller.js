@@ -82,7 +82,9 @@ module.exports = PageView.extend({
 
     this.$('.back-button').toggle(canGoBack);
 
-    this.newPageContent.html(newView.el);
+    this.newPageContent.html(newView.el)
+        .scrollTop(0);
+
     this.currentView = newView;
 
     this.pageContent.toggleClass('page-content new-page-content');
