@@ -35,6 +35,9 @@ module.exports = ListItemView.extend({
     });
 
     $.when.apply($, requests).then(this.render.bind(this));
+
+    // Update whenever a quiz is marked as completed.
+    this.listenTo(App.view, 'quiz-complete', this.render);
   },
 
   /** @override */

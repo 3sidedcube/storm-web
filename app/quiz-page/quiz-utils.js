@@ -17,5 +17,6 @@ module.exports = {
    */
   setQuizComplete: function(id) {
     localStorage.setItem('quiz-' + id, '1');
+    App.view.trigger('quiz-complete');
   }
 };
