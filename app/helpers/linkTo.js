@@ -67,6 +67,11 @@ function getLinkAttributes(link) {
       attrs.duration = link.duration;
       break;
 
+    case 'ShareLink':
+      attrs.title = l(link.title);
+      attrs.body = l(link.body);
+      break;
+
     case 'AppLink':
       // TODO
       throw new Error('Not yet implemented');
