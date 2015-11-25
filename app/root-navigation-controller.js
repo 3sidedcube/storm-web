@@ -150,7 +150,7 @@ module.exports = NavigationController.extend({
    * @private
    */
   handleTimerLink_: function(duration, el) {
-    var $el = $(el),
+    var $el       = $(el),
         isRunning = $el.data('timer-running');
 
     if (isRunning) {
