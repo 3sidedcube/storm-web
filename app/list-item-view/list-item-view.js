@@ -1,3 +1,5 @@
+var linkTo = require('../helpers/linkTo');
+
 require('./list-item-view.less');
 
 module.exports = Backbone.View.extend({
@@ -12,8 +14,12 @@ module.exports = Backbone.View.extend({
     this.$el.addClass(this.model.get('class'));
 
     if (this.model.has('link')) {
-      this.$el.attr('data-uri', this.model.get('link').destination);
-      this.$el.attr('data-link-type', this.model.get('link').class);
+      var attrs = linkTo.getLinkAttributes(this.model.get('link'));
+
+      Object.keys(attrs).forEach(function(key) {
+        this.$el.attr('data-' + key, attrs[key]);
+      }, this);
+
       this.$el.addClass('clickable');
     }
 
