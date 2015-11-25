@@ -1,3 +1,5 @@
+/* global Windows */
+
 module.exports = {
   /**
    * Launches the device-native sharing dialog to share the specified content.
