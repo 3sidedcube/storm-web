@@ -53,7 +53,9 @@ module.exports = NavigationController.extend({
         break;
 
       case 'TimerLink':
-        this.handleTimerLink_();
+        var duration = +$(e.currentTarget).data('duration') / 1000;
+
+        this.handleTimerLink_(duration, e.currentTarget);
         break;
 
       case 'AppLink':
@@ -142,11 +144,31 @@ module.exports = NavigationController.extend({
   },
 
   /**
-   * TODO
+   * Handles the URI of a TimerLink, to launch a countdown timer inline.
+   * @param {number} duration The duration of the timer, in seconds.
+   * @param {HTMLElement} el The element to display the timer in.
    * @private
    */
-  handleTimerLink_: function() {
-    throw new Error('Not yet implemented');
+  handleTimerLink_: function(duration, el) {
+    var $el = $(el),
+        isRunning = $el.data('timer-running');
+
+    if (isRunning) {
+      return;
+    }
+
+    updateTimer();
+    var interval = setInterval(updateTimer, 1000);
+
+    function updateTimer() {
+      $el.text(formatTimer(duration--));
+
+      if (duration < 0) {
+        clearInterval(interval);
+      }
+    }
+
+    $el.data('timer-running', true);
   },
 
   /**
@@ -183,4 +205,20 @@ function sendWindowsSMS(uri) {
   }
 
   Chat.ChatMessageManager.showComposeSmsMessageAsync(sms);
+}
+
+/**
+ * Formats the specified {@param count} (in seconds) as m:ss.
+ * @param {number} count The time (in seconds) to format.
+ * @returns {string} The count as colon separated minutes and seconds.
+ */
+function formatTimer(count) {
+  var minutes = Math.floor(count / 60),
+      seconds = Math.floor(count % 60);
+
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+
+  return minutes + ':' + seconds;
 }

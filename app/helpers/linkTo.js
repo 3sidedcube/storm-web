@@ -30,8 +30,8 @@ module.exports = function(link) {
       break;
 
     case 'TimerLink':
-      // TODO
-      throw new Error('Not yet implemented');
+      attrs.duration = link.duration;
+      break;
 
     case 'AppLink':
       // TODO
