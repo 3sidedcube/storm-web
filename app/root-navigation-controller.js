@@ -1,5 +1,6 @@
 /* global Windows */
-var NavigationController = require('./navigation-controller');
+var NavigationController = require('./navigation-controller'),
+    SharingManager       = require('current-platform/sharing-manager');
 
 module.exports = NavigationController.extend({
   template: require('./root-navigation-controller-template'),
@@ -53,7 +54,9 @@ module.exports = NavigationController.extend({
         break;
 
       case 'TimerLink':
-        this.handleTimerLink_();
+        var duration = +$(e.currentTarget).data('duration') / 1000;
+
+        this.handleTimerLink_(duration, e.currentTarget);
         break;
 
       case 'AppLink':
@@ -134,19 +137,41 @@ module.exports = NavigationController.extend({
   },
 
   /**
-   * TODO
+   * Handles device-native sharing to social networks/other applications.
+   * @param {string} title The title of the content to share.
+   * @param {string} body The body of the content to share.
    * @private
    */
-  handleShareLink_: function() {
-    throw new Error('Not yet implemented');
+  handleShareLink_: function(title, body) {
+    SharingManager.share(title, body, null);
   },
 
   /**
-   * TODO
+   * Handles the URI of a TimerLink, to launch a countdown timer inline.
+   * @param {number} duration The duration of the timer, in seconds.
+   * @param {HTMLElement} el The element to display the timer in.
    * @private
    */
-  handleTimerLink_: function() {
-    throw new Error('Not yet implemented');
+  handleTimerLink_: function(duration, el) {
+    var $el       = $(el),
+        isRunning = $el.data('timer-running');
+
+    if (isRunning) {
+      return;
+    }
+
+    updateTimer();
+    var interval = setInterval(updateTimer, 1000);
+
+    function updateTimer() {
+      $el.text(formatTimer(duration--));
+
+      if (duration < 0) {
+        clearInterval(interval);
+      }
+    }
+
+    $el.data('timer-running', true);
   },
 
   /**
@@ -164,7 +189,7 @@ module.exports = NavigationController.extend({
  * @param {string} uri The sms: URI to handle.
  */
 function sendWindowsSMS(uri) {
-  var Chat = Windows.ApplicationModel.Chat,
+  var Chat      = Windows.ApplicationModel.Chat,
       smsParams = uri.match(/^sms:(?:\/\/)?([^\?]*)(?:\?body=(.*))?$/),
       sms       = new Chat.ChatMessage();
 
@@ -183,4 +208,20 @@ function sendWindowsSMS(uri) {
   }
 
   Chat.ChatMessageManager.showComposeSmsMessageAsync(sms);
+}
+
+/**
+ * Formats the specified {@param count} (in seconds) as m:ss.
+ * @param {number} count The time (in seconds) to format.
+ * @returns {string} The count as colon separated minutes and seconds.
+ */
+function formatTimer(count) {
+  var minutes = Math.floor(count / 60),
+      seconds = Math.floor(count % 60);
+
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+
+  return minutes + ':' + seconds;
 }

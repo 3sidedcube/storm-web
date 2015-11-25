@@ -5,6 +5,12 @@ module.exports = ListItemView.extend({
   /** @override */
   template: require('./quiz-progress-list-item-view-template'),
 
+  /** @override @constructor */
+  initialize: function() {
+    // Update whenever a quiz is marked as completed.
+    this.listenTo(App.view, 'quiz-complete', this.render);
+  },
+
   /** @override */
   getRenderData: function() {
     var quizzes = this.model.get('quizzes'),

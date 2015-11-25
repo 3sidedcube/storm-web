@@ -1,6 +1,9 @@
 var NavigationController    = require('../navigation-controller'),
     QuizQuestionViewBuilder = require('./quiz-question-view-builder'),
-    QuizCompleteView        = require('./quiz-complete-view');
+    QuizCompleteView        = require('./quiz-complete-view'),
+    SharingManager          = require('current-platform/sharing-manager'),
+    l                       = require('../helpers/l'),
+    getImageUrl             = require('../helpers/getImageUrl');
 
 require('./quiz-page.less');
 
@@ -14,6 +17,7 @@ module.exports = NavigationController.extend({
 
     'click .quiz-finish-button': 'finishQuiz',
     'click .clickable': 'restart',
+    'click .quiz-share-button': 'shareButtonClick',
 
     'touchstart .quiz-next-button, .quiz-back-button': 'buttonTouchStart',
     'touchend .quiz-next-button, .quiz-back-button': 'buttonTouchEnd',
@@ -129,6 +133,22 @@ module.exports = NavigationController.extend({
     this.currentQuestion = 0;
     this.setPage(0);
     e.stopPropagation();
+  },
+
+  shareButtonClick: function() {
+    if (App.data.badges) {
+      var badge = App.data.badges.get(this.model.get('badgeId'));
+
+      if (!badge) {
+        return;
+      }
+
+      var title    = l(badge.get('title')),
+          body     = l(badge.get('shareMessage')),
+          imageUrl = getImageUrl(badge.get('icon'));
+
+      SharingManager.share(title, body, imageUrl);
+    }
   },
 
   finishQuiz: function() {
