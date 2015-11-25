@@ -30,7 +30,7 @@ module.exports = QuizQuestion.extend({
 
     var selected = this.$(checkedSelector).map(function() {
       return +$(this).data('index');
-    }).get();
+    }).get().sort();
 
     if (answer.length !== selected.length) {
       return false;
