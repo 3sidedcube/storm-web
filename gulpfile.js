@@ -30,7 +30,7 @@ gulp.task('webpack:build', function(callback) {
 
   webpackBuildConfig.plugins = webpackBuildConfig.plugins.concat(
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
       new BomPlugin(true)
   );
 
