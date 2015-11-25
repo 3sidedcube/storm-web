@@ -1,5 +1,6 @@
 /* global Windows */
-var NavigationController = require('./navigation-controller');
+var NavigationController = require('./navigation-controller'),
+    SharingManager       = require('current-platform/sharing-manager');
 
 module.exports = NavigationController.extend({
   template: require('./root-navigation-controller-template'),
@@ -136,11 +137,13 @@ module.exports = NavigationController.extend({
   },
 
   /**
-   * TODO
+   * Handles device-native sharing to social networks/other applications.
+   * @param {string} title The title of the content to share.
+   * @param {string} body The body of the content to share.
    * @private
    */
-  handleShareLink_: function() {
-    throw new Error('Not yet implemented');
+  handleShareLink_: function(title, body) {
+    SharingManager.share(title, body, null);
   },
 
   /**
