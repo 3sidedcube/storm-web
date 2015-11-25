@@ -186,7 +186,7 @@ module.exports = NavigationController.extend({
  * @param {string} uri The sms: URI to handle.
  */
 function sendWindowsSMS(uri) {
-  var Chat = Windows.ApplicationModel.Chat,
+  var Chat      = Windows.ApplicationModel.Chat,
       smsParams = uri.match(/^sms:(?:\/\/)?([^\?]*)(?:\?body=(.*))?$/),
       sms       = new Chat.ChatMessage();
 
