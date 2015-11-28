@@ -5,6 +5,22 @@ module.exports = ListItemView.extend({
     'click': 'click'
   },
 
+  /** @override @constructor */
+  initialize: function() {
+    // Handle deprecated VideoListItemView by transforming to new class.
+    if (this.model.get('class') === 'VideoListItemView') {
+      this.model = new Backbone.Model({
+        class: 'MultiVideoListItemView',
+        image: this.model.get('image'),
+        videos: [{
+          class: 'video',
+          src: this.model.get('link'),
+          locale: ''
+        }]
+      });
+    }
+  },
+
   click: function() {
     // Get video for the current language (or default).
     var videos = this.model.get('videos'),
