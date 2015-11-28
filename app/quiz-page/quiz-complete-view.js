@@ -103,7 +103,7 @@ module.exports = ListPage.extend({
             'class': 'TextListItemView',
             description: {
               'class': 'Text',
-              content: '_QUIZ_WIN_CONGRATULATIONS'
+              content: '_QUIZ_WIN_CONGRATULATION'
             }
           }
         ]
