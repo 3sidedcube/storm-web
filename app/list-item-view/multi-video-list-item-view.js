@@ -40,7 +40,9 @@ module.exports = ListItemView.extend({
 
     if (video.src.class === 'InternalLink') {
       // Local video.
-      document.location = video.src.destination.replace('cache://', 'bundle/');
+      var url = App.bundleManager.getResourceUrl(video.src.destination);
+
+      App.router.navigate('app://video/' + url, {trigger: true});
     } else {
       // Streaming video.
       document.location = video.src.destination;

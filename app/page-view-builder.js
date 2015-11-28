@@ -9,19 +9,22 @@ var PageTypes = {
 
 var NativeContent = {
   'more': require('./more-page-view/more-page-view'),
-  'browser': require('./browser-view/browser-view')
+  'browser': require('./browser-view/browser-view'),
+  'video': require('./local-video-player-view/local-video-player-view')
 };
 
 module.exports = {
   build: function(url) {
-    if (url.substr(0, 6) === 'app://') {
-      var NativeView = NativeContent[url.substr(6)];
+    var nativeViewParams = url.match(/^app:\/\/([^\/]+)\/(.*)/);
+
+    if (nativeViewParams !== null) {
+      var NativeView = NativeContent[nativeViewParams[1]];
 
       if (!NativeView) {
         throw new Error('No native page implementation for this URL.');
       }
 
-      return new NativeView();
+      return new NativeView({params: nativeViewParams[2]});
     }
 
     var pageDescriptor = App.app.map[url],
