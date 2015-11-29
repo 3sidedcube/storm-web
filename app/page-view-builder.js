@@ -9,7 +9,7 @@ var PageTypes = {
 
 var NativeContent = {
   'more': require('./more-page-view/more-page-view'),
-  'browser': require('./browser-view/browser-view'),
+  'browser': require('current-platform/browser-view/browser-view'),
   'video': require('./local-video-player-view/local-video-player-view')
 };
 
