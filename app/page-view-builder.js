@@ -20,6 +20,11 @@ module.exports = {
     if (nativeViewParams !== null) {
       var NativeView = NativeContent[nativeViewParams[1]];
 
+      if (nativeViewParams[1] === 'streaming-video') {
+        throw new Error('Not yet implemented');
+        // TODO implement
+      }
+
       if (!NativeView) {
         throw new Error('No native page implementation for this URL.');
       }

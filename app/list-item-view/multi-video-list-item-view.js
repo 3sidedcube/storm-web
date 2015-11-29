@@ -38,14 +38,15 @@ module.exports = ListItemView.extend({
       return;
     }
 
-    if (video.src.class === 'InternalLink') {
-      // Local video.
-      var url = App.bundleManager.getResourceUrl(video.src.destination);
+    var videoUrl = App.bundleManager.getResourceUrl(video.src.destination),
+        appUrl;
 
-      App.router.navigate('app://video/' + url, {trigger: true});
+    if (video.src.class === 'InternalLink') {
+      appUrl = 'app://video/';
     } else {
-      // Streaming video.
-      document.location = video.src.destination;
+      appUrl = 'app://streaming-video/';
     }
+
+    App.router.navigate(appUrl + videoUrl, {trigger: true});
   }
 });
