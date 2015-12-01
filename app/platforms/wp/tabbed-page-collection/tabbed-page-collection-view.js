@@ -9,7 +9,7 @@ module.exports = PageView.extend({
 
   getRenderData: function() {
     var data = this.model.toJSON(),
-        tabs = data.pages || [];
+        tabs = data.pages ? data.pages.slice(0) : [];
 
     data.appName = App.app.get('title');
     data.appBarTabs = [];
