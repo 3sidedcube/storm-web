@@ -39,7 +39,7 @@
 {{/if}}
 
 {{#if button}}
-  <button class="{{button.class}} btn input-block-level">
+  <button class="{{button.class}} embedded-link clickable input-block-level" {{{linkTo button.link}}}>
     {{{l button.title}}}
   </button>
 {{/if}}
