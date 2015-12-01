@@ -1,4 +1,5 @@
-var ListItemView = require('./list-item-view');
+var ListItemView           = require('./list-item-view'),
+    MultiVideoListItemView = require('./multi-video-list-item-view');
 
 var ViewTypes = {
   CollectionListItemView:
@@ -6,7 +7,8 @@ var ViewTypes = {
   ToggleableListItemView: require('./toggleable-list-item-view'),
   SpotlightImageListItemView: require('./spotlight-image-list-item-view'),
   AnimatedImageListItemView: require('./animated-image-list-item-view'),
-  MultiVideoListItemView: require('./multi-video-list-item-view'),
+  MultiVideoListItemView: MultiVideoListItemView,
+  VideoListItemView: MultiVideoListItemView,
   QuizBadgeShowcase: require('./quiz-badge-showcase-view'),
   QuizProgressListItemView: require('./quiz-progress-list-item-view')
 };

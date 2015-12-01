@@ -1,3 +1,5 @@
+/* global Windows */
+
 module.exports = {
   /**
    * Launches the device-native sharing dialog to share the specified content.
@@ -17,7 +19,6 @@ module.exports = {
 
       var dtm = DataTransferManager.getForCurrentView();
 
-      dtm.removeEventListener('datarequested');
       dtm.addEventListener('datarequested', function(e) {
         var request = e.request;
 
