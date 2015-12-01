@@ -55,8 +55,10 @@ module.exports = PageView.extend({
       $(this).html(view.render().el);
     });
 
+    var pivot = this.$('.pivot')[0];
+
     setTimeout(function() {
-      WinJS.UI.processAll();
+      WinJS.UI.process(pivot);
     });
   }
 });
