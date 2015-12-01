@@ -1,6 +1,7 @@
 var StormLanguage = require('./storm-language'),
     StormData     = require('./storm-data'),
-    stormConfig   = require('../storm-config.json');
+    stormConfig   = require('../storm-config.json'),
+    OnboardView   = require('./onboard-view/onboard-view');
 
 var MASK_SIZE = '(-webkit-mask-size: contain) or (mask-size: contain)';
 
@@ -13,7 +14,6 @@ require('current-platform/platform-init');
 window.App = require('./application');
 
 $(document).ready(function() {
-  // TODO read platform from manifest.
   $('body').addClass(stormConfig.platform);
 
   /* When running with a local bundle, bundle manager *MUST* be started before
@@ -109,8 +109,17 @@ function startApp() {
   Backbone.history.start({
     pushState: false
   });
+
+  var isFirstLoad = localStorage.getItem('firstLoad') === null;
+
+  if (isFirstLoad) {
+    var onboardView = new OnboardView();
+
+    $('body').append(onboardView.render().el);
+    localStorage.setItem('firstLoad', 1);
+  }
 }
 
 function appStartError() {
-  console.error('Failed to load auxillary data from manifest.');
+  console.error('Failed to load auxiliary data from manifest.');
 }
