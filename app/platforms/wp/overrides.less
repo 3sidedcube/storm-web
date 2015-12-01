@@ -83,6 +83,13 @@
       font-size: 16px;
       font-weight: bold;
     }
+
+    .chevron {
+      &:before {
+        content: "\E26B";
+        font-family: Symbols, "Segoe UI Symbol";
+      }
+    }
   }
 
   .CheckableListItemView input {
@@ -119,6 +126,28 @@
       font-size: 20px;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
       font-weight: 200;
+    }
+  }
+
+  .ToggleableListItemView {
+    &:before {
+      content: "\E019";
+      font-family: Symbols, "Segoe UI Symbol";
+      font-size: 10px;
+    }
+
+    &.toggled {
+      &:before {
+        content: "\E018";
+      }
+    }
+  }
+
+  .MultiVideoListItemView {
+    &:after {
+      content: "\E102";
+      font-family: Symbols, "Segoe UI Symbol";
+      padding: 5px;
     }
   }
 }
