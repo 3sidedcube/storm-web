@@ -52,3 +52,17 @@ Backbone.View.prototype.destroy = function() {
   this.remove();
   this.unbind();
 };
+
+/**
+ * Re-delegates events for the view and any children. Called whenever a view is
+ * restored from the view stack without re-rendering.
+ */
+Backbone.View.prototype.restore = function() {
+  this.delegateEvents();
+
+  if (this.listViews) {
+    this.listViews.forEach(function(view) {
+      view.restore();
+    });
+  }
+};
