@@ -74,7 +74,7 @@ function getLinkAttributes(link) {
 
     case 'AppLink':
       // TODO
-      throw new Error('Not yet implemented');
+      console.error('Not yet implemented');
   }
 
   return attrs;
