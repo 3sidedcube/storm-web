@@ -71,7 +71,6 @@ module.exports = PageView.extend({
 
       newView = lastView;
       goingBack = true;
-      oldView = null;
     } else {
       newView = this.buildView(id);
       rerender = true;
@@ -200,7 +199,6 @@ module.exports = PageView.extend({
         this.pageContent.removeClass(SLIDE_RIGHT);
         this.newPageContent.removeClass(SLIDE_RIGHT);
 
-        // TODO clean up previous view?
         resolve();
       }.bind(this));
     }.bind(this));
