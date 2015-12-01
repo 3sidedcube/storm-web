@@ -15,7 +15,7 @@ var NativeContent = {
 
 module.exports = {
   build: function(url) {
-    var nativeViewParams = url.match(/^app:\/\/([^\/]+)\/(.*)/);
+    var nativeViewParams = url.match(/^app:\/\/([^\/]+)(?:\/)?(.*)/);
 
     if (nativeViewParams !== null) {
       var NativeView = NativeContent[nativeViewParams[1]];
