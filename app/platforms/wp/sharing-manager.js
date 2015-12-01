@@ -19,7 +19,6 @@ module.exports = {
 
       var dtm = DataTransferManager.getForCurrentView();
 
-      dtm.removeEventListener('datarequested');
       dtm.addEventListener('datarequested', function(e) {
         var request = e.request;
 
