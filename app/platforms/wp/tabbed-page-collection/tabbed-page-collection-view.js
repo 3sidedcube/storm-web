@@ -59,6 +59,11 @@ module.exports = PageView.extend({
 
     var pivot = this.$('.pivot')[0];
 
+    // Don't continue processing if the model hasn't loaded yet.
+    if (!this.model.get('pages')) {
+      return;
+    }
+
     WinJS.UI.process(pivot);
   }
 });
