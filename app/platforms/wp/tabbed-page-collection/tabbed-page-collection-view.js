@@ -1,4 +1,4 @@
-var PageView = require('../../../page-view'),
+var PageView    = require('../../../page-view'),
     stormConfig = require('../../../../storm-config.json');
 
 require('./tabbed-page-collection.less');
