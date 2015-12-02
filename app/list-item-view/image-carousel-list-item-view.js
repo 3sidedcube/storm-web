@@ -1,4 +1,5 @@
-var ListItemView = require('./list-item-view');
+var ListItemView = require('./list-item-view'),
+    getImageUrl = require('../helpers/getImageUrl');
 
 module.exports = ListItemView.extend({
   initialize: function() {
@@ -9,6 +10,13 @@ module.exports = ListItemView.extend({
   afterRender: function() {
     ListItemView.prototype.afterRender.apply(this, arguments);
     this.nextFrame();
+
+    // Preload all images.
+    var background = this.model.get('images').map(function(image) {
+      return 'url(' + getImageUrl(image) + ')';
+    });
+
+    this.$el.attr('style', 'background:' + background.join(',') + ';');
   },
 
   nextFrame: function() {
