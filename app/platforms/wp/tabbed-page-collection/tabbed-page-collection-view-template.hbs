@@ -1,5 +1,6 @@
 <div data-win-control="WinJS.UI.Pivot"
-     data-win-options="{ title: '{{l appName}}', selectedIndex: 0 }">
+     data-win-options="{ title: '{{l appName}}', selectedIndex: 0 }"
+     class="pivot">
   {{#each pages}}
     <div data-win-control="WinJS.UI.PivotItem"
          data-win-options="{ 'header': '{{l tabBarItem.title}}'}">
@@ -8,7 +9,8 @@
   {{/each}}
 </div>
 <div data-win-control="WinJS.UI.AppBar"
-     data-win-options="{placement:'bottom'}">
+     data-win-options="{placement:'bottom'}"
+     data-storm-win-body="root-appbar">
   {{#each appBarTabs}}
     <button class="clickable"
             data-uri="{{src}}"

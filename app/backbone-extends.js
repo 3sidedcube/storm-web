@@ -54,6 +54,18 @@ Backbone.View.prototype.destroy = function() {
 };
 
 /**
+ * Clears up any state (e.g. focus states) when pushing a view onto the view
+ * stack to potentially be restored later on.
+ */
+Backbone.View.prototype.suspend = function() {
+  var self = this;
+
+  setTimeout(function() {
+    self.$('.focus').removeClass('focus');
+  }, 600);
+};
+
+/**
  * Re-delegates events for the view and any children. Called whenever a view is
  * restored from the view stack without re-rendering.
  */

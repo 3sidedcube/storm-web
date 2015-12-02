@@ -9,7 +9,7 @@ module.exports = PageView.extend({
 
   getRenderData: function() {
     var data = this.model.toJSON(),
-        tabs = data.pages || [];
+        tabs = data.pages ? data.pages.slice(0) : [];
 
     data.appName = App.app.get('title');
     data.appBarTabs = [];
@@ -55,8 +55,8 @@ module.exports = PageView.extend({
       $(this).html(view.render().el);
     });
 
-    setTimeout(function() {
-      WinJS.UI.processAll();
-    });
+    var pivot = this.$('.pivot')[0];
+
+    WinJS.UI.process(pivot);
   }
 });

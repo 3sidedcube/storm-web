@@ -140,18 +140,14 @@ module.exports = PageView.extend({
         }
       }
 
+      if (oldView) {
+        oldView.suspend();
+      }
+
       transition.then(function() {
         if (--self.transitionCount === 0) {
           self.$el.removeClass('transitioning');
         }
-
-        setTimeout(function() {
-          if (!oldView) {
-            return;
-          }
-
-          oldView.$('.focus').removeClass('focus');
-        }, 100);
       });
     }, this);
 
