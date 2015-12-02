@@ -71,7 +71,6 @@ module.exports = PageView.extend({
 
       newView = lastView;
       goingBack = true;
-      oldView = null;
     } else {
       newView = this.buildView(id);
       rerender = true;
@@ -140,18 +139,14 @@ module.exports = PageView.extend({
         }
       }
 
+      if (oldView) {
+        oldView.suspend();
+      }
+
       transition.then(function() {
         if (--self.transitionCount === 0) {
           self.$el.removeClass('transitioning');
         }
-
-        setTimeout(function() {
-          if (!oldView) {
-            return;
-          }
-
-          oldView.$('.focus').removeClass('focus');
-        }, 100);
       });
     }, this);
 
@@ -204,7 +199,6 @@ module.exports = PageView.extend({
         this.pageContent.removeClass(SLIDE_RIGHT);
         this.newPageContent.removeClass(SLIDE_RIGHT);
 
-        // TODO clean up previous view?
         resolve();
       }.bind(this));
     }.bind(this));
