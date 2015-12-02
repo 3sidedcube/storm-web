@@ -18,10 +18,20 @@ module.exports = PageView.extend({
     var wpSettings = stormConfig['wp-settings'];
 
     if (wpSettings) {
-      var appBarURLs = wpSettings['app-bar-urls'] || [];
+      var appBarURLs = wpSettings['app-bar-urls'] || {};
 
       for (var i = 0; i < tabs.length; i++) {
-        if (appBarURLs.indexOf(tabs[i].src) > -1) {
+        var content = appBarURLs[tabs[i].src];
+
+        if (content) {
+          var src = tabs[i].tabBarItem.image.src;
+
+          src['x0.75'] = content.icon;
+          src.x1 = content.icon;
+          src['x1.5'] = content.icon;
+          src.x2 = content.icon;
+          src.x1 = content.icon;
+
           data.appBarTabs.push(tabs[i]);
           tabs.splice(i, 1);
         }
