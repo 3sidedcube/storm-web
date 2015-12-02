@@ -12,6 +12,7 @@ module.exports = ListItemView.extend({
       this.model = new Backbone.Model({
         class: 'MultiVideoListItemView',
         image: this.model.get('image'),
+        attributes: this.model.get('attributes'),
         videos: [{
           class: 'video',
           src: this.model.get('link'),
@@ -40,6 +41,10 @@ module.exports = ListItemView.extend({
 
     var videoUrl = App.bundleManager.getResourceUrl(video.src.destination),
         appUrl;
+
+    if (this.model.get('attributes').indexOf('loopable') > -1) {
+      videoUrl += '|loop';
+    }
 
     if (video.src.class === 'InternalLink') {
       appUrl = 'app://video/';
