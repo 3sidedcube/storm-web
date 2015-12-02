@@ -32,6 +32,8 @@ module.exports = PageView.extend({
   },
 
   afterInitialize: function() {
+    // Scroll offset is lost whenever this view is restored back from the view
+    // stack. Dirty hack to put it back.
     this.on('ready', function() {
       var viewport = this.$('.win-pivot-viewport')[0];
 
