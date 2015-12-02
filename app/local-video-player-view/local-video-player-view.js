@@ -6,8 +6,23 @@ module.exports = Backbone.View.extend({
 
   /** @override @constructor */
   initialize: function(options) {
-    this.id = options.params;
-    this.videoUrl = options.params;
+    var params = options.params.split('|');
+
+    this.id = params[0];
+    this.videoUrl = params[0];
+    this.loop = false;
+
+    if (params[1]) {
+      var properties = params[1].split('&');
+
+      for (var i = 0; i < properties.length; i++) {
+        var param = properties[i];
+
+        if (param === 'loop') {
+          this.loop = true;
+        }
+      }
+    }
 
     setTimeout(this.ready.bind(this));
   },
@@ -15,7 +30,8 @@ module.exports = Backbone.View.extend({
   /** @override */
   getRenderData: function() {
     return {
-      videoUrl: this.videoUrl
+      videoUrl: this.videoUrl,
+      loop: this.loop
     };
   },
 

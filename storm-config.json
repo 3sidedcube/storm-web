@@ -3,8 +3,10 @@
 	"appId": 0,
 	"platform": "wp",
 	"wp-settings": {
-		"app-bar-urls": [
-			"cache://pages/16330.json"
-		]
+		"app-bar-urls": {
+			"cache://pages/16330.json": {
+				"icon": "images/emergency.png"
+			}
+		}
 	}
 }

@@ -1,13 +1,17 @@
 @import "../../config.less";
 
-.win-commandimage {
-  background: no-repeat center;
-  background-size: 20px;
-}
-
 .wp {
+  .win-appbar {
+    background-color: #343434;
+
+    .win-label {
+      color: #FFF;
+    }
+  }
+
   .win-pivot .win-pivot-header {
-    color: fade(@highlight-color, 60%);
+    color: fade(@highlight-color, 20%);
+    opacity: 1;
 
     &.win-pivot-header-selected {
       color: @highlight-color;

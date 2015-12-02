@@ -1,4 +1,4 @@
-var PageView = require('../../../page-view'),
+var PageView    = require('../../../page-view'),
     stormConfig = require('../../../../storm-config.json');
 
 require('./tabbed-page-collection.less');
@@ -18,10 +18,20 @@ module.exports = PageView.extend({
     var wpSettings = stormConfig['wp-settings'];
 
     if (wpSettings) {
-      var appBarURLs = wpSettings['app-bar-urls'] || [];
+      var appBarURLs = wpSettings['app-bar-urls'] || {};
 
       for (var i = 0; i < tabs.length; i++) {
-        if (appBarURLs.indexOf(tabs[i].src) > -1) {
+        var content = appBarURLs[tabs[i].src];
+
+        if (content) {
+          var src = tabs[i].tabBarItem.image.src;
+
+          src['x0.75'] = content.icon;
+          src.x1 = content.icon;
+          src['x1.5'] = content.icon;
+          src.x2 = content.icon;
+          src.x1 = content.icon;
+
           data.appBarTabs.push(tabs[i]);
           tabs.splice(i, 1);
         }
@@ -32,6 +42,8 @@ module.exports = PageView.extend({
   },
 
   afterInitialize: function() {
+    // Scroll offset is lost whenever this view is restored back from the view
+    // stack. Dirty hack to put it back.
     this.on('ready', function() {
       var viewport = this.$('.win-pivot-viewport')[0];
 
@@ -56,6 +68,11 @@ module.exports = PageView.extend({
     });
 
     var pivot = this.$('.pivot')[0];
+
+    // Don't continue processing if the model hasn't loaded yet.
+    if (!this.model.get('pages')) {
+      return;
+    }
 
     WinJS.UI.process(pivot);
   }

@@ -50,7 +50,10 @@ module.exports = NavigationController.extend({
         break;
 
       case 'ShareLink':
-        this.handleShareLink_();
+        var title = $(e.currentTarget).data('title'),
+            body = $(e.currentTarget).data('body');
+
+        this.handleShareLink_(title, body);
         break;
 
       case 'TimerLink':
