@@ -1,6 +1,7 @@
 var FastClick = require('fastclick');
 
 require('../../../style-paper.less');
+require('./image-slider-selection-question-view.less');
 
 $(document).ready(function() {
   $(document).on('touchstart', '.clickable', function(e) {

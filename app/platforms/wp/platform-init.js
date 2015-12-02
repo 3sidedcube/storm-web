@@ -8,7 +8,8 @@ if (!window.WinJS) {
 require('./overrides.less');
 require('./../../../vendor/winstore-jscompat');
 
-var NavigationController = require('../../navigation-controller');
+var NavigationController = require('../../navigation-controller'),
+    rangeInputEventFix = require('./range-input-event-fix');
 
 if (window.Windows) {
   var HardwareButtons = Windows.Phone.UI.Input.HardwareButtons;
@@ -24,6 +25,8 @@ if (window.Windows) {
   statusBar.backgroundColor = Windows.UI.ColorHelper.fromArgb(255, 252, 61, 56);
   statusBar.foregroundColor = Windows.UI.Colors.lightGray;
   statusBar.showAsync();
+
+  rangeInputEventFix();
 }
 
 var Animation = WinJS.UI.Animation;
