@@ -23,7 +23,6 @@ module.exports = Backbone.View.extend({
    */
   setUri: function(uri) {
     this.webview.src = uri;
-    this.uri = uri;
   },
 
   /**
@@ -86,9 +85,9 @@ module.exports = Backbone.View.extend({
 
   /**
    * Handles click events on the 'open in browser' button. Opens the webview's
-   * initial URL in the native web browser.
+   * current URL in the native web browser.
    */
   browserButtonClick: function() {
-    App.view.handleUriLink_(this.uri);
+    App.view.handleUriLink_(this.webview.src);
   }
 });
