@@ -26,11 +26,21 @@ module.exports = {
         request.data.setText(body);
 
         if (imageUrl) {
-          var Stream = Windows.Storage.Streams.RandomAccessStreamReference;
+          // Transform URL to absolute if required.
+          if (!(/^(?:ms-appx||ms-appdata):/).exec(imageUrl)) {
+            var l = document.location;
 
-          request.data.properties.thumbnail =
-              Stream.createFromUri(imageUrl);
-          request.data.setBitmap(Stream.createFromUri(imageUrl));
+            imageUrl = l.protocol + '//' + l.host + '/' + imageUrl;
+          }
+
+          var StorageFile = Windows.Storage.StorageFile,
+              uri      = new Windows.Foundation.Uri(imageUrl),
+              deferral = request.getDeferral();
+
+          StorageFile.getFileFromApplicationUriAsync(uri).done(function(file) {
+            request.data.setStorageItems([file]);
+            deferral.complete();
+          });
         }
       });
 
