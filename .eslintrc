@@ -59,7 +59,7 @@
 		"no-undef-init": 1, // `2` is default
 		"no-undef": 2,
 		"no-undefined": 0,
-		"no-unused-vars": [1, {"vars": "all", "args": "all"}], // `[2, {"vars": "all", "args": "after-used"}]` is default, optionally set `[2, {"vars": "all", "args": "after-used", "varsIgnorePattern": "<regex>", "argsIgnorePattern": "<regex>"}]`
+		"no-unused-vars": [1, {"vars": "all", "args": "after-used"}], // `[2, {"vars": "all", "args": "after-used"}]` is default, optionally set `[2, {"vars": "all", "args": "after-used", "varsIgnorePattern": "<regex>", "argsIgnorePattern": "<regex>"}]`
 		"no-use-before-define": [1, "nofunc"],
 
 		/*
