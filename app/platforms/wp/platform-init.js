@@ -103,3 +103,25 @@ Backbone.View.prototype.suspend = function() {
     });
   });
 };
+
+// Forward any events from root-level WinJS controls to the correct views,
+// namespaced.
+$(document).ready(function() {
+  var selector = '> [data-storm-win-body] ' +
+      '[data-win-control="WinJS.UI.AppBarCommand"]';
+
+  $('body').on('click', selector, function() {
+    var data = {currentTarget: this};
+
+    if (App.view && App.view.currentView) {
+      App.view.currentView.$el.trigger('click.AppBar', data);
+    }
+
+    if ($(this).hasClass('clickable') && App.view) {
+      var event = new jQuery.Event('click');
+
+      event.currentTarget = this;
+      App.view.linkClick(event);
+    }
+  });
+});
