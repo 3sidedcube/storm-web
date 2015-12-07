@@ -24,6 +24,12 @@ gulp.task('copy-assets', function() {
 // Production build
 gulp.task('build', ['lint', 'copy-assets', 'webpack:build']);
 
+// Build and watch (dev)
+gulp.task('watch', ['webpack:build-dev', 'copy-assets'], function() {
+  gulp.watch(['app/**/*'], ['lint', 'webpack:build-dev']);
+  gulp.watch(['app/assets/**/*'], ['copy-assets']);
+});
+
 gulp.task('webpack:build', function(callback) {
   // modify some webpack config options
   var webpackBuildConfig = extend({}, webpackConfig);
