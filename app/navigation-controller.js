@@ -1,4 +1,5 @@
-var PageView = require('./page-view');
+var PageView = require('./page-view'),
+    l        = require('./helpers/l');
 
 var SLIDE_LEFT  = 'slide-left',
     SLIDE_RIGHT = 'slide-right',
@@ -96,6 +97,22 @@ module.exports = PageView.extend({
 
     newView.once('ready', function() {
       console.info('View ready');
+
+      if (App.analytics) {
+        var model = newView.model,
+            name = id;
+
+        if (model) {
+          name = l(model.get('title')) || name;
+
+          // Don't track quiz questions.
+          if (this.model && this.model.get('class') === 'QuizPage') {
+            return;
+          }
+        }
+
+        App.analytics.trackPageView(name);
+      }
 
       // Replace abstract Page instances with typed views, if the type wasn't
       // available at fetch.
