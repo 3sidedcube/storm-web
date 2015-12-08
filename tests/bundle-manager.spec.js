@@ -15,7 +15,7 @@ describe('BundleManager', function() {
   });
 
   it('passes through URLs unchanged when uninitialised', function() {
-    var bm = new BundleManager();
+    var bm = new BundleManager({appId: 1});
 
     var inUrl = 'bundle/test.json';
     var outUrl = bm.getResourceUrl(inUrl);
@@ -24,13 +24,13 @@ describe('BundleManager', function() {
   });
 
   it('supports initialisation', function() {
-    var bm = new BundleManager();
+    var bm = new BundleManager({appId: 1});
 
     return bm.init();
   });
 
   it('returns custom URLs for updated resources', function() {
-    var bm = new BundleManager();
+    var bm = new BundleManager({appId: 1});
 
     fs.files_['updatedResources.dat'] = 'bundle/testfile.txt';
 

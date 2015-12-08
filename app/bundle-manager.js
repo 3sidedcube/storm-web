@@ -12,7 +12,13 @@ var RESOURCE_MAP_PATH = 'updatedResources.dat';
  */
 module.exports = Backbone.Model.extend({
   /** @override @constructor */
-  initialize: function() {
+  initialize: function(options) {
+    if (options.appId === undefined) {
+      throw new Error('No app ID specified');
+    }
+
+    /** @private @type {number} */
+    this.appId_ = options.appId;
     /** @private @type {Object.<string, boolean>} */
     this.updatedResources_ = {};
     /** @private @type {FileSystem} */
