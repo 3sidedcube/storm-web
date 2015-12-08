@@ -22,9 +22,9 @@ $(document).ready(function() {
   /* When running with a local bundle, bundle manager *MUST* be started before
    any other resources are loaded, so that paths can be resolved correctly if
    any resources have been updated through delta updates. */
-  if (App.target === App.APP_TARGET_REMOTE) {
+  if (App.target === App.APP_TARGET_LOCAL) {
     App.bundleManager.init()
-        .then(App.init)
+        .then(App.init.bind(App))
         .then(appLoaded, appLoadError);
   } else {
     App.init().then(appLoaded, appLoadError);
