@@ -24,7 +24,17 @@ module.exports = Backbone.Model.extend({
    *     file or reject with an error if the path does not exist.
    */
   readFileAsText: function(path) {
-    return Promise.reject(path);
+    var rootFolder = this.rootFolder_;
+
+    return new Promise(function(resolve, reject) {
+      rootFolder.getFileAsync(path)
+          .then(function(file) {
+            return Windows.Storage.FileIO.readTextAsync(file);
+          }, reject)
+          .then(function(data) {
+            resolve(data);
+          }, reject);
+    });
   },
 
   /**
