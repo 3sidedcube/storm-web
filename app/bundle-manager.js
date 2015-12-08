@@ -2,7 +2,8 @@ window.requestFileSystem = window.requestFileSystem ||
     window.webkitRequestFileSystem;
 
 var FileSystem   = require('./file-system'),
-    BundleUpdate = require('./bundle-update');
+    UpdateWorker =
+        require('worker?name=update.worker.js!./bundle-update.worker');
 
 /** @const {string} */
 var RESOURCE_MAP_PATH = 'updatedResources.dat';
@@ -58,19 +59,20 @@ module.exports = Backbone.Model.extend({
    * the resource map.
    */
   update: function() {
-    var timestamp    = App.manifest.get('timestamp'),
-        bundleUpdate = new BundleUpdate({appId: this.appId_});
+    var timestamp = App.manifest.get('timestamp'),
+        worker    = new UpdateWorker();
 
-    console.info('Checking for update with timestamp', timestamp);
+    worker.onmessage = function(e) {
+      var writes = e.data.files.map(this.persistUpdatedFile_.bind(this));
 
-    bundleUpdate.download(timestamp)
-        .then(function(files) {
-          var writes = files.map(this.persistUpdatedFile_.bind(this));
+      Promise.all(writes).then(this.persistUpdatedResources_.bind(this));
+    }.bind(this);
 
-          Promise.all(writes).then(this.persistUpdatedResources_.bind(this));
-        }.bind(this), function() {
-          console.error('Error downloading/extracting delta bundle');
-        });
+    worker.postMessage({
+      appId: this.appId_,
+      apiRoot: App.apiRoot,
+      timestamp: timestamp
+    });
   },
 
   /**

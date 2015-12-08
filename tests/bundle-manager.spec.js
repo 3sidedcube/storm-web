@@ -15,7 +15,7 @@ describe('BundleManager', function() {
   });
 
   it('passes through URLs unchanged when uninitialised', function() {
-    var bm = new BundleManager({appId: 1});
+    var bm = new BundleManager({appId: 1, apiRoot: ''});
 
     var inUrl = 'bundle/test.json';
     var outUrl = bm.getResourceUrl(inUrl);
@@ -24,20 +24,20 @@ describe('BundleManager', function() {
   });
 
   it('supports initialisation', function() {
-    var bm = new BundleManager({appId: 1});
+    var bm = new BundleManager({appId: 1, apiRoot: ''});
 
     return bm.init();
   });
 
   it('returns custom URLs for updated resources', function() {
-    var bm = new BundleManager({appId: 1});
+    var bm = new BundleManager({appId: 1, apiRoot: ''});
 
     fs.files_['updatedResources.dat'] = 'bundle/testfile.txt';
 
     return bm.init().then(function() {
       var resolvedUrl = bm.getResourceUrl('cache://testfile.txt');
 
-      expect(resolvedUrl).to.equal('cdvfile://persistent/bundle/testfile.txt');
+      expect(resolvedUrl).to.equal('ms-appdata:///local/bundle/testfile.txt');
     });
   });
 });
