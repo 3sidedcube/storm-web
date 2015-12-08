@@ -22,17 +22,13 @@ module.exports = Backbone.Model.extend({
   /**
    * Fetches the delta bundle archive containing all changed files since the
    * specified {@param timestamp}.
-   *
-   * Each file will be emitted from the delta individually in a 'file' event,
-   * with an object represenging the file as a parameter..
    * @param {number} timestamp Unix timestamp specifying the time of the last
    *     update.
-   * @returns {Promise} Promise which will fulfill once all files have been
-   *     emitted, and reject if one or more errors occur.
+   * @returns {Promise} Promise which will fulfill with an array of all updated
+   *     files.
    */
   download: function(timestamp) {
-    var url         = this.url() + '?timestamp=' + timestamp,
-        fileHandler = this.gzipStreamHandler_.bind(this);
+    var url = this.url() + '?timestamp=' + timestamp;
 
     return new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
@@ -47,7 +43,13 @@ module.exports = Backbone.Model.extend({
         var tar = new TarGZ(xhr.response);
 
         tar.extract();
-        tar.files.forEach(fileHandler);
+
+        // Only handle regular files (no directories).
+        var files = tar.files.filter(function(file) {
+          return file.type === TarGZ.fileTypes.REGTYPE;
+        });
+
+        resolve(files);
       };
 
       xhr.onerror = function() {
@@ -61,19 +63,5 @@ module.exports = Backbone.Model.extend({
       xhr.setRequestHeader('Content-Type', 'text/plain');
       xhr.send(null);
     });
-  },
-
-  /**
-   * Handles stream events from the bundle file.
-   * @param {Object} file Data for an individual file from the bundle.
-   * @private
-   */
-  gzipStreamHandler_: function(file) {
-    // Only handle regular files.
-    if (file.type !== TarGZ.fileTypes.REGTYPE) {
-      return;
-    }
-
-    this.trigger('file', file);
   }
 });

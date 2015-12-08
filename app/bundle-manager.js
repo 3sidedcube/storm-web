@@ -63,16 +63,14 @@ module.exports = Backbone.Model.extend({
 
     console.info('Checking for update with timestamp', timestamp);
 
-    this.listenTo(bundleUpdate, 'file', this.fileReceived_);
+    bundleUpdate.download(timestamp)
+        .then(function(files) {
+          var writes = files.map(this.persistUpdatedFile_.bind(this));
 
-    bundleUpdate.download(timestamp).then(function() {
-      this.off('file');
-      this.persistUpdatedResources_();
-    }.bind(this), function() {
-      this.off('file');
-
-      console.error('Error downloading/extracting delta bundle');
-    }.bind(this));
+          Promise.all(writes).then(this.persistUpdatedResources_.bind(this));
+        }.bind(this), function() {
+          console.error('Error downloading/extracting delta bundle');
+        });
   },
 
   /**
@@ -100,16 +98,17 @@ module.exports = Backbone.Model.extend({
    * Handles each file from the update bundle individually. Writes out to the
    * file system and updates the resources map.
    * @param {Object} file Object representing a single file.
+   * @returns {Promise} Promise wrapping the file system write operation.
    * @private
    */
-  fileReceived_: function(file) {
+  persistUpdatedFile_: function(file) {
     var updatedResources = this.updatedResources_,
-        path = file.name,
-        data = file.blob;
+        path             = file.name,
+        data             = file.blob;
 
     console.log('Received updated file', path);
 
-    this.fs_.writeFile('bundle/' + path, data).then(function() {
+    return this.fs_.writeFile('bundle/' + path, data).then(function() {
       updatedResources['bundle/' + path] = true;
     }, function(e) {
       console.error('Failed to write file', path, e);
