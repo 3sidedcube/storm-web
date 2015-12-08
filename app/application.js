@@ -31,6 +31,11 @@ module.exports = {
     var appFetch      = this.app.fetch(),
         manifestFetch = this.manifest.fetch();
 
+    manifestFetch.then(function() {
+      // Check for bundle updates. Need to wait for manifest to know timestamp.
+      App.bundleManager.update();
+    });
+
     return $.when(appFetch, manifestFetch);
   },
 
