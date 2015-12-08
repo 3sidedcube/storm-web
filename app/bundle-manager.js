@@ -1,7 +1,8 @@
 window.requestFileSystem = window.requestFileSystem ||
     window.webkitRequestFileSystem;
 
-var FileSystem = require('./file-system');
+var FileSystem   = require('./file-system'),
+    BundleUpdate = require('./bundle-update');
 
 /** @const {string} */
 var RESOURCE_MAP_PATH = 'updatedResources.dat';
@@ -57,7 +58,21 @@ module.exports = Backbone.Model.extend({
    * the resource map.
    */
   update: function() {
-    // TODO
+    var timestamp    = App.manifest.get('timestamp'),
+        bundleUpdate = new BundleUpdate({appId: this.appId_});
+
+    console.info('Checking for update with timestamp', timestamp);
+
+    this.listenTo(bundleUpdate, 'file', this.fileReceived_);
+
+    bundleUpdate.download(timestamp).then(function() {
+      this.off('file');
+      this.persistUpdatedResources_();
+    }.bind(this), function(xhr, e) {
+      this.off('file');
+
+      console.error('Error downloading/extracting delta bundle');
+    }.bind(this));
   },
 
   /**
@@ -79,5 +94,35 @@ module.exports = Backbone.Model.extend({
     }
 
     return localPath;
+  },
+
+  /**
+   * Handles each file from the update bundle individually. Writes out to the
+   * file system and updates the resources map.
+   * @param {string} path Path to the file within the bundle.
+   * @param {string} data File data as a string.
+   * @private
+   */
+  fileReceived_: function(path, data) {
+    var updatedResources = this.updatedResources_;
+
+    console.log('Received updated file', path);
+
+    this.fs_.writeFile('bundle/' + path, data).then(function() {
+      updatedResources['bundle/' + path] = true;
+    }, function(e) {
+      console.error('Failed to write file', path, e);
+    });
+  },
+
+  /**
+   * Writes the updated resources map out to the file system.
+   * @return {Promise} Promise wrapping the file system write operation.
+   * @private
+   */
+  persistUpdatedResources_: function() {
+    var data = Object.keys(this.updatedResources_).join('\n');
+
+    return FileSystem.writeFile(RESOURCE_MAP_PATH, data);
   }
 });
