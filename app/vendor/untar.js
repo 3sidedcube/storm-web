@@ -63,22 +63,22 @@ function parseTarData(data) {
 }
 
 function parseTarEntry(data, offset) {
-  var nameBytes = data.slice(offset, offset += 100),
-      modeBytes = data.slice(offset, offset += 8),
-      uidBytes = data.slice(offset, offset += 8),
-      gidBytes = data.slice(offset, offset += 8),
-      sizeBytes = data.slice(offset, offset += 12),
-      mtimeBytes = data.slice(offset, offset += 12),
-      checksumBytes = data.slice(offset, offset += 8),
-      typeBytes = data.slice(offset, offset += 1),
-      linkNameBytes = data.slice(offset, offset += 100),
-      magicBytes = data.slice(offset, offset += 6),
-      versionBytes = data.slice(offset, offset += 2),
-      unameBytes = data.slice(offset, offset += 32),
-      gnameBytes = data.slice(offset, offset += 32),
-      devmajorBytes = data.slice(offset, offset += 8),
-      devminorBytes = data.slice(offset, offset += 8),
-      prefixBytes = data.slice(offset, offset + 155);
+  var nameBytes = data.subarray(offset, offset += 100),
+      modeBytes = data.subarray(offset, offset += 8),
+      uidBytes = data.subarray(offset, offset += 8),
+      gidBytes = data.subarray(offset, offset += 8),
+      sizeBytes = data.subarray(offset, offset += 12),
+      mtimeBytes = data.subarray(offset, offset += 12),
+      checksumBytes = data.subarray(offset, offset += 8),
+      typeBytes = data.subarray(offset, offset += 1),
+      linkNameBytes = data.subarray(offset, offset += 100),
+      magicBytes = data.subarray(offset, offset += 6),
+      versionBytes = data.subarray(offset, offset += 2),
+      unameBytes = data.subarray(offset, offset += 32),
+      gnameBytes = data.subarray(offset, offset += 32),
+      devmajorBytes = data.subarray(offset, offset += 8),
+      devminorBytes = data.subarray(offset, offset += 8),
+      prefixBytes = data.subarray(offset, offset += 155);
 
   var name   = bytesToString(nameBytes),
       prefix = bytesToString(prefixBytes);
@@ -102,7 +102,10 @@ function parseTarEntry(data, offset) {
     blob: null
   };
 
-  var fileData = data.slice(512, 512 + file.size);
+  // Skip to file data.
+  offset += 12;
+
+  var fileData = data.subarray(offset, offset + file.size);
 
   file.blob = new Blob([fileData]);
 
