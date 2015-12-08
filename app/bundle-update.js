@@ -1,5 +1,4 @@
-/* global TarGZ */
-require('./vendor/gzip');
+var TarGZ = require('./vendor/untar');
 
 /**
  * Allows for querying the Storm API to check for bundle delta updates.
@@ -25,19 +24,35 @@ module.exports = Backbone.Model.extend({
    * specified {@param timestamp}.
    *
    * Each file will be emitted from the delta individually in a 'file' event,
-   * with two parameters: the path to the file in the delta ({@type string})
-   * and the file content ({@type string}).
+   * with an object represenging the file as a parameter..
    * @param {number} timestamp Unix timestamp specifying the time of the last
    *     update.
    * @returns {Promise} Promise which will fulfill once all files have been
    *     emitted, and reject if one or more errors occur.
    */
   download: function(timestamp) {
-    var url      = this.url() + '?timestamp=' + timestamp,
-        onstream = this.gzipStreamHandler_.bind(this);
+    var url         = this.url() + '?timestamp=' + timestamp,
+        fileHandler = this.gzipStreamHandler_.bind(this);
 
     return new Promise(function(resolve, reject) {
-      TarGZ.load(url, resolve, onstream, reject);
+      var xhr = new XMLHttpRequest();
+
+      xhr.onload = function() {
+        var tar = new TarGZ(xhr.response);
+
+        tar.extract();
+        tar.files.forEach(fileHandler);
+      };
+
+      xhr.onerror = function() {
+        console.log('No update available');
+      };
+
+      xhr.open('GET', url, true);
+      xhr.overrideMimeType('text/plain');
+      xhr.responseType = 'arraybuffer';
+      xhr.setRequestHeader('Content-Type', 'text/plain');
+      xhr.send(null);
     });
   },
 
@@ -47,11 +62,11 @@ module.exports = Backbone.Model.extend({
    * @private
    */
   gzipStreamHandler_: function(file) {
-    // Ignore directories.
-    if (file.fileType === '5') {
+    // Only handle regular files.
+    if (file.type !== TarGZ.fileTypes.REGTYPE) {
       return;
     }
 
-    this.trigger('file', file.filename, file.data);
+    this.trigger('file', file);
   }
 });

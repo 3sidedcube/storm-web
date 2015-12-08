@@ -42,25 +42,29 @@ module.exports = Backbone.Model.extend({
    * the path will be created, and any existing files will be overwritten
    * @param {string} path Path to the file to write, relative to the
    *     application root.
-   * @param {string} data The data to write to the file.
+   * @param {Blob} blob The data to write to the file.
    */
-  writeFile: function(path, data) {
+  writeFile: function(path, blob) {
     var pathComponents = path.match(/(.*?)(?:\/)?([^\/]+)$/),
         dir            = pathComponents[1],
         rootFolder     = this.rootFolder_;
 
     var replace = Windows.Storage.CreationCollisionOption.replaceExisting;
 
-    return new Promise(function(resolve, reject) {
-      this.createDirectories_(dir, rootFolder)
-          .then(function(folder) {
-            return folder.createFileAsync(pathComponents[2], replace);
-          }, reject)
-          .then(function(file) {
-            return Windows.Storage.FileIO.writeTextAsync(file, data);
-          }, reject)
-          .then(resolve, reject);
-    }.bind(this));
+    var fileCreation = this.createDirectories_(dir, rootFolder)
+        .then(function(folder) {
+          return folder.createFileAsync(pathComponents[2], replace);
+        });
+
+    var blobRead = this.readBlobBytes_(blob);
+
+    return Promise.all([fileCreation, blobRead])
+        .then(function(data) {
+          var file  = data[0],
+              bytes = data[1];
+
+          return Windows.Storage.FileIO.writeBytesAsync(file, bytes);
+        });
   },
 
   /**
@@ -97,6 +101,27 @@ module.exports = Backbone.Model.extend({
             return createDirectories(folders.join('/'), folder);
           }, reject)
           .then(resolve, reject);
+    });
+  },
+
+  /**
+   * Reads the contents of the specified blob as an array of bytes.
+   * @param {Blob} blob The blob to read.
+   * @returns {Promise.<Uint8Array>} Promise which will resolve on read success
+   *     with the contents of the blob as a byte array.
+   * @private
+   */
+  readBlobBytes_: function(blob) {
+    return new Promise(function(resolve) {
+      var reader = new FileReader();
+
+      reader.addEventListener('loadend', function() {
+        var bytes = new Uint8Array(reader.result);
+
+        resolve(bytes);
+      });
+
+      reader.readAsArrayBuffer(blob);
     });
   }
 });

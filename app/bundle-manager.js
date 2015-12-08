@@ -68,7 +68,7 @@ module.exports = Backbone.Model.extend({
     bundleUpdate.download(timestamp).then(function() {
       this.off('file');
       this.persistUpdatedResources_();
-    }.bind(this), function(xhr, e) {
+    }.bind(this), function() {
       this.off('file');
 
       console.error('Error downloading/extracting delta bundle');
@@ -99,12 +99,13 @@ module.exports = Backbone.Model.extend({
   /**
    * Handles each file from the update bundle individually. Writes out to the
    * file system and updates the resources map.
-   * @param {string} path Path to the file within the bundle.
-   * @param {string} data File data as a string.
+   * @param {Object} file Object representing a single file.
    * @private
    */
-  fileReceived_: function(path, data) {
-    var updatedResources = this.updatedResources_;
+  fileReceived_: function(file) {
+    var updatedResources = this.updatedResources_,
+        path = file.name,
+        data = file.blob;
 
     console.log('Received updated file', path);
 
@@ -121,8 +122,9 @@ module.exports = Backbone.Model.extend({
    * @private
    */
   persistUpdatedResources_: function() {
-    var data = Object.keys(this.updatedResources_).join('\n');
+    var data = Object.keys(this.updatedResources_).join('\n'),
+        blob = new Blob([data], {type: 'text/plain'});
 
-    return FileSystem.writeFile(RESOURCE_MAP_PATH, data);
+    return FileSystem.writeFile(RESOURCE_MAP_PATH, blob);
   }
 });

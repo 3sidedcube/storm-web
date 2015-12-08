@@ -66,10 +66,10 @@ var FileSystem = Backbone.Model.extend({
    * the path will be created, and any existing files will be overwritten
    * @param {string} path Path to the file to write, relative to the
    *     application root.
-   * @param {string} data The data to write to the file.
+   * @param {Blob} blob The data to write to the file.
    */
-  writeFile: function(path, data) {
-    console.error('Not yet implemented', path, data.length);
+  writeFile: function(path, blob) {
+    console.error('Not yet implemented', path, blob.size);
 
     return Promise.resolve();
   }
