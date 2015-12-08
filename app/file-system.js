@@ -34,7 +34,7 @@ var FileSystem = Backbone.Model.extend({
   },
 
   /**
-   * Reads the file at the specified {@param path}
+   * Reads the file at the specified {@param path}.
    * @param {string} path Path to the file to read.
    * @returns {Promise} Promise which will resolve with the text content of the
    *     file or reject with an error if the path does not exist.
