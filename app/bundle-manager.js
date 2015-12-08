@@ -90,7 +90,7 @@ module.exports = Backbone.Model.extend({
     var localPath = url.replace('cache://', 'bundle/');
 
     if (this.updatedResources_[localPath]) {
-      return 'cdvfile://persistent/' + localPath;
+      return 'ms-appdata:///local/' + localPath;
     }
 
     return localPath;
