@@ -38,6 +38,12 @@ module.exports = Backbone.Model.extend({
       var xhr = new XMLHttpRequest();
 
       xhr.onload = function() {
+        if (xhr.status === 304) {
+          console.log('No update available');
+          resolve();
+          return;
+        }
+
         var tar = new TarGZ(xhr.response);
 
         tar.extract();
@@ -45,7 +51,8 @@ module.exports = Backbone.Model.extend({
       };
 
       xhr.onerror = function() {
-        console.log('No update available');
+        console.log('Failed to check for update');
+        reject();
       };
 
       xhr.open('GET', url, true);
