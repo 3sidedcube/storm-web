@@ -47,7 +47,7 @@ var FileSystem = Backbone.Model.extend({
     }
 
     return new Promise(function(resolve, reject) {
-      fs.root.readFile(path, {}, function(fileEntry) {
+      fs.root.getFile(path, {}, function(fileEntry) {
         fileEntry.file(function(file) {
           var reader = new FileReader();
 
