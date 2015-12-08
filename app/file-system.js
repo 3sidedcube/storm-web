@@ -59,6 +59,19 @@ var FileSystem = Backbone.Model.extend({
         });
       }, reject);
     });
+  },
+
+  /**
+   * Writes data to a file at the specified path. Any missing directories in
+   * the path will be created, and any existing files will be overwritten
+   * @param {string} path Path to the file to write, relative to the
+   *     application root.
+   * @param {string} data The data to write to the file.
+   */
+  writeFile: function(path, data) {
+    console.error('Not yet implemented', path, data.length);
+
+    return Promise.resolve();
   }
 });
 
