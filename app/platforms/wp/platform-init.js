@@ -59,6 +59,8 @@ Nav.transitionBackward = transition;
 Nav.transitionNew = transition;
 
 Backbone.View.prototype.renderWinJSBodyControls = function() {
+  var promises = [];
+
   this.$('[' + WIN_BODY + ']').each(function() {
     var id         = $(this).attr(WIN_BODY),
         selector   = 'body > [' + WIN_BODY + '=' + id + ']',
@@ -72,10 +74,15 @@ Backbone.View.prototype.renderWinJSBodyControls = function() {
       document.body.removeChild(previousEl);
     }
 
-    var child = $(this).clone().appendTo('body');
+    var child = $(this).clone().appendTo('body'),
+        promise = WinJS.UI.process(child[0]);
 
-    WinJS.UI.process(child[0]);
+    promises.push(promise);
   });
+
+  Promise.all(promises).then(function() {
+    this.trigger('root-controls');
+  }.bind(this));
 };
 
 var oldRender  = Backbone.View.prototype.render,
