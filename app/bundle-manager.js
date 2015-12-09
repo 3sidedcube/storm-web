@@ -23,6 +23,8 @@ module.exports = Backbone.Model.extend({
     this.appId_ = options.appId;
     /** @private @type {Object.<string, boolean>} */
     this.updatedResources_ = {};
+    /** @private @type {Object.<string, boolean>} */
+    this.newUpdatedResources_ = {};
     /** @private @type {FileSystem} */
     this.fs_ = null;
   },
@@ -47,6 +49,7 @@ module.exports = Backbone.Model.extend({
 
             for (var i = 0; i < paths.length; i++) {
               self.updatedResources_[paths[i]] = true;
+              self.newUpdatedResources_[paths[i]] = true;
             }
 
             resolve();
@@ -104,7 +107,7 @@ module.exports = Backbone.Model.extend({
    * @private
    */
   persistUpdatedFile_: function(file) {
-    var updatedResources = this.updatedResources_,
+    var updatedResources = this.newUpdatedResources_,
         path             = file.name,
         data             = file.blob;
 
@@ -118,12 +121,12 @@ module.exports = Backbone.Model.extend({
   },
 
   /**
-   * Writes the updated resources map out to the file system.
+   * Writes the new updated resources map out to the file system.
    * @return {Promise} Promise wrapping the file system write operation.
    * @private
    */
   persistUpdatedResources_: function() {
-    var data = Object.keys(this.updatedResources_).join('\n'),
+    var data = Object.keys(this.newUpdatedResources_).join('\n'),
         blob = new Blob([data], {type: 'text/plain'});
 
     return FileSystem.writeFile(RESOURCE_MAP_PATH, blob);
