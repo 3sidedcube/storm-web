@@ -3,7 +3,8 @@ var StormApp                 = require('./storm-app'),
     Router                   = require('./router'),
     RootNavigationController = require('./root-navigation-controller'),
     stormConfig              = require('../storm-config.json'),
-    Analytics                = require('current-platform/analytics');
+    Analytics                = require('current-platform/analytics'),
+    QuizUtils                = require('./quiz-page/quiz-utils');
 
 module.exports = {
   init: function() {
@@ -54,6 +55,10 @@ module.exports = {
     } else {
       this.imageDensity = 2;
     }
+  },
+
+  resetBadges: function() {
+    QuizUtils.clearCompleteQuizzes();
   },
 
   apiRoot: stormConfig.apiRoot,

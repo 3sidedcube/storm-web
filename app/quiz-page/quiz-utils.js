@@ -18,5 +18,28 @@ module.exports = {
   setQuizComplete: function(id) {
     localStorage.setItem('quiz-' + id, '1');
     App.view.trigger('quiz-complete');
+  },
+
+  /**
+   * Clears all completed quizzes and resets achievements.
+   */
+  clearCompleteQuizzes: function() {
+    var keys = [];
+
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+
+      if (/^quiz-.*$/.test(key)) {
+        keys.push(key);
+      }
+    }
+
+    keys.forEach(function(key) {
+      localStorage.removeItem(key);
+    });
+
+    App.view.trigger('quiz-complete');
+
+    alert('Achievements cleared');
   }
 };
