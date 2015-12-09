@@ -83,7 +83,7 @@ module.exports = PageView.extend({
     WinJS.UI.process(pivot).done(function() {
       pivot.winControl.addEventListener('selectionchanged', function(e) {
         var pageView = pageViews[e.detail.index],
-            name = l(pageView.model.get('title'));
+            name     = l(pageView.model.get('title'));
 
         if (App.analytics) {
           App.analytics.trackPageView(name);

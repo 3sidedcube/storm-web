@@ -12,7 +12,7 @@
      data-win-options="{placement: 'bottom'}"
      data-storm-win-body="root-appbar">
   {{#each appBarTabs}}
-    <button class="clickable"
+    <button class="no-ring clickable"
             data-uri="{{src}}"
             data-win-control="WinJS.UI.AppBarCommand"
             data-win-options="{id:'{{src}}',
@@ -21,5 +21,12 @@
               label: '{{l tabBarItem.title}}',
               icon: 'url({{getImageUrl tabBarItem.image}})'}"></button>
   {{/each}}
+  <button data-win-control="WinJS.UI.AppBarCommand"
+          data-win-options="{
+            type: 'button',
+            section: 'primary',
+            label: 'Settings',
+            icon: 'settings'}"
+          class="clickable"
+          data-uri="app://settings"></button>
 </div>
-
