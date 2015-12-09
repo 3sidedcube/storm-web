@@ -1,7 +1,8 @@
 var StormLanguage = require('./storm-language'),
     StormData     = require('./storm-data'),
     stormConfig   = require('../storm-config.json'),
-    OnboardView   = require('./onboard-view/onboard-view');
+    OnboardView   = require('./onboard-view/onboard-view'),
+    BundleManager = require('./bundle-manager');
 
 var MASK_SIZE = '(-webkit-mask-size: contain) or (mask-size: contain)';
 
@@ -16,12 +17,14 @@ window.App = require('./application');
 $(document).ready(function() {
   $('body').addClass(stormConfig.platform);
 
+  App.bundleManager = new BundleManager({appId: stormConfig.appId});
+
   /* When running with a local bundle, bundle manager *MUST* be started before
    any other resources are loaded, so that paths can be resolved correctly if
    any resources have been updated through delta updates. */
-  if (App.target === App.APP_TARGET_REMOTE) {
+  if (App.target === App.APP_TARGET_LOCAL) {
     App.bundleManager.init()
-        .then(App.init)
+        .then(App.init.bind(App))
         .then(appLoaded, appLoadError);
   } else {
     App.init().then(appLoaded, appLoadError);
