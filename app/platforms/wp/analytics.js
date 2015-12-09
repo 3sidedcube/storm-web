@@ -2,6 +2,11 @@
 
 var stormConfig = require('../../../storm-config.json');
 
+/**
+ * Defines methods for tracking page views and quiz events with Google
+ * Analytics, using the Google Analytics SDK for Windows and Windows Phone.
+ * Reads the tracking ID from the application's storm-config file.
+ */
 module.exports = Backbone.Model.extend({
   /** @override @constructor */
   initialize: function() {
@@ -30,7 +35,11 @@ module.exports = Backbone.Model.extend({
   },
 
   /**
-   * TODO
+   * Initialises the Google Analytics tracker and allows for events to be
+   * tracked.
+   *
+   * This method must be called once before any other tracking methods can be
+   * used.
    */
   start: function() {
     console.info('Configuring Google Analytics, ID:', stormConfig.gaCode);
@@ -76,8 +85,8 @@ module.exports = Backbone.Model.extend({
   },
 
   /**
-   * TODO
-   * @param {string} name
+   * Tracks a page view with the specified name.
+   * @param {string} name The page name/title.
    */
   trackPageView: function(name) {
     console.info('Tracking page view:', name);
@@ -90,11 +99,11 @@ module.exports = Backbone.Model.extend({
   },
 
   /**
-   * TODO
-   * @param {string} category
-   * @param {string} action
-   * @param {?string} [label=null]
-   * @param {number} [value=0]
+   * Tracks a custom Google Analytics event.
+   * @param {string} category Event category.
+   * @param {string} action Event action.
+   * @param {?string} [label=null] Event label.
+   * @param {number} [value=0] Numeric event value.
    */
   trackEvent: function(category, action, label, value) {
     label = label || null;
