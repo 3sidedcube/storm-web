@@ -85,7 +85,9 @@ module.exports = PageView.extend({
         var pageView = pageViews[e.detail.index],
             name = l(pageView.model.get('title'));
 
-        App.analytics.trackPageView(name);
+        if (App.analytics) {
+          App.analytics.trackPageView(name);
+        }
       });
     });
   }
