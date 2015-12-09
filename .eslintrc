@@ -112,7 +112,7 @@
 		"dot-location": [2, "property"], // `[2, "object"]` is recommended
 		"eqeqeq": 2, // `2` is recommended, optionally set `[2, "smart"]` or `[2, "allow-null"]`
 		"guard-for-in": 2,
-		"no-alert": 1, // `2` is recommended
+		"no-alert": 0, // `2` is recommended
 		"no-caller": 2,
 		"no-div-regex": 2,
 		"no-else-return": 2,
