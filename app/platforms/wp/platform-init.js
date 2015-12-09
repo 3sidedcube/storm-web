@@ -29,6 +29,12 @@ if (window.Windows) {
   statusBar.showAsync();
 
   rangeInputEventFix();
+
+  window.alert = function(message) {
+    var msgBox = new Windows.UI.Popups.MessageDialog(message);
+
+    msgBox.showAsync();
+  };
 }
 
 var Animation = WinJS.UI.Animation;
