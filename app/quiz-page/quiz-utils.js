@@ -34,8 +34,8 @@ module.exports = {
       }
     }
 
-    keys.forEach(function(key) {
-      localStorage.removeItem(key);
+    keys.forEach(function(k) {
+      localStorage.removeItem(k);
     });
 
     App.view.trigger('quiz-complete');
