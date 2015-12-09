@@ -50,6 +50,11 @@ BundleUpdate.prototype.download = function(timestamp) {
         return;
       }
 
+      if (xhr.status !== 200) {
+        console.error('Failed to download update, error', xhr.status);
+        return;
+      }
+
       var tar = new TarGZ(xhr.response);
 
       tar.extract();
