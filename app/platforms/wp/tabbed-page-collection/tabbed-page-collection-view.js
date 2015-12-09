@@ -90,15 +90,5 @@ module.exports = PageView.extend({
         }
       });
     });
-
-    this.off('root-controls');
-
-    this.on('root-controls', function() {
-      var rootSel = 'body > [data-storm-win-body="',
-          flyout  = $(rootSel + 'root-settings-flyout"]')[0],
-          button  = $(rootSel + 'root-appbar"] .settings-button')[0];
-
-      button.winControl.flyout = flyout.winControl;
-    }, this);
   }
 });
