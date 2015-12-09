@@ -2,8 +2,8 @@ var StormApp                 = require('./storm-app'),
     StormManifest            = require('./storm-manifest'),
     Router                   = require('./router'),
     RootNavigationController = require('./root-navigation-controller'),
-    BundleManager            = require('./bundle-manager'),
-    stormConfig              = require('../storm-config.json');
+    stormConfig              = require('../storm-config.json'),
+    Analytics                = require('current-platform/analytics');
 
 module.exports = {
   init: function() {
@@ -15,6 +15,11 @@ module.exports = {
 
     this.view = new RootNavigationController();
 
+    if (stormConfig.gaCode) {
+      this.analytics = new Analytics();
+      this.analytics.start();
+    }
+
     if (App.target === App.APP_TARGET_LOCAL) {
       return App.initLocal();
     }
@@ -25,6 +30,11 @@ module.exports = {
   initLocal: function() {
     var appFetch      = this.app.fetch(),
         manifestFetch = this.manifest.fetch();
+
+    manifestFetch.then(function() {
+      // Check for bundle updates. Need to wait for manifest to know timestamp.
+      App.bundleManager.update();
+    });
 
     return $.when(appFetch, manifestFetch);
   },
@@ -56,7 +66,8 @@ module.exports = {
   mode: 0,
   target: 0,
   utils: require('./utils'),
-  bundleManager: new BundleManager(),
+  bundleManager: null,
+  analytics: null,
 
   APP_MODE_FULL: 0,
   APP_MODE_PAGE: 1,

@@ -1,7 +1,9 @@
 window.requestFileSystem = window.requestFileSystem ||
     window.webkitRequestFileSystem;
 
-var FileSystem = require('./file-system');
+var FileSystem   = require('./file-system'),
+    UpdateWorker =
+        require('worker?name=update.worker.js!./bundle-update.worker');
 
 /** @const {string} */
 var RESOURCE_MAP_PATH = 'updatedResources.dat';
@@ -12,9 +14,17 @@ var RESOURCE_MAP_PATH = 'updatedResources.dat';
  */
 module.exports = Backbone.Model.extend({
   /** @override @constructor */
-  initialize: function() {
+  initialize: function(options) {
+    if (options.appId === undefined) {
+      throw new Error('No app ID specified');
+    }
+
+    /** @private @type {number} */
+    this.appId_ = options.appId;
     /** @private @type {Object.<string, boolean>} */
     this.updatedResources_ = {};
+    /** @private @type {Object.<string, boolean>} */
+    this.newUpdatedResources_ = {};
     /** @private @type {FileSystem} */
     this.fs_ = null;
   },
@@ -39,6 +49,7 @@ module.exports = Backbone.Model.extend({
 
             for (var i = 0; i < paths.length; i++) {
               self.updatedResources_[paths[i]] = true;
+              self.newUpdatedResources_[paths[i]] = true;
             }
 
             resolve();
@@ -51,7 +62,20 @@ module.exports = Backbone.Model.extend({
    * the resource map.
    */
   update: function() {
-    // TODO
+    var timestamp = App.manifest.get('timestamp'),
+        worker    = new UpdateWorker();
+
+    worker.onmessage = function(e) {
+      var writes = e.data.files.map(this.persistUpdatedFile_.bind(this));
+
+      Promise.all(writes).then(this.persistUpdatedResources_.bind(this));
+    }.bind(this);
+
+    worker.postMessage({
+      appId: this.appId_,
+      apiRoot: App.apiRoot,
+      timestamp: timestamp
+    });
   },
 
   /**
@@ -69,9 +93,42 @@ module.exports = Backbone.Model.extend({
     var localPath = url.replace('cache://', 'bundle/');
 
     if (this.updatedResources_[localPath]) {
-      return 'cdvfile://persistent/' + localPath;
+      return 'ms-appdata:///local/' + localPath;
     }
 
     return localPath;
+  },
+
+  /**
+   * Handles each file from the update bundle individually. Writes out to the
+   * file system and updates the resources map.
+   * @param {Object} file Object representing a single file.
+   * @returns {Promise} Promise wrapping the file system write operation.
+   * @private
+   */
+  persistUpdatedFile_: function(file) {
+    var updatedResources = this.newUpdatedResources_,
+        path             = file.name,
+        data             = file.blob;
+
+    console.log('Received updated file', path);
+
+    return this.fs_.writeFile('bundle/' + path, data).then(function() {
+      updatedResources['bundle/' + path] = true;
+    }, function(e) {
+      console.error('Failed to write file', path, e);
+    });
+  },
+
+  /**
+   * Writes the new updated resources map out to the file system.
+   * @return {Promise} Promise wrapping the file system write operation.
+   * @private
+   */
+  persistUpdatedResources_: function() {
+    var data = Object.keys(this.newUpdatedResources_).join('\n'),
+        blob = new Blob([data], {type: 'text/plain'});
+
+    return FileSystem.writeFile(RESOURCE_MAP_PATH, blob);
   }
 });

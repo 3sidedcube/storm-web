@@ -1,6 +1,7 @@
 var ListPage  = require('current-platform/list-page-view/list-page-view'),
     Page      = require('../page'),
-    QuizUtils = require('./quiz-utils');
+    QuizUtils = require('./quiz-utils'),
+    l         = require('../helpers/l');
 
 module.exports = ListPage.extend({
   initialize: function(options) {
@@ -25,11 +26,21 @@ module.exports = ListPage.extend({
       title: this.page.title
     });
 
+    var won = false;
+
     if (this.answers.indexOf(false) === -1) {
       this.generateSuccessModel();
       QuizUtils.setQuizComplete(this.page.id);
+      won = true;
     } else {
       this.generateFailureModel();
+    }
+
+    if (App.analytics) {
+      var name = l(this.model.get('title')),
+          winLose = won ? 'Won' : 'Lost';
+
+      App.analytics.trackEvent('Quiz', winLose + ' ' + name + ' badge');
     }
   },
 

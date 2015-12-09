@@ -42,7 +42,9 @@ module.exports = ListItemView.extend({
     var videoUrl = App.bundleManager.getResourceUrl(video.src.destination),
         appUrl;
 
-    if (this.model.get('attributes').indexOf('loopable') > -1) {
+    var attributes = this.model.get('attributes') || [];
+
+    if (attributes.indexOf('loopable') > -1) {
       videoUrl += '|loop';
     }
 

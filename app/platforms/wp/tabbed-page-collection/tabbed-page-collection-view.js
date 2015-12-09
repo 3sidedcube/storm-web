@@ -1,5 +1,6 @@
 var PageView    = require('../../../page-view'),
-    stormConfig = require('../../../../storm-config.json');
+    stormConfig = require('../../../../storm-config.json'),
+    l           = require('../../../helpers/l');
 
 require('./tabbed-page-collection.less');
 
@@ -57,12 +58,15 @@ module.exports = PageView.extend({
     var PageViewBuilder = require('../../../page-view-builder'),
         self            = this;
 
+    this.pageViews = [];
+
     // Render out all main tab pages.
-    this.$('.page-container').each(function() {
+    this.$('.page-container').each(function(i) {
       var url  = $(this).data('src'),
           view = PageViewBuilder.build(url);
 
       self.listViews.push(view);
+      self.pageViews[i] = view;
 
       $(this).html(view.render().el);
     });
@@ -74,6 +78,15 @@ module.exports = PageView.extend({
       return;
     }
 
-    WinJS.UI.process(pivot);
+    var pageViews = this.pageViews;
+
+    WinJS.UI.process(pivot).done(function() {
+      pivot.winControl.addEventListener('selectionchanged', function(e) {
+        var pageView = pageViews[e.detail.index],
+            name = l(pageView.model.get('title'));
+
+        App.analytics.trackPageView(name);
+      });
+    });
   }
 });

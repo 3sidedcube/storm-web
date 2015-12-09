@@ -36,9 +36,13 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
+      './node_modules/blob-polyfill/Blob.js',
       'tests/promise-polyfiller.js',
       'tests/**/*.spec.js',
-      './app/backbone-extends.js'
+      'app/backbone-extends.js',
+
+      // Test data
+      {pattern: 'tests/data/**/*', watched: true, served: true, included: false}
     ],
 
     // list of files to exclude

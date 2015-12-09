@@ -44,6 +44,12 @@ module.exports = NavigationController.extend({
 
     this.currentQuestion = 0;
     this.setPage(0, true);
+
+    if (App.analytics) {
+      var name = l(this.model.get('title'));
+
+      App.analytics.trackEvent('Quiz', 'Start ' + name + ' quiz');
+    }
   },
 
   buildView: function(id) {
@@ -133,6 +139,12 @@ module.exports = NavigationController.extend({
     this.currentQuestion = 0;
     this.setPage(0);
     e.stopPropagation();
+
+    if (App.analytics) {
+      var name = l(this.model.get('title'));
+
+      App.analytics.trackEvent('Quiz', 'Try again: ' + name);
+    }
   },
 
   shareButtonClick: function() {
