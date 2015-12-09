@@ -99,19 +99,7 @@ module.exports = PageView.extend({
       console.info('View ready');
 
       if (App.analytics) {
-        var model = newView.model,
-            name = id;
-
-        if (model) {
-          name = l(model.get('title')) || name;
-
-          // Don't track quiz questions.
-          if (this.model && this.model.get('class') === 'QuizPage') {
-            return;
-          }
-        }
-
-        App.analytics.trackPageView(name);
+        this.trackPageView(newView.model, id);
       }
 
       // Replace abstract Page instances with typed views, if the type wasn't
@@ -246,6 +234,21 @@ module.exports = PageView.extend({
     var PageViewBuilder = require('./page-view-builder');
 
     return PageViewBuilder.build(url);
+  },
+
+  trackPageView: function(model, id) {
+    var name = id;
+
+    if (model) {
+      name = l(model.get('title')) || name;
+
+      // Don't track quiz questions.
+      if (model && model.get('class') === 'QuizPage') {
+        return;
+      }
+    }
+
+    App.analytics.trackPageView(name);
   },
 
   destroy: function() {
