@@ -111,10 +111,12 @@ module.exports = PageView.extend({
     var $el = $(data.currentTarget);
 
     if ($el.hasClass('tab-button')) {
-      var index = $el.data('index'),
+      var index = +$el.data('index'),
           pivot = this.$('.pivot')[0];
 
-      pivot.winControl.selectedIndex = +index;
+      if (pivot.winControl.selectedIndex !== index) {
+        pivot.winControl.selectedIndex = index;
+      }
     }
   }
 });
