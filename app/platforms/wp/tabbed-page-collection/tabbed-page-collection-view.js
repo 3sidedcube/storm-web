@@ -8,6 +8,10 @@ module.exports = PageView.extend({
   template: require('./tabbed-page-collection-view-template'),
   className: 'wp-TabbedPageCollection',
 
+  events: {
+    'click.AppBar': 'appBarClick'
+  },
+
   getRenderData: function() {
     var data = this.model.toJSON(),
         tabs = data.pages ? data.pages.slice(0) : [];
@@ -33,8 +37,8 @@ module.exports = PageView.extend({
           src.x2 = content.icon;
           src.x1 = content.icon;
 
+          tabs[i].index = i;
           data.appBarTabs.push(tabs[i]);
-          tabs.splice(i, 1);
         }
       }
     }
@@ -90,5 +94,27 @@ module.exports = PageView.extend({
         }
       });
     });
+  },
+
+  /**
+   * Handles click events to AppBarCommand buttons for this view, delegated
+   * from the body. Switches to the tab with the specified index.
+   * @param {Event} e Event object for the click.
+   * @param {Object} data Payload containing the currentTarget for the
+   *     delegated event.
+   */
+  appBarClick: function(e, data) {
+    if (!data) {
+      return;
+    }
+
+    var $el = $(data.currentTarget);
+
+    if ($el.hasClass('tab-button')) {
+      var index = $el.data('index'),
+          pivot = this.$('.pivot')[0];
+
+      pivot.winControl.selectedIndex = +index;
+    }
   }
 });

@@ -12,8 +12,8 @@
      data-win-options="{placement: 'bottom'}"
      data-storm-win-body="root-appbar">
   {{#each appBarTabs}}
-    <button class="no-ring clickable"
-            data-uri="{{src}}"
+    <button class="tab-button"
+            data-index="{{index}}"
             data-win-control="WinJS.UI.AppBarCommand"
             data-win-options="{id:'{{src}}',
               type: 'button',
