@@ -3,7 +3,8 @@ var NavigationController    = require('../navigation-controller'),
     QuizCompleteView        = require('./quiz-complete-view'),
     SharingManager          = require('current-platform/sharing-manager'),
     l                       = require('../helpers/l'),
-    getImageUrl             = require('../helpers/getImageUrl');
+    getImageUrl             = require('../helpers/getImageUrl'),
+    QuizUtils               = require('./quiz-utils');
 
 require('./quiz-page.less');
 
@@ -35,15 +36,22 @@ module.exports = NavigationController.extend({
 
     this.answers = [];
 
-    // Load first question.
-    var pages = this.model.get('children');
+    // If quiz already completed, show badge.
+    if (QuizUtils.isQuizComplete(this.model.id)) {
+      var questions = this.model.get('children');
 
-    if (!pages) {
-      return;
+      this.setPage(questions.length, 0);
+    } else {
+      // Load first question.
+      var pages = this.model.get('children');
+
+      if (!pages) {
+        return;
+      }
+
+      this.currentQuestion = 0;
+      this.setPage(0, true);
     }
-
-    this.currentQuestion = 0;
-    this.setPage(0, true);
 
     if (App.analytics) {
       var name = l(this.model.get('title'));
