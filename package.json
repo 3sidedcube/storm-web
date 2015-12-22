@@ -20,7 +20,7 @@
     "blob-polyfill": "^1.0.20150320",
     "chai": "^3.4.0",
     "codeclimate-test-reporter": "^0.1.1",
-    "css-loader": "^0.21.0",
+    "css-loader": "^0.23.1",
     "file-loader": "^0.8.4",
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
