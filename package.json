@@ -2,7 +2,7 @@
   "author": "3 SIDED CUBE",
   "name": "storm-web",
   "description": "HTML5 viewer for Storm apps",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "homepage": "http://storm.3sidedcube.com",
   "repository": {
     "type": "git",
